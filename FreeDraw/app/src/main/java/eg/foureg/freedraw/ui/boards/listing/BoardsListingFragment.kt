@@ -7,6 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import eg.foureg.freedraw.R
+import eg.foureg.freedraw.data.Board
+import eg.foureg.freedraw.data.Shape
+import eg.foureg.freedraw.ui.MainActivity
+import kotlinx.android.synthetic.main.main_fragment.*
 
 class BoardsListingFragment : Fragment() {
 
@@ -24,6 +28,11 @@ class BoardsListingFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(BoardsListingViewModel::class.java)
+
+        boards_listing_open_editor_btn.setOnClickListener {
+            val board = Board(ArrayList<Shape>())
+            (activity as MainActivity).navigator.navigateToBoardEditorFragment(activity as MainActivity, board)
+        }
 
     }
 

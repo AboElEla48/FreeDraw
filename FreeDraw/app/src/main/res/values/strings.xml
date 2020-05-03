@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FreeDraw</string>
+
+    <string name="open_editor_board_button">Open Editor</string>
 </resources>

@@ -8,5 +8,15 @@
     tools:context=".ui.boards.listing.BoardsListingFragment">
 
 
+    <Button
+        android:id="@+id/boards_listing_open_editor_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAllCaps="false"
+        android:text="@string/open_editor_board_button"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

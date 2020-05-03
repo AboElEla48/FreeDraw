@@ -8,14 +8,28 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 
 import eg.foureg.freedraw.R
+import eg.foureg.freedraw.data.Board
 
 class BoardEditorFragment : Fragment() {
 
     companion object {
-        fun newInstance() = BoardEditorFragment()
+
+        const val BUNDLE_BOARD : String = "BUNDLE_BOARD"
+
+        fun newInstance(board: Board) = BoardEditorFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(BUNDLE_BOARD, board)
+            }
+        }
     }
 
-    private lateinit var viewModel: BoardEditorViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let { bundle ->
+            board = bundle.getParcelable(BUNDLE_BOARD)!!
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +42,11 @@ class BoardEditorFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(BoardEditorViewModel::class.java)
 
+        viewModel.initBoard(board)
     }
+
+
+    private lateinit var viewModel: BoardEditorViewModel
+    private lateinit var board : Board
 
 }
