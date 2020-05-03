@@ -10,7 +10,7 @@ import eg.foureg.freedraw.R
 import eg.foureg.freedraw.data.Board
 import eg.foureg.freedraw.data.Shape
 import eg.foureg.freedraw.ui.MainActivity
-import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.boards_listing_fragment.*
 
 class BoardsListingFragment : Fragment() {
 
@@ -22,7 +22,7 @@ class BoardsListingFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return inflater.inflate(R.layout.boards_listing_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
