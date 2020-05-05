@@ -91,6 +91,12 @@ class BoardEditorViewModel : ViewModel() {
         }
     }
 
+    fun clearBoard() {
+        Logs.debug(TAG, "clearBoard()")
+        board.shapes.clear()
+        isBoardSaved = false
+    }
+
     fun saveBoard() {
         Logs.debug(TAG, "saveBoard()")
         viewModelScope.launch {
