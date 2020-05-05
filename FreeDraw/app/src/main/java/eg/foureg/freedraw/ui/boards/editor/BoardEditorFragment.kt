@@ -1,5 +1,6 @@
 package eg.foureg.freedraw.ui.boards.editor
 
+import android.content.Context
 import android.graphics.Canvas
 import android.graphics.PointF
 import android.os.Bundle
@@ -17,7 +18,7 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt {
 
         const val BUNDLE_BOARD : String = "BUNDLE_BOARD"
 
-        fun newInstance(board: Board) = BoardEditorFragment().apply {
+        fun newInstance(board: Board?) = BoardEditorFragment().apply {
             arguments = Bundle().apply {
                 putParcelable(BUNDLE_BOARD, board)
             }
@@ -62,7 +63,7 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt {
         boards_editor_drawing_view.initHolderInterface(this)
 
         // init board
-        viewModel.initBoard(board)
+        viewModel.initBoard(activity as Context, board)
     }
 
     override fun initNewShape(pointF: PointF) {

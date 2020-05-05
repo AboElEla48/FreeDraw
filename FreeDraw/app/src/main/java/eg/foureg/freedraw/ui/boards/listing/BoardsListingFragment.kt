@@ -30,8 +30,8 @@ class BoardsListingFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(BoardsListingViewModel::class.java)
 
         boards_listing_open_editor_btn.setOnClickListener {
-            val board = Board(ArrayList<Shape>())
-            (activity as MainActivity).navigator.navigateToBoardEditorFragment(activity as MainActivity, board)
+
+            (activity as MainActivity).navigator.navigateToBoardEditorFragment(activity as MainActivity, null)
         }
 
     }
