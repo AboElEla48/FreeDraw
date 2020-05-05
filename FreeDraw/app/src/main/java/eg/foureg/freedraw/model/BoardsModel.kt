@@ -26,6 +26,10 @@ class BoardsModel {
     fun loadBoardsKeys(context: Context) : List<String> {
         return StorePreferences.loadBoardsKeysList(context)
     }
+    
+    fun loadBoardName(context: Context, boardKey: String) : String {
+        return StorePreferences.loadBoardName(context, boardKey)
+    }
 
     /**
      * Load specific board

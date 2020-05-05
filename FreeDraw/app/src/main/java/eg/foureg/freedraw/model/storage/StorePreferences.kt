@@ -11,9 +11,14 @@ object StorePreferences {
     const val SEPARATOR_RECORDS = "||&&*"
 
     const val PREF_KEY_BOARDS_KEYS = "PREF_KEY_BOARDS_KEYS"
+    const val PREF_KEY_BOARD_NAME_KEY_POSTFIX = "_Name"
 
     fun loadBoardsKeysList(context: Context) : List<String> {
         return loadStringList(context, PREF_KEY_BOARDS_KEYS)
+    }
+
+    fun loadBoardName(context: Context, boardKey: String) : String {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(boardKey + PREF_KEY_BOARD_NAME_KEY_POSTFIX, "")!!
     }
 
     fun saveBoard(context: Context, boardKey: String, board: Board) {
@@ -21,6 +26,9 @@ object StorePreferences {
         val str = gson.toJson(board)
         Logger.debug(TAG, "saveBoard() | $str")
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(boardKey, str).apply()
+
+        // save board name separately
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(boardKey + PREF_KEY_BOARD_NAME_KEY_POSTFIX, board.name).apply()
     }
 
     fun loadBoard(context: Context, boardKey: String) : Board {

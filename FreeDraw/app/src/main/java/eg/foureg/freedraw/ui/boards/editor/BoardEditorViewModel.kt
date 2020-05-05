@@ -36,7 +36,7 @@ class BoardEditorViewModel : ViewModel() {
             val newBoardKey = boardModel.generateNewBoardKey(context)
             Logger.debug(TAG, "New Board Key: $newBoardKey")
 
-            this.board = Board(newBoardKey, ArrayList())
+            this.board = Board(newBoardKey, "Board 1", ArrayList())
         } else {
 
             Logger.debug(TAG, "This is existing board")
