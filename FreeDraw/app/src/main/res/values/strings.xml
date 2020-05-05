@@ -2,4 +2,6 @@
     <string name="app_name">Free Draw</string>
 
     <string name="open_editor_board_button">Open Editor</string>
+
+    <string name="menu_options_save_item">Save</string>
 </resources>

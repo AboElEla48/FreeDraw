@@ -71,6 +71,10 @@ class BoardEditorViewModel : ViewModel() {
         }
     }
 
+    fun saveBoard() {
+
+    }
+
     private lateinit var board: Board
     private lateinit var currentShape : Shape
     var shapeType : MutableLiveData<ShapeType> = MutableLiveData()
