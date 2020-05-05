@@ -1,4 +1,4 @@
-package eg.foureg.freedraw.ui.boards.editor.namedialog
+package eg.foureg.freedraw.ui.dialogs.boardname
 
 interface BoardNameInputDialogInt {
     fun boardNameDialogPositiveAction(name:String)

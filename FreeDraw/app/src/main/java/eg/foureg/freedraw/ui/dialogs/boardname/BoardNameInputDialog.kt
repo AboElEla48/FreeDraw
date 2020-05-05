@@ -1,10 +1,9 @@
-package eg.foureg.freedraw.ui.boards.editor.namedialog
+package eg.foureg.freedraw.ui.dialogs.boardname
 
 import android.content.Context
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.marginStart
 import eg.foureg.freedraw.R
 import eg.foureg.freedraw.common.Logs
 

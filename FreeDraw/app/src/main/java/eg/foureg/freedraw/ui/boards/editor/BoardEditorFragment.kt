@@ -11,11 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import eg.foureg.freedraw.R
 import eg.foureg.freedraw.data.Board
 import eg.foureg.freedraw.ui.MainActivity
-import eg.foureg.freedraw.ui.boards.editor.namedialog.BoardNameInputDialog
-import eg.foureg.freedraw.ui.boards.editor.namedialog.BoardNameInputDialogInt
+import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialog
+import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialogInt
+import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardConfirmationDialog
+import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardDialogInt
 import kotlinx.android.synthetic.main.board_editor_fragment.*
 
-class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt, BoardNameInputDialogInt {
+class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt,
+    BoardNameInputDialogInt, ClearBoardDialogInt {
 
     companion object {
 
@@ -72,6 +75,8 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt, BoardNameInpu
         board = null
         viewModel.initBoard(activity as Context, board)
         updateActionBarTitle()
+
+        boards_editor_drawing_view.invalidate()
     }
 
 
@@ -86,6 +91,10 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt, BoardNameInpu
         when(item.itemId) {
             R.id.menu_fragment_editor_save_board -> {
                 trySaveBoard()
+            }
+
+            R.id.menu_fragment_editor_clear_board -> {
+                ClearBoardConfirmationDialog.createDialog(activity as Context, this).show()
             }
 
             R.id.menu_fragment_editor_new_board -> {
@@ -135,6 +144,11 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt, BoardNameInpu
     }
 
     override fun boardNameDialogNegativeAction() {
+    }
+
+    override fun clearBoardConfirmed() {
+        viewModel.clearBoard()
+        boards_editor_drawing_view.invalidate()
     }
 
 
