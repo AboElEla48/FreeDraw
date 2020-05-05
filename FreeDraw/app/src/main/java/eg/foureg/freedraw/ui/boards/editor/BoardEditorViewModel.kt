@@ -38,12 +38,12 @@ class BoardEditorViewModel : ViewModel() {
             Logs.debug(TAG, "New Board Key: $newBoardKey")
 
             this.board = Board(newBoardKey, context.getString(R.string.txt_default_new_board_name), ArrayList())
-            boardHasName = false
+
         } else {
 
             Logs.debug(TAG, "This is existing board")
             this.board = board
-            boardHasName = true
+
         }
 
         // initial drawing type
@@ -97,7 +97,6 @@ class BoardEditorViewModel : ViewModel() {
 
     lateinit var board: Board
     private lateinit var context: Context
-    var boardHasName : Boolean = false
     private lateinit var currentShape : Shape
     private val boardModel = BoardsModel()
 

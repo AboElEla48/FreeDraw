@@ -55,9 +55,11 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt, BoardNameInpu
         viewModel.initBoard(activity as Context, board)
         if(board == null) {
             (activity as MainActivity).updateActionBarTitle(getString(R.string.txt_default_new_board_name))
+            boardHasName = false
         }
         else {
             (activity as MainActivity).updateActionBarTitle(board!!.name)
+            boardHasName = true
         }
     }
 
@@ -69,7 +71,7 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt, BoardNameInpu
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.menu_fragment_editor_board -> {
-                if(viewModel.boardHasName){
+                if(boardHasName){
                     viewModel.saveBoard()
                 } else {
                     // Show dialog to rename the board
@@ -94,7 +96,7 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt, BoardNameInpu
 
     override fun boardNameDialogPositiveAction(name:String) {
         viewModel.board.name = name
-        viewModel.boardHasName = true
+        boardHasName = true
 
         (activity as MainActivity).updateActionBarTitle(name)
 
@@ -107,6 +109,7 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt, BoardNameInpu
 
 
     private lateinit var viewModel: BoardEditorViewModel
+    var boardHasName : Boolean = false
     private var board : Board? = null
 
 
