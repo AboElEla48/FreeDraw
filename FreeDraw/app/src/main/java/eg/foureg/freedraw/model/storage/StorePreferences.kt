@@ -17,6 +17,10 @@ object StorePreferences {
         return loadStringList(context, PREF_KEY_BOARDS_KEYS)
     }
 
+    fun saveBoardsKeysList(context : Context, keys: List<String>) {
+        saveStringsList(context, PREF_KEY_BOARDS_KEYS, keys)
+    }
+
     fun loadBoardName(context: Context, boardKey: String) : String {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(boardKey + PREF_KEY_BOARD_NAME_KEY_POSTFIX, "")!!
     }
@@ -25,6 +29,8 @@ object StorePreferences {
         val gson = Gson()
         val str = gson.toJson(board)
         Logs.debug(TAG, "saveBoard() | $str")
+
+        // Save board JSON
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(boardKey, str).apply()
 
         // save board name separately
@@ -41,7 +47,7 @@ object StorePreferences {
     /**
      * Load String list saved as record in preferences
      */
-    private fun loadStringList(context: Context, key:String) : List<String>{
+    private fun loadStringList(context: Context, key: String) : List<String>{
         val strs = ArrayList<String>()
 
         var prefRecord = PreferenceManager.getDefaultSharedPreferences(context).getString(key, "")!!
@@ -54,5 +60,14 @@ object StorePreferences {
         }
 
         return strs
+    }
+
+    private fun saveStringsList(context: Context, key : String, strs: List<String>) {
+        var prefRecord = ""
+        for(itemStr in strs) {
+            prefRecord = prefRecord + itemStr + SEPARATOR_RECORDS
+        }
+
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(key, prefRecord).apply()
     }
 }

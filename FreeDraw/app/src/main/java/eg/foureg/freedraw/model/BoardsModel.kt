@@ -43,6 +43,14 @@ class BoardsModel {
      */
     fun saveBoard(context: Context, board: Board) {
         StorePreferences.saveBoard(context, board.boardKey, board )
+
+        // if this is a new key, save it
+        val keysList = loadBoardsKeys(context) as ArrayList<String>
+        if(!keysList.contains(board.boardKey)) {
+            keysList.add(board.boardKey)
+
+            StorePreferences.saveBoardsKeysList(context, keysList)
+        }
     }
 
 
