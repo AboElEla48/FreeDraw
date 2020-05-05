@@ -27,7 +27,7 @@ class BoardEditorFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let { bundle ->
-            board = bundle.getParcelable(BUNDLE_BOARD)!!
+            board = bundle.getParcelable(BUNDLE_BOARD)
         }
     }
 
@@ -46,7 +46,7 @@ class BoardEditorFragment : Fragment() {
     }
 
 
-    private lateinit var viewModel: BoardEditorViewModel
-    private lateinit var board : Board
+    lateinit var viewModel: BoardEditorViewModel
+    private var board : Board? = null
 
 }
