@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_fragment_editor_board"
+        android:id="@+id/menu_fragment_editor_new_board"
+        android:title="@string/txt_menu_options_new_board_item" />
+    <item
+        android:id="@+id/menu_fragment_editor_save_board"
         android:title="@string/txt_menu_options_save_item"/>
 </menu>

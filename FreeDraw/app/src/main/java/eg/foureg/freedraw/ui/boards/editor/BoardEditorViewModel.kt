@@ -29,6 +29,8 @@ class BoardEditorViewModel : ViewModel() {
     fun initBoard(context: Context, board: Board?) {
         Logs.debug(TAG, "initBoard($board)")
 
+        isBoardSaved = true
+
         this.context = context
 
         if (board == null) {
@@ -55,6 +57,8 @@ class BoardEditorViewModel : ViewModel() {
      */
     fun initNewShape(pointF: PointF) {
         Logs.debug(TAG, "initNewShape(${pointF.x}, ${pointF.y})")
+        isBoardSaved = false
+
         currentShape = FreeShape(points = ArrayList(), shapeColor = Color. BLACK)
 
         board.shapes.add(currentShape)
@@ -91,12 +95,14 @@ class BoardEditorViewModel : ViewModel() {
         Logs.debug(TAG, "saveBoard()")
         viewModelScope.launch {
             boardModel.saveBoard(context, board)
+            isBoardSaved = true
         }
 
     }
 
     lateinit var board: Board
     private lateinit var context: Context
+    var isBoardSaved = true
     private lateinit var currentShape : Shape
     private val boardModel = BoardsModel()
 

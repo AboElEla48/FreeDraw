@@ -4,6 +4,7 @@
     <string name="txt_open_editor_board_button">Open Editor</string>
 
     <string name="txt_menu_options_save_item">Save</string>
+    <string name="txt_menu_options_new_board_item">New</string>
 
     <string name="txt_default_new_board_name">New Board</string>
 

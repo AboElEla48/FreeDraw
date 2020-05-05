@@ -53,6 +53,11 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt, BoardNameInpu
 
         // init board
         viewModel.initBoard(activity as Context, board)
+        updateActionBarTitle()
+    }
+
+    fun updateActionBarTitle()
+    {
         if(board == null) {
             (activity as MainActivity).updateActionBarTitle(getString(R.string.txt_default_new_board_name))
             boardHasName = false
@@ -63,23 +68,44 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt, BoardNameInpu
         }
     }
 
+    fun initEmptyBoard() {
+        board = null
+        viewModel.initBoard(activity as Context, board)
+        updateActionBarTitle()
+    }
+
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_fragment_editor_board, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        lastMenuItemClickedID = item.itemId
+
         when(item.itemId) {
-            R.id.menu_fragment_editor_board -> {
-                if(boardHasName){
-                    viewModel.saveBoard()
+            R.id.menu_fragment_editor_save_board -> {
+                trySaveBoard()
+            }
+
+            R.id.menu_fragment_editor_new_board -> {
+                if(viewModel.isBoardSaved) {
+                    initEmptyBoard()
                 } else {
-                    // Show dialog to rename the board
-                    BoardNameInputDialog.createDialog(activity as Context, this).show()
+                    trySaveBoard()
                 }
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun trySaveBoard() {
+        if(boardHasName){
+            viewModel.saveBoard()
+        } else {
+            // Show dialog to rename the board
+            BoardNameInputDialog.createDialog(activity as Context, this).show()
+        }
     }
 
     override fun initNewShape(pointF: PointF) {
@@ -101,15 +127,20 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt, BoardNameInpu
         (activity as MainActivity).updateActionBarTitle(name)
 
         viewModel.saveBoard()
+
+        if(lastMenuItemClickedID == R.id.menu_fragment_editor_new_board) {
+            //init new board after saving
+            initEmptyBoard()
+        }
     }
 
     override fun boardNameDialogNegativeAction() {
-
     }
 
 
     private lateinit var viewModel: BoardEditorViewModel
     var boardHasName : Boolean = false
+    private var lastMenuItemClickedID = -1
     private var board : Board? = null
 
 
