@@ -7,6 +7,7 @@ import android.graphics.PointF
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import eg.foureg.freedraw.R
 import eg.foureg.freedraw.common.Logs
 import eg.foureg.freedraw.data.Board
 import eg.foureg.freedraw.data.FreeShape
@@ -36,7 +37,7 @@ class BoardEditorViewModel : ViewModel() {
             val newBoardKey = boardModel.generateNewBoardKey(context)
             Logs.debug(TAG, "New Board Key: $newBoardKey")
 
-            this.board = Board(newBoardKey, "Board 1", ArrayList())
+            this.board = Board(newBoardKey, context.getString(R.string.txt_default_new_board_name), ArrayList())
             boardHasName = false
         } else {
 

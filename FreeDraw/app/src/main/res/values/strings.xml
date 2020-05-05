@@ -5,6 +5,8 @@
 
     <string name="txt_menu_options_save_item">Save</string>
 
+    <string name="txt_default_new_board_name">New Board</string>
+
     <string name="txt_dialog_title_enter_board_name_to_save">Save Board</string>
     <string name="txt_dialog_msg_enter_board_name_to_save">Enter Board Name</string>
     <string name="txt_dialog_positive_enter_board_name_to_save">Save</string>
