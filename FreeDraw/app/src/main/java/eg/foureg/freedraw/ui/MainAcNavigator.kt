@@ -13,7 +13,7 @@ class MainAcNavigator {
             .commitNow()
     }
 
-    fun navigateToBoardEditorFragment(activity: MainActivity, board: Board) {
+    fun navigateToBoardEditorFragment(activity: MainActivity, board: Board?) {
         activity.supportFragmentManager.beginTransaction()
             .replace(R.id.container, BoardEditorFragment.newInstance(board))
             .commitNow()

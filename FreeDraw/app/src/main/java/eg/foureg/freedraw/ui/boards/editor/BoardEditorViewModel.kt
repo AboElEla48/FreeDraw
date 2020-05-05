@@ -1,5 +1,6 @@
 package eg.foureg.freedraw.ui.boards.editor
 
+import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.PointF
@@ -12,6 +13,7 @@ import eg.foureg.freedraw.data.FreeShape
 import eg.foureg.freedraw.data.Shape
 import eg.foureg.freedraw.data.ShapeType
 import eg.foureg.freedraw.drawing.drawShape
+import eg.foureg.freedraw.model.BoardsModel
 import kotlinx.coroutines.launch
 
 class BoardEditorViewModel : ViewModel() {
@@ -23,10 +25,21 @@ class BoardEditorViewModel : ViewModel() {
     /**
      * init board for editing whether it is a new board or old one to edit
      */
-    fun initBoard(board: Board?) {
+    fun initBoard(context: Context, board: Board?) {
+        Logger.debug(TAG, "initBoard($board)")
+
+        this.context = context
+
         if (board == null) {
-            this.board = Board(ArrayList())
+            Logger.debug(TAG, "This is a new board")
+
+            val newBoardKey = boardModel.generateNewBoardKey(context)
+            Logger.debug(TAG, "New Board Key: $newBoardKey")
+
+            this.board = Board(newBoardKey, ArrayList())
         } else {
+
+            Logger.debug(TAG, "This is existing board")
             this.board = board
         }
 
@@ -71,7 +84,18 @@ class BoardEditorViewModel : ViewModel() {
         }
     }
 
+    fun saveBoard() {
+        Logger.debug(TAG, "saveBoard()")
+        viewModelScope.launch {
+            boardModel.saveBoard(context, board)
+        }
+
+    }
+
     private lateinit var board: Board
+    private lateinit var context: Context
     private lateinit var currentShape : Shape
+    private val boardModel = BoardsModel()
+
     var shapeType : MutableLiveData<ShapeType> = MutableLiveData()
 }

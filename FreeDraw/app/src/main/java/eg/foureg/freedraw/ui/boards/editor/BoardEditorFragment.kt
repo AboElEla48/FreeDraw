@@ -1,12 +1,11 @@
 package eg.foureg.freedraw.ui.boards.editor
 
+import android.content.Context
 import android.graphics.Canvas
 import android.graphics.PointF
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 
 import eg.foureg.freedraw.R
@@ -19,7 +18,7 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt {
 
         const val BUNDLE_BOARD : String = "BUNDLE_BOARD"
 
-        fun newInstance(board: Board) = BoardEditorFragment().apply {
+        fun newInstance(board: Board?) = BoardEditorFragment().apply {
             arguments = Bundle().apply {
                 putParcelable(BUNDLE_BOARD, board)
             }
@@ -28,10 +27,25 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
 
         arguments?.let { bundle ->
             board = bundle.getParcelable(BUNDLE_BOARD)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_fragment_editor_board, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menu_fragment_editor_board -> {
+                viewModel.saveBoard()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateView(
@@ -49,7 +63,7 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt {
         boards_editor_drawing_view.initHolderInterface(this)
 
         // init board
-        viewModel.initBoard(board)
+        viewModel.initBoard(activity as Context, board)
     }
 
     override fun initNewShape(pointF: PointF) {
