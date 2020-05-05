@@ -36,6 +36,7 @@ class BoardDrawingView(context : Context, attrs : AttributeSet) : View(context, 
                 //Add point to Shape
                 boardHolderInt?.addPointToCurrentShape(PointF(event.x, event.y))
                 invalidate()
+                return true
             }
 
         }
