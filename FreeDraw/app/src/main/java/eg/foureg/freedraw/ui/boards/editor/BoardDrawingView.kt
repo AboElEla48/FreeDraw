@@ -6,7 +6,7 @@ import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import eg.foureg.freedraw.common.Logger
+import eg.foureg.freedraw.common.Logs
 
 class BoardDrawingView(context : Context, attrs : AttributeSet) : View(context, attrs) {
 
@@ -23,7 +23,7 @@ class BoardDrawingView(context : Context, attrs : AttributeSet) : View(context, 
      */
     override fun onTouchEvent(event: MotionEvent): Boolean {
 
-        Logger.debug(TAG, "onTouchEvent --> ${event.actionMasked}, ${event.action}")
+        Logs.debug(TAG, "onTouchEvent --> ${event.actionMasked}, ${event.action}")
 
         when(event.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -49,7 +49,7 @@ class BoardDrawingView(context : Context, attrs : AttributeSet) : View(context, 
     override fun onDraw(canvas: Canvas?) {
         super.onDrawForeground(canvas)
 
-        Logger.debug(TAG, "onDraw()")
+        Logs.debug(TAG, "onDraw()")
 
         boardHolderInt?.drawBoard(canvas!!)
     }

@@ -3,7 +3,7 @@ package eg.foureg.freedraw.model.storage
 import android.content.Context
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
-import eg.foureg.freedraw.common.Logger
+import eg.foureg.freedraw.common.Logs
 import eg.foureg.freedraw.data.Board
 
 object StorePreferences {
@@ -11,29 +11,43 @@ object StorePreferences {
     const val SEPARATOR_RECORDS = "||&&*"
 
     const val PREF_KEY_BOARDS_KEYS = "PREF_KEY_BOARDS_KEYS"
+    const val PREF_KEY_BOARD_NAME_KEY_POSTFIX = "_Name"
 
     fun loadBoardsKeysList(context: Context) : List<String> {
         return loadStringList(context, PREF_KEY_BOARDS_KEYS)
     }
 
+    fun saveBoardsKeysList(context : Context, keys: List<String>) {
+        saveStringsList(context, PREF_KEY_BOARDS_KEYS, keys)
+    }
+
+    fun loadBoardName(context: Context, boardKey: String) : String {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(boardKey + PREF_KEY_BOARD_NAME_KEY_POSTFIX, "")!!
+    }
+
     fun saveBoard(context: Context, boardKey: String, board: Board) {
         val gson = Gson()
         val str = gson.toJson(board)
-        Logger.debug(TAG, "saveBoard() | $str")
+        Logs.debug(TAG, "saveBoard() | $str")
+
+        // Save board JSON
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(boardKey, str).apply()
+
+        // save board name separately
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(boardKey + PREF_KEY_BOARD_NAME_KEY_POSTFIX, board.name).apply()
     }
 
     fun loadBoard(context: Context, boardKey: String) : Board {
         val gson = Gson()
         val str = PreferenceManager.getDefaultSharedPreferences(context).getString(boardKey, "")!!
-        Logger.debug(TAG, "loadBoard() | $str")
+        Logs.debug(TAG, "loadBoard() | $str")
         return gson.fromJson(str, Board::class.java)
     }
 
     /**
      * Load String list saved as record in preferences
      */
-    private fun loadStringList(context: Context, key:String) : List<String>{
+    private fun loadStringList(context: Context, key: String) : List<String>{
         val strs = ArrayList<String>()
 
         var prefRecord = PreferenceManager.getDefaultSharedPreferences(context).getString(key, "")!!
@@ -46,5 +60,14 @@ object StorePreferences {
         }
 
         return strs
+    }
+
+    private fun saveStringsList(context: Context, key : String, strs: List<String>) {
+        var prefRecord = ""
+        for(itemStr in strs) {
+            prefRecord = prefRecord + itemStr + SEPARATOR_RECORDS
+        }
+
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(key, prefRecord).apply()
     }
 }

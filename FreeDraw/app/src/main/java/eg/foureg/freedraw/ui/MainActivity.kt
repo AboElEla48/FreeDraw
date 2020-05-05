@@ -15,5 +15,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun updateActionBarTitle(title : String) {
+        supportActionBar?.title = title
+    }
+
     val navigator : MainAcNavigator = MainAcNavigator()
 }
