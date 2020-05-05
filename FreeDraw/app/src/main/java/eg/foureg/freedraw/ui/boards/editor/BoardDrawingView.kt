@@ -10,6 +10,14 @@ import eg.foureg.freedraw.common.Logger
 
 class BoardDrawingView(context : Context, attrs : AttributeSet) : View(context, attrs) {
 
+    companion object {
+        const val TAG : String = "BoardDrawingView"
+    }
+
+    fun initHolderInterface(boardHolder: BoardDrawingViewHolderInt) {
+        boardHolderInt = boardHolder
+    }
+
     /**
      * Handle touch event to collect shape points
      */
@@ -20,18 +28,18 @@ class BoardDrawingView(context : Context, attrs : AttributeSet) : View(context, 
         when(event.action) {
             MotionEvent.ACTION_DOWN -> {
                 //Create new Shape
-                //(parent as BoardEditorFragment).viewModel.initNewShape(PointF(event.x, event.y))
+                boardHolderInt?.initNewShape(PointF(event.x, event.y))
                 return true
             }
 
             MotionEvent.ACTION_MOVE -> {
                 //Add point to Shape
-                //(parent as BoardEditorFragment).viewModel.addPointToCurrentShape(PointF(event.x, event.y))
+                boardHolderInt?.addPointToCurrentShape(PointF(event.x, event.y))
                 invalidate()
+                return true
             }
 
         }
-
 
         return super.onTouchEvent(event)
     }
@@ -43,11 +51,9 @@ class BoardDrawingView(context : Context, attrs : AttributeSet) : View(context, 
 
         Logger.debug(TAG, "onDraw()")
 
-        //(parent as BoardEditorFragment).viewModel.drawBoard(canvas!!)
+        boardHolderInt?.drawBoard(canvas!!)
     }
 
-    companion object {
-        const val TAG : String = "BoardDrawingView"
-    }
+    private var boardHolderInt: BoardDrawingViewHolderInt? = null
 
 }

@@ -1,5 +1,7 @@
 package eg.foureg.freedraw.ui.boards.editor
 
+import android.graphics.Canvas
+import android.graphics.PointF
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,8 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 
 import eg.foureg.freedraw.R
 import eg.foureg.freedraw.data.Board
+import kotlinx.android.synthetic.main.board_editor_fragment.*
 
-class BoardEditorFragment : Fragment() {
+class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt {
 
     companion object {
 
@@ -42,11 +45,28 @@ class BoardEditorFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(BoardEditorViewModel::class.java)
 
+        // init holder interface
+        boards_editor_drawing_view.initHolderInterface(this)
+
+        // init board
         viewModel.initBoard(board)
     }
 
+    override fun initNewShape(pointF: PointF) {
+        viewModel.initNewShape(pointF)
+    }
 
-    lateinit var viewModel: BoardEditorViewModel
+    override fun addPointToCurrentShape(pointF: PointF) {
+        viewModel.addPointToCurrentShape(pointF)
+    }
+
+    override fun drawBoard(canvas: Canvas) {
+        viewModel.drawBoard(canvas)
+    }
+
+
+    private lateinit var viewModel: BoardEditorViewModel
     private var board : Board? = null
+
 
 }
