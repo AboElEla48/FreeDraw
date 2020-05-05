@@ -15,5 +15,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val navigator : MainAcNavigator = MainAcNavigator()
+    val navigator : MainAcNavigator = MainAcNavigator()
 }
