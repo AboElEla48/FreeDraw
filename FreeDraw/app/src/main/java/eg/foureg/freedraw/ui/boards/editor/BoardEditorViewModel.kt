@@ -7,7 +7,7 @@ import android.graphics.PointF
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import eg.foureg.freedraw.common.Logger
+import eg.foureg.freedraw.common.Logs
 import eg.foureg.freedraw.data.Board
 import eg.foureg.freedraw.data.FreeShape
 import eg.foureg.freedraw.data.Shape
@@ -26,21 +26,23 @@ class BoardEditorViewModel : ViewModel() {
      * init board for editing whether it is a new board or old one to edit
      */
     fun initBoard(context: Context, board: Board?) {
-        Logger.debug(TAG, "initBoard($board)")
+        Logs.debug(TAG, "initBoard($board)")
 
         this.context = context
 
         if (board == null) {
-            Logger.debug(TAG, "This is a new board")
+            Logs.debug(TAG, "This is a new board")
 
             val newBoardKey = boardModel.generateNewBoardKey(context)
-            Logger.debug(TAG, "New Board Key: $newBoardKey")
+            Logs.debug(TAG, "New Board Key: $newBoardKey")
 
             this.board = Board(newBoardKey, "Board 1", ArrayList())
+            boardHasName = false
         } else {
 
-            Logger.debug(TAG, "This is existing board")
+            Logs.debug(TAG, "This is existing board")
             this.board = board
+            boardHasName = true
         }
 
         // initial drawing type
@@ -51,7 +53,7 @@ class BoardEditorViewModel : ViewModel() {
      * User is drawing. Create new shape in this board
      */
     fun initNewShape(pointF: PointF) {
-        Logger.debug(TAG, "initNewShape(${pointF.x}, ${pointF.y})")
+        Logs.debug(TAG, "initNewShape(${pointF.x}, ${pointF.y})")
         currentShape = FreeShape(points = ArrayList(), shapeColor = Color. BLACK)
 
         board.shapes.add(currentShape)
@@ -61,7 +63,7 @@ class BoardEditorViewModel : ViewModel() {
      * Add points to current shape
      */
     fun addPointToCurrentShape(pointF: PointF) {
-        Logger.debug(TAG, "addPointToCurrentShape(${pointF.x}, ${pointF.y})")
+        Logs.debug(TAG, "addPointToCurrentShape(${pointF.x}, ${pointF.y})")
 
         when(shapeType.value) {
             ShapeType.FreeDraw -> {
@@ -75,7 +77,7 @@ class BoardEditorViewModel : ViewModel() {
      * draw board shapes on given canvas
      */
     fun drawBoard(canvas: Canvas) {
-        Logger.debug(TAG, "drawBoard()")
+        Logs.debug(TAG, "drawBoard()")
 
         viewModelScope.launch {
             for( i in 0 until board.shapes.size) {
@@ -85,15 +87,16 @@ class BoardEditorViewModel : ViewModel() {
     }
 
     fun saveBoard() {
-        Logger.debug(TAG, "saveBoard()")
+        Logs.debug(TAG, "saveBoard()")
         viewModelScope.launch {
             boardModel.saveBoard(context, board)
         }
 
     }
 
-    private lateinit var board: Board
+    lateinit var board: Board
     private lateinit var context: Context
+    var boardHasName : Boolean = false
     private lateinit var currentShape : Shape
     private val boardModel = BoardsModel()
 

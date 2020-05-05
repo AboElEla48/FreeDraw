@@ -10,9 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 
 import eg.foureg.freedraw.R
 import eg.foureg.freedraw.data.Board
+import eg.foureg.freedraw.ui.boards.editor.namedialog.BoardNameInputDialog
+import eg.foureg.freedraw.ui.boards.editor.namedialog.BoardNameInputDialogInt
 import kotlinx.android.synthetic.main.board_editor_fragment.*
 
-class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt {
+class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt, BoardNameInputDialogInt {
 
     companion object {
 
@@ -42,7 +44,12 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.menu_fragment_editor_board -> {
-                viewModel.saveBoard()
+                if(viewModel.boardHasName){
+                    viewModel.saveBoard()
+                } else {
+                    // Show dialog to rename the board
+                    BoardNameInputDialog.createDialog(activity as Context, this).show()
+                }
             }
         }
         return super.onOptionsItemSelected(item)
@@ -76,6 +83,17 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt {
 
     override fun drawBoard(canvas: Canvas) {
         viewModel.drawBoard(canvas)
+    }
+
+    override fun boardNameDialogPositiveAction(name:String) {
+        viewModel.board.name = name
+        viewModel.boardHasName = true
+
+        viewModel.saveBoard()
+    }
+
+    override fun boardNameDialogNegativeAction() {
+
     }
 
 

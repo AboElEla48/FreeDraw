@@ -2,7 +2,7 @@ package eg.foureg.freedraw.common
 
 import android.util.Log
 
-class Logger private constructor(){
+class Logs private constructor(){
 
     companion object {
         private const val MASTER_LOGGER = true

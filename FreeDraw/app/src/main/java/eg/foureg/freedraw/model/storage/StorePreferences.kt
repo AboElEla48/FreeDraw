@@ -3,7 +3,7 @@ package eg.foureg.freedraw.model.storage
 import android.content.Context
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
-import eg.foureg.freedraw.common.Logger
+import eg.foureg.freedraw.common.Logs
 import eg.foureg.freedraw.data.Board
 
 object StorePreferences {
@@ -24,7 +24,7 @@ object StorePreferences {
     fun saveBoard(context: Context, boardKey: String, board: Board) {
         val gson = Gson()
         val str = gson.toJson(board)
-        Logger.debug(TAG, "saveBoard() | $str")
+        Logs.debug(TAG, "saveBoard() | $str")
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(boardKey, str).apply()
 
         // save board name separately
@@ -34,7 +34,7 @@ object StorePreferences {
     fun loadBoard(context: Context, boardKey: String) : Board {
         val gson = Gson()
         val str = PreferenceManager.getDefaultSharedPreferences(context).getString(boardKey, "")!!
-        Logger.debug(TAG, "loadBoard() | $str")
+        Logs.debug(TAG, "loadBoard() | $str")
         return gson.fromJson(str, Board::class.java)
     }
 

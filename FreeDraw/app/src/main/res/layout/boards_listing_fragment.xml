@@ -17,6 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textAllCaps="false"
-        android:text="@string/open_editor_board_button"/>
+        android:text="@string/txt_open_editor_board_button"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
