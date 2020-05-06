@@ -39,8 +39,9 @@ object ImageExport {
 //        Logs.debug(TAG, "context.getExternalFilesDir(Environment.DIRECTORY_DCIM): ${context.getExternalFilesDir(Environment.DIRECTORY_DCIM)}")
 
 
+        val currentDate = "${SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())}_${Calendar.getInstance().get(Calendar.HOUR)}_${Calendar.getInstance().get(Calendar.MINUTE)}_${Calendar.getInstance().get(Calendar.SECOND)}"
 
-        val currentDate: String = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+
         val fname = "Image-$currentDate.jpg"
         Logs.debug(TAG, "Image Name: $fname")
 
