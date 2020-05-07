@@ -1,14 +1,15 @@
 package eg.foureg.freedraw.ui.boards.listing
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import eg.foureg.freedraw.R
-import eg.foureg.freedraw.data.Board
-import eg.foureg.freedraw.data.Shape
 import eg.foureg.freedraw.ui.MainActivity
 import kotlinx.android.synthetic.main.boards_listing_fragment.*
 
@@ -29,10 +30,21 @@ class BoardsListingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(BoardsListingViewModel::class.java)
 
-        boards_listing_open_editor_btn.setOnClickListener {
+        viewModel.notifyLoadingItemsFinished.observe(viewLifecycleOwner, Observer {
 
+            val adapter = BoardsRecyclerAdapter(activity as Context, viewModel.boardsNamesList)
+            boards_listing_list_view.adapter = adapter
+        })
+
+        boards_listing_list_view.layoutManager = LinearLayoutManager(activity)
+
+        boards_listing_open_editor_btn.setOnClickListener {
             (activity as MainActivity).navigator.navigateToBoardEditorFragment(activity as MainActivity, null)
         }
+
+        viewModel.initViewModel(activity as Context)
+
+
 
     }
 

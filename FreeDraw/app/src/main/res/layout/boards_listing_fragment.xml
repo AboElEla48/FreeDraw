@@ -7,6 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.boards.listing.BoardsListingFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/boards_listing_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
     <Button
         android:id="@+id/boards_listing_open_editor_btn"
