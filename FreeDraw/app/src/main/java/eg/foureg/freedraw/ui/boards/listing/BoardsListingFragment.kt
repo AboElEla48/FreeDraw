@@ -2,7 +2,6 @@ package eg.foureg.freedraw.ui.boards.listing
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import eg.foureg.freedraw.R
+import eg.foureg.freedraw.ui.BaseActorFragment
 import eg.foureg.freedraw.ui.MainActivity
 import kotlinx.android.synthetic.main.boards_listing_fragment.*
 
-class BoardsListingFragment : Fragment() {
+class BoardsListingFragment : BaseActorFragment() {
 
     companion object {
         fun newInstance() = BoardsListingFragment()
