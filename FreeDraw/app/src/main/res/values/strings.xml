@@ -6,6 +6,7 @@
     <string name="txt_menu_options_new_board_item">New</string>
     <string name="txt_menu_options_clear_board_item">Clear</string>
     <string name="txt_menu_options_save_item">Save</string>
+    <string name="txt_menu_options_export_item">Export</string>
 
     <string name="txt_default_new_board_name">New Board</string>
 
@@ -18,4 +19,7 @@
     <string name="txt_dialog_msg_clear_board_name">Are you sure you want to clear board?</string>
     <string name="txt_dialog_positive_clear_board">Yes</string>
     <string name="txt_dialog_negative_clear_board">No</string>
+
+    <string name="txt_toast_export_image_success">Image Saved successfully</string>
+    <string name="txt_toast_export_image_failure">Error saving image</string>
 </resources>

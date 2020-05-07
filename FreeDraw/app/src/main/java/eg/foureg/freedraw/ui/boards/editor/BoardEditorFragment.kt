@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 
 import eg.foureg.freedraw.R
 import eg.foureg.freedraw.data.Board
+import eg.foureg.freedraw.features.export.ImageExport
 import eg.foureg.freedraw.ui.MainActivity
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialog
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialogInt
@@ -103,6 +104,10 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt,
                 } else {
                     trySaveBoard()
                 }
+            }
+
+            R.id.menu_fragment_editor_export_board -> {
+                ImageExport.exportViewAsImage(activity as Context, boards_editor_drawing_view)
             }
         }
         return super.onOptionsItemSelected(item)
