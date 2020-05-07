@@ -1,7 +1,6 @@
-package eg.foureg.freedraw.drawing
+package eg.foureg.freedraw.features.drawing
 
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import eg.foureg.freedraw.data.FreeShape
 import eg.foureg.freedraw.data.Shape

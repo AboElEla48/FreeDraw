@@ -13,7 +13,7 @@ import eg.foureg.freedraw.data.Board
 import eg.foureg.freedraw.data.FreeShape
 import eg.foureg.freedraw.data.Shape
 import eg.foureg.freedraw.data.ShapeType
-import eg.foureg.freedraw.drawing.drawShape
+import eg.foureg.freedraw.features.drawing.drawShape
 import eg.foureg.freedraw.model.BoardsModel
 import kotlinx.coroutines.launch
 
@@ -86,7 +86,10 @@ class BoardEditorViewModel : ViewModel() {
 
         viewModelScope.launch {
             for( i in 0 until board.shapes.size) {
-                drawShape(canvas, board.shapes[i])
+                drawShape(
+                    canvas,
+                    board.shapes[i]
+                )
             }
         }
     }
