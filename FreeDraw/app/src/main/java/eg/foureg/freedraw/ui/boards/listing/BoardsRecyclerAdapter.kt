@@ -27,7 +27,7 @@ class BoardsRecyclerAdapter(val context: Context, val itemsList: ArrayList<Strin
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        view.setLayoutParams(lp)
+        view.layoutParams = lp
 
         return BoardsListViewHolder(view)
     }
