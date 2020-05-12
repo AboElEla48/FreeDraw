@@ -23,6 +23,11 @@ class BoardsRecyclerAdapter(val context: Context, val itemsList: ArrayList<Strin
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardsListViewHolder {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.board_listing_recycler_item, null)
+        val lp = RecyclerView.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        view.layoutParams = lp
 
         return BoardsListViewHolder(view)
     }
