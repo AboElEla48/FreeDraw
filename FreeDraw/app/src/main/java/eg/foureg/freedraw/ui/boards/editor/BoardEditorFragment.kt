@@ -5,12 +5,15 @@ import android.graphics.Canvas
 import android.graphics.PointF
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-
 import eg.foureg.freedraw.R
+import eg.foureg.freedraw.common.actor.ActorMessage
+import eg.foureg.freedraw.common.actor.ActorMessageDispatcher
 import eg.foureg.freedraw.data.Board
+import eg.foureg.freedraw.data.messageBackToFragmentID
+import eg.foureg.freedraw.data.messageNavigateToBoardsListFragment
 import eg.foureg.freedraw.features.export.ImageExport
+import eg.foureg.freedraw.ui.BaseActorFragment
 import eg.foureg.freedraw.ui.MainActivity
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialog
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialogInt
@@ -18,7 +21,7 @@ import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardConfirmationDialog
 import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardDialogInt
 import kotlinx.android.synthetic.main.board_editor_fragment.*
 
-class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt,
+class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
     BoardNameInputDialogInt, ClearBoardDialogInt {
 
     companion object {
@@ -154,6 +157,16 @@ class BoardEditorFragment : Fragment(), BoardDrawingViewHolderInt,
     override fun clearBoardConfirmed() {
         viewModel.clearBoard()
         boards_editor_drawing_view.invalidate()
+    }
+
+    override fun handleMessage(message: ActorMessage) {
+        super.handleMessage(message)
+
+        when(message.what) {
+            messageBackToFragmentID -> {
+                ActorMessageDispatcher.sendMessage(MainActivity::class.java, messageNavigateToBoardsListFragment)
+            }
+        }
     }
 
 

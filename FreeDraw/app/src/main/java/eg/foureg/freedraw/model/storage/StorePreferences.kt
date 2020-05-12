@@ -1,10 +1,12 @@
 package eg.foureg.freedraw.model.storage
 
 import android.content.Context
+import android.util.JsonReader
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
 import eg.foureg.freedraw.common.Logs
-import eg.foureg.freedraw.data.Board
+import eg.foureg.freedraw.data.*
+import org.json.JSONObject
 
 object StorePreferences {
     const val TAG = "StorePreferences"
@@ -41,7 +43,31 @@ object StorePreferences {
         val gson = Gson()
         val str = PreferenceManager.getDefaultSharedPreferences(context).getString(boardKey, "")!!
         Logs.debug(TAG, "loadBoard() | $str")
-        return gson.fromJson(str, Board::class.java)
+        val board = gson.fromJson(str, Board::class.java)
+
+        val jsonObj = JSONObject(str)
+
+        val shapesJSONArr = jsonObj.getJSONArray("shapes")
+        for(i in 0 until board.shapes.size) {
+            val shapeType = (shapesJSONArr.get(i) as JSONObject).get("shapeType") as String
+            Logs.debug(TAG, "loadBoard() | First Shaoe Type: $shapeType")
+
+            when(shapeType) {
+                "FreeDraw" -> {
+                    board.shapes[i] = gson.fromJson(shapesJSONArr.get(i).toString(), FreeShape::class.java)
+                }
+
+                "BitmapDraw" -> {
+                    board.shapes[i] = gson.fromJson(shapesJSONArr.get(i).toString(), ImageShape::class.java)
+                }
+
+                "TextDraw" -> {
+                    board.shapes[i] = gson.fromJson(shapesJSONArr.get(i).toString(), TextShape::class.java)
+                }
+            }
+        }
+
+        return board
     }
 
     /**

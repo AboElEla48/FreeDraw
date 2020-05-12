@@ -1,10 +1,13 @@
 package eg.foureg.freedraw.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import eg.foureg.freedraw.R
+import eg.foureg.freedraw.common.actor.ActorMessage
+import eg.foureg.freedraw.common.actor.ActorMessageDispatcher
+import eg.foureg.freedraw.data.*
+import eg.foureg.freedraw.ui.boards.editor.BoardEditorFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActorActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,6 +20,29 @@ class MainActivity : AppCompatActivity() {
 
     fun updateActionBarTitle(title : String) {
         supportActionBar?.title = title
+    }
+
+    override fun onBackPressed() {
+
+        if(!ActorMessageDispatcher.sendMessage(BoardEditorFragment::class.java, messageBackToFragment)) {
+            super.onBackPressed()
+        }
+
+    }
+
+    override fun handleMessage(message: ActorMessage) {
+        super.handleMessage(message)
+
+        when(message.what) {
+            messageNavigateToBoardsListFragmentID -> {
+                navigator.navigateToBoardsListingFragment(this)
+            }
+
+            messageNavigateToEditBoardFragmentID -> {
+                navigator.navigateToBoardEditorFragment(this,
+                    messageNavigateToEditBoardFragmentMap.get(messageNavigateToEditBoardParam) as Board?)
+            }
+        }
     }
 
     val navigator : MainAcNavigator = MainAcNavigator()
