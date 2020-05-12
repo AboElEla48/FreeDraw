@@ -32,7 +32,7 @@ class BoardsListingFragment : BaseActorFragment() {
 
         viewModel.notifyLoadingItemsFinished.observe(viewLifecycleOwner, Observer {
 
-            val adapter = BoardsRecyclerAdapter(activity as Context, viewModel.boardsNamesList)
+            val adapter = BoardsRecyclerAdapter(activity as Context, viewModel.boardsNamesList, this)
             boards_listing_list_view.adapter = adapter
         })
 
@@ -44,8 +44,10 @@ class BoardsListingFragment : BaseActorFragment() {
 
         viewModel.initViewModel(activity as Context)
 
+    }
 
-
+    fun itemSelected(pos : Int) {
+        viewModel.selectItem(pos)
     }
 
 }

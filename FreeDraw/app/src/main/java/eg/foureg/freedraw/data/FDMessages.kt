@@ -9,3 +9,8 @@ val messageBackToFragment = ActorMessage(messageBackToFragmentID, messageBackToF
 const val messageNavigateToBoardsListFragmentID  : Int = 20
 val messageNavigateToBoardsListFragmentMap = HashMap<Int,Any>()
 val messageNavigateToBoardsListFragment = ActorMessage(messageNavigateToBoardsListFragmentID, messageNavigateToBoardsListFragmentMap)
+
+const val messageNavigateToEditBoardFragmentID  : Int = 30
+val messageNavigateToEditBoardFragmentMap = HashMap<Int,Any>()
+const val messageNavigateToEditBoardParam = 31
+val messageNavigateToEditBoardFragment = ActorMessage(messageNavigateToEditBoardFragmentID, messageNavigateToEditBoardFragmentMap)

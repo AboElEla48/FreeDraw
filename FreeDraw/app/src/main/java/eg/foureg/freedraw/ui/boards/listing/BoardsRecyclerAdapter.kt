@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import eg.foureg.freedraw.R
 
 
-class BoardsRecyclerAdapter(val context: Context, val itemsList: ArrayList<String>) :
+class BoardsRecyclerAdapter(val context: Context, val itemsList: ArrayList<String>, val listener : BoardsListingFragment) :
     RecyclerView.Adapter<BoardsRecyclerAdapter.BoardsListViewHolder>() {
 
     /**
@@ -35,6 +35,11 @@ class BoardsRecyclerAdapter(val context: Context, val itemsList: ArrayList<Strin
     }
 
     override fun onBindViewHolder(holder: BoardsListViewHolder, position: Int) {
+
+        holder.itemView.setOnClickListener {
+            listener.itemSelected(position)
+        }
+
         holder.nameTextView.text = itemsList[position]
     }
 

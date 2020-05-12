@@ -4,8 +4,7 @@ import android.os.Bundle
 import eg.foureg.freedraw.R
 import eg.foureg.freedraw.common.actor.ActorMessage
 import eg.foureg.freedraw.common.actor.ActorMessageDispatcher
-import eg.foureg.freedraw.data.messageBackToFragment
-import eg.foureg.freedraw.data.messageNavigateToBoardsListFragmentID
+import eg.foureg.freedraw.data.*
 import eg.foureg.freedraw.ui.boards.editor.BoardEditorFragment
 
 class MainActivity : BaseActorActivity() {
@@ -37,6 +36,11 @@ class MainActivity : BaseActorActivity() {
         when(message.what) {
             messageNavigateToBoardsListFragmentID -> {
                 navigator.navigateToBoardsListingFragment(this)
+            }
+
+            messageNavigateToEditBoardFragmentID -> {
+                navigator.navigateToBoardEditorFragment(this,
+                    messageNavigateToEditBoardFragmentMap.get(messageNavigateToEditBoardParam) as Board?)
             }
         }
     }
