@@ -9,6 +9,10 @@
         android:title="@string/txt_menu_options_clear_board_item" />
 
     <item
+        android:id="@+id/menu_fragment_editor_tools_board"
+        android:title="@string/txt_menu_options_tools_item"/>
+
+    <item
         android:id="@+id/menu_fragment_editor_save_board"
         android:title="@string/txt_menu_options_save_item"/>
 

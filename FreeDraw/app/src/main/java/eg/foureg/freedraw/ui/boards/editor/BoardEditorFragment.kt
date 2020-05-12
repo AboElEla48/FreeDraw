@@ -1,6 +1,7 @@
 package eg.foureg.freedraw.ui.boards.editor
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.PointF
 import android.os.Bundle
@@ -19,6 +20,7 @@ import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialog
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialogInt
 import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardConfirmationDialog
 import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardDialogInt
+import eg.foureg.freedraw.ui.dialogs.tools.ToolsDialogActivity
 import kotlinx.android.synthetic.main.board_editor_fragment.*
 
 class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
@@ -63,6 +65,43 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
         updateActionBarTitle()
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_fragment_editor_board, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        lastMenuItemClickedID = item.itemId
+
+        when(item.itemId) {
+            R.id.menu_fragment_editor_new_board -> {
+                if(viewModel.isBoardSaved) {
+                    initEmptyBoard()
+                } else {
+                    trySaveBoard()
+                }
+            }
+
+            R.id.menu_fragment_editor_clear_board -> {
+                ClearBoardConfirmationDialog.createDialog(activity as Context, this).show()
+            }
+
+            R.id.menu_fragment_editor_tools_board -> {
+                showToolsDialog()
+            }
+
+            R.id.menu_fragment_editor_save_board -> {
+                trySaveBoard()
+            }
+
+            R.id.menu_fragment_editor_export_board -> {
+                ImageExport.exportViewAsImage(activity as Context, boards_editor_drawing_view)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     fun updateActionBarTitle()
     {
         if(board == null) {
@@ -83,37 +122,9 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
         boards_editor_drawing_view.invalidate()
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_fragment_editor_board, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        lastMenuItemClickedID = item.itemId
-
-        when(item.itemId) {
-            R.id.menu_fragment_editor_save_board -> {
-                trySaveBoard()
-            }
-
-            R.id.menu_fragment_editor_clear_board -> {
-                ClearBoardConfirmationDialog.createDialog(activity as Context, this).show()
-            }
-
-            R.id.menu_fragment_editor_new_board -> {
-                if(viewModel.isBoardSaved) {
-                    initEmptyBoard()
-                } else {
-                    trySaveBoard()
-                }
-            }
-
-            R.id.menu_fragment_editor_export_board -> {
-                ImageExport.exportViewAsImage(activity as Context, boards_editor_drawing_view)
-            }
-        }
-        return super.onOptionsItemSelected(item)
+    fun showToolsDialog() {
+        val intent = Intent(activity, ToolsDialogActivity::class.java)
+        startActivity(intent)
     }
 
     fun trySaveBoard() {
