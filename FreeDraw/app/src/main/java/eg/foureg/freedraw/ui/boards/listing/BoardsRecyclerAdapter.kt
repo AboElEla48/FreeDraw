@@ -16,10 +16,7 @@ class BoardsRecyclerAdapter(val context: Context, val itemsList: ArrayList<Strin
      * Adapte View Holder
      */
     class BoardsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var nameTextView: TextView
-        init {
-            nameTextView = itemView.findViewById<View>(R.id.board_listing_item_title_text_view) as TextView
-        }
+        var nameTextView: TextView = itemView.findViewById<View>(R.id.board_listing_item_title_text_view) as TextView
     }
 
 
