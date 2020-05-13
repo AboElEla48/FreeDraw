@@ -15,6 +15,7 @@ import eg.foureg.freedraw.data.Shape
 import eg.foureg.freedraw.data.ShapeType
 import eg.foureg.freedraw.features.drawing.drawShape
 import eg.foureg.freedraw.model.BoardsModel
+import eg.foureg.freedraw.model.DrawingToolsModel
 import kotlinx.coroutines.launch
 
 class BoardEditorViewModel : ViewModel() {
@@ -49,7 +50,12 @@ class BoardEditorViewModel : ViewModel() {
         }
 
         // initial drawing type
-        shapeType.value = ShapeType.FreeDraw
+        updateDrawingToolsData()
+    }
+
+    fun updateDrawingToolsData() {
+        shapeType.value = DrawingToolsModel.drawingShape
+        currentColor.value = DrawingToolsModel.drawingColor
     }
 
     /**
@@ -59,7 +65,7 @@ class BoardEditorViewModel : ViewModel() {
         Logs.debug(TAG, "initNewShape(${pointF.x}, ${pointF.y})")
         isBoardSaved = false
 
-        currentShape = FreeShape(points = ArrayList(), shapeColor = Color. BLACK)
+        currentShape = FreeShape(points = ArrayList(), shapeColor = currentColor.value!!)
 
         board.shapes.add(currentShape)
     }
@@ -116,4 +122,5 @@ class BoardEditorViewModel : ViewModel() {
     private val boardModel = BoardsModel()
 
     var shapeType : MutableLiveData<ShapeType> = MutableLiveData()
+    var currentColor : MutableLiveData<Int> = MutableLiveData()
 }

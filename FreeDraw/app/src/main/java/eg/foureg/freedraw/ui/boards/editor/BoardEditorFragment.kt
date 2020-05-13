@@ -29,6 +29,7 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
     companion object {
 
         const val BUNDLE_BOARD : String = "BUNDLE_BOARD"
+        const val TOOLS_DIALOG_RESULT = 1
 
         fun newInstance(board: Board?) = BoardEditorFragment().apply {
             arguments = Bundle().apply {
@@ -102,7 +103,7 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
         return super.onOptionsItemSelected(item)
     }
 
-    fun updateActionBarTitle()
+    private fun updateActionBarTitle()
     {
         if(board == null) {
             (activity as MainActivity).updateActionBarTitle(getString(R.string.txt_default_new_board_name))
@@ -114,7 +115,7 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
         }
     }
 
-    fun initEmptyBoard() {
+    private fun initEmptyBoard() {
         board = null
         viewModel.initBoard(activity as Context, board)
         updateActionBarTitle()
@@ -122,12 +123,17 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
         boards_editor_drawing_view.invalidate()
     }
 
-    fun showToolsDialog() {
+    private fun showToolsDialog() {
         val intent = Intent(activity, ToolsDialogActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent, TOOLS_DIALOG_RESULT)
     }
 
-    fun trySaveBoard() {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        viewModel.updateDrawingToolsData()
+    }
+
+    private fun trySaveBoard() {
         if(boardHasName){
             viewModel.saveBoard()
         } else {
