@@ -10,39 +10,61 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/tools_dialog_shapes_title_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/txt_tools_dialog_shapes_title_label"
             style="@style/StyleToolsDialogShapesTitle"/>
 
-        <Button
-            android:id="@+id/tools_dialog_rect_btn"
-            style="@style/StyleToolsDialogShapesButton"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/tools_dialog_shape_type_radio_group"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/txt_tools_dialog_rect_btn_label"
+            app:layout_constraintTop_toBottomOf="@id/tools_dialog_shapes_title_text_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tools_dialog_shapes_title_text_view" />
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <RadioButton
+                android:id="@+id/tools_dialog_shape_type_free_draw_radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_tools_dialog_free_draw_btn_label"
+                android:checked="true"
+                style="@style/StyleToolsDialogShapesButton"/>
+
+            <RadioButton
+                android:id="@+id/tools_dialog_shape_type_rect_radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_tools_dialog_rect_btn_label"
+                android:checked="false"
+                style="@style/StyleToolsDialogShapesButton"/>
+
+            <RadioButton
+                android:id="@+id/tools_dialog_shape_type_circle_radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_tools_dialog_circle_btn_label"
+                android:checked="false"
+                style="@style/StyleToolsDialogShapesButton"/>
+
+        </RadioGroup>
 
         <Button
-            android:id="@+id/tools_dialog_circle_btn"
+            android:id="@+id/tools_dialog_save_shape_btn"
             style="@style/StyleToolsDialogShapesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_tools_dialog_rect_btn_label"
-            app:layout_constraintTop_toBottomOf="@id/tools_dialog_rect_btn"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/txt_tools_dialog_save_shape_btn_label"
+            app:layout_constraintTop_toBottomOf="@id/tools_dialog_shape_type_radio_group"
             app:layout_constraintEnd_toEndOf="parent" />
 
 

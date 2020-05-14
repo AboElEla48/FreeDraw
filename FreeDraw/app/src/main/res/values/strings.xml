@@ -26,6 +26,8 @@
     <string name="txt_toast_export_image_failure">Error saving image</string>
 
     <string name="txt_tools_dialog_shapes_title_label">Select Drawing Shape</string>
+    <string name="txt_tools_dialog_free_draw_btn_label">Free Draw</string>
     <string name="txt_tools_dialog_rect_btn_label">Rectangle</string>
     <string name="txt_tools_dialog_circle_btn_label">Circle</string>
+    <string name="txt_tools_dialog_save_shape_btn_label">Select</string>
 </resources>

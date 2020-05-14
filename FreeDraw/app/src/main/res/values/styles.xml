@@ -22,16 +22,18 @@
     </style>
 
     <style name="StyleToolsDialogShapesTitle">
-        <item name="android:textSize">15sp</item>
-        <item name="paddingStart">5dp</item>
-        <item name="paddingEnd">5dp</item>
         <item name="android:textColor">@color/colorOpenWhite</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">30dp</item>
     </style>
 
     <style name="StyleToolsDialogShapesButton">
         <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="paddingStart">5dp</item>
         <item name="paddingEnd">5dp</item>
         <item name="android:textColor">@color/colorOpenWhite</item>
