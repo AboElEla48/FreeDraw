@@ -29,7 +29,6 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
     companion object {
 
         const val BUNDLE_BOARD : String = "BUNDLE_BOARD"
-        const val TOOLS_DIALOG_RESULT = 1
 
         fun newInstance(board: Board?) = BoardEditorFragment().apply {
             arguments = Bundle().apply {
@@ -125,12 +124,7 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
 
     private fun showToolsDialog() {
         val intent = Intent(activity, ToolsDialogActivity::class.java)
-        startActivityForResult(intent, TOOLS_DIALOG_RESULT)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        viewModel.updateDrawingToolsData()
+        startActivity(intent)
     }
 
     private fun trySaveBoard() {

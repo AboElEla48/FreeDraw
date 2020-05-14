@@ -44,15 +44,8 @@ class BoardEditorViewModel : ViewModel() {
             this.board = board
 
         }
-
-        // initial drawing type
-        updateDrawingToolsData()
     }
 
-    fun updateDrawingToolsData() {
-        shapeType.value = DrawingToolsModel.drawingShapeType
-        currentColor.value = DrawingToolsModel.drawingColor
-    }
 
     /**
      * User is drawing. Create new shape in this board
@@ -63,11 +56,11 @@ class BoardEditorViewModel : ViewModel() {
 
         when(DrawingToolsModel.drawingShapeType) {
             ShapeType.FreeDraw -> {
-                currentShape = FreeShape(ArrayList(), currentColor.value!!)
+                currentShape = FreeShape(ArrayList(), DrawingToolsModel.drawingColor)
             }
 
             ShapeType.TextDraw -> {
-                currentShape = TextShape("", currentColor.value!!)
+                currentShape = TextShape("", DrawingToolsModel.drawingColor)
             }
 
             ShapeType.BitmapDraw -> {
@@ -75,11 +68,11 @@ class BoardEditorViewModel : ViewModel() {
             }
 
             ShapeType.CircleDraw -> {
-                currentShape = CircleShape(startPoint, startPoint, currentColor.value!!)
+                currentShape = CircleShape(startPoint, startPoint, DrawingToolsModel.drawingColor, DrawingToolsModel.fillingColor)
             }
 
             ShapeType.RectDraw -> {
-                currentShape = RectShape(startPoint, startPoint, currentColor.value!!)
+                currentShape = RectShape(startPoint, startPoint, DrawingToolsModel.drawingColor, DrawingToolsModel.fillingColor)
             }
         }
 
@@ -94,7 +87,7 @@ class BoardEditorViewModel : ViewModel() {
     fun addPointToCurrentShape(pointF: PointF) {
         Logs.debug(TAG, "addPointToCurrentShape(${pointF.x}, ${pointF.y})")
 
-        when(shapeType.value) {
+        when(DrawingToolsModel.drawingShapeType) {
             ShapeType.FreeDraw -> {
                 (currentShape as FreeShape).points.add(pointF)
             }
@@ -146,6 +139,4 @@ class BoardEditorViewModel : ViewModel() {
     private lateinit var currentShape : Shape
     private val boardModel = BoardsModel()
 
-    var shapeType : MutableLiveData<ShapeType> = MutableLiveData()
-    var currentColor : MutableLiveData<Int> = MutableLiveData()
 }

@@ -7,31 +7,43 @@ import eg.foureg.freedraw.data.*
 fun drawShape(canvas: Canvas, shape: Shape) {
 
     // create paint to this shape
-    val paint = Paint().apply {
-        color = shape.color
-        strokeWidth = 7f
-    }
+    val drawingPaint = createDrawingPaint(shape.color)
 
     when(shape.shapeType) {
         ShapeType.TextDraw -> {
-            drawShapeText(canvas, shape, paint)
+            drawShapeText(canvas, shape, drawingPaint)
         }
 
         ShapeType.FreeDraw -> {
-            drawShapeFreeDraw(canvas, shape, paint)
+            drawShapeFreeDraw(canvas, shape, drawingPaint)
         }
 
         ShapeType.BitmapDraw -> {
-            drawShapeBitmap(canvas, shape, paint)
+            drawShapeBitmap(canvas, shape, drawingPaint)
         }
 
         ShapeType.RectDraw -> {
-            drawRectShape(canvas, shape, paint)
+            drawRectShape(canvas, shape, drawingPaint, createFillingPaint((shape as RectShape).fillColor))
         }
 
         ShapeType.CircleDraw -> {
-            drawCircleShape(canvas, shape, paint)
+            drawCircleShape(canvas, shape, drawingPaint, createFillingPaint((shape as CircleShape).fillColor))
         }
+    }
+}
+
+fun createDrawingPaint(c: Int) : Paint {
+    return Paint().apply {
+        style = Paint.Style.STROKE
+        color = c
+        strokeWidth = 7f
+    }
+}
+
+fun createFillingPaint(c: Int) : Paint {
+    return Paint().apply {
+        style = Paint.Style.FILL
+        color = c
     }
 }
 
@@ -50,11 +62,13 @@ fun drawShapeBitmap(canvas: Canvas, shape: Shape, paint: Paint) {
 
 }
 
-fun drawCircleShape(canvas: Canvas, shape: Shape, paint: Paint) {
+fun drawCircleShape(canvas: Canvas, shape: Shape, paint: Paint, fillingPaint: Paint) {
     val radius: Float = ((shape as CircleShape).rightBottomPoint.x - shape.topLeftPoint.x) / 2f
     canvas.drawCircle(shape.topLeftPoint.x + radius, shape.topLeftPoint.y + radius, radius, paint)
+    canvas.drawCircle(shape.topLeftPoint.x + radius, shape.topLeftPoint.y + radius, radius, fillingPaint)
 }
 
-fun drawRectShape(canvas: Canvas, shape: Shape, paint: Paint) {
+fun drawRectShape(canvas: Canvas, shape: Shape, paint: Paint, fillingPaint: Paint) {
     canvas.drawRect((shape as RectShape).topLeftPoint.x, shape.topLeftPoint.y, shape.rightBottomPoint.x, shape.rightBottomPoint.y, paint)
+    canvas.drawRect(shape.topLeftPoint.x, shape.topLeftPoint.y, shape.rightBottomPoint.x, shape.rightBottomPoint.y, fillingPaint)
 }
