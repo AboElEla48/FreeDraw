@@ -28,6 +28,8 @@ class BoardsListingFragment : BaseActorFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        (activity as MainActivity).updateActionBarTitle(getString(R.string.app_name))
+
         viewModel = ViewModelProvider(this).get(BoardsListingViewModel::class.java)
 
         viewModel.notifyLoadingItemsFinished.observe(viewLifecycleOwner, Observer {
