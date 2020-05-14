@@ -41,10 +41,10 @@ data class ImageShape(val bitmap: Bitmap, val backgroundColor: Int) :Shape(backg
  * Circle Shape class
  */
 @Parcelize
-data class CircleShape(var topLeftPoint : PointF, var rightBottomPoint: PointF, val backgroundColor: Int) :Shape(backgroundColor, ShapeType.CircleDraw)
+data class CircleShape(var topLeftPoint : PointF, var rightBottomPoint: PointF, val outerColor: Int, val fillColor: Int) :Shape(outerColor, ShapeType.CircleDraw)
 
 /**
  * Rect Shape class
  */
 @Parcelize
-data class RectShape(var topLeftPoint : PointF, var rightBottomPoint: PointF, val backgroundColor: Int) :Shape(backgroundColor, ShapeType.RectDraw)
+data class RectShape(var topLeftPoint : PointF, var rightBottomPoint: PointF, val outerColor: Int,  val fillColor: Int) :Shape(outerColor, ShapeType.RectDraw)

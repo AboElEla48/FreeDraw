@@ -31,5 +31,11 @@
     <string name="txt_tools_dialog_circle_btn_label">Circle</string>
     <string name="txt_tools_dialog_text_btn_label">Text</string>
     <string name="txt_tools_dialog_bitmap_btn_label">Bitmap</string>
+
+    <string name="txt_tools_dialog_color_title_label">Select Drawing Color</string>
+    <string name="txt_tools_RGB_label">RGB</string>
+
+    <string name="txt_tools_dialog_filling_title_label">Select Filling Color</string>
+
     <string name="txt_tools_dialog_save_tools_btn_label">Save</string>
 </resources>

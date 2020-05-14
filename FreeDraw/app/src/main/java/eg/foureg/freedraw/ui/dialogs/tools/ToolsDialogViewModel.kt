@@ -31,6 +31,9 @@ class ToolsDialogViewModel : ViewModel() {
                 bitmapShapeRadioChecked.value = true
             }
         }
+
+        drawingColor.value = DrawingToolsModel.drawingColor
+        fillingColor.value = DrawingToolsModel.fillingColor
     }
 
     fun resetAllValues() {
@@ -55,9 +58,22 @@ class ToolsDialogViewModel : ViewModel() {
         }
     }
 
+    fun setDrawingColor(color: Int) {
+        DrawingToolsModel.drawingColor = color
+        drawingColor.value = color
+    }
+
+    fun setFillingColor(color: Int) {
+        DrawingToolsModel.fillingColor = color
+        fillingColor.value = color
+    }
+
     val freeDrawShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
     val circleShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
     val rectShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
     val textShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
     val bitmapShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
+
+    val drawingColor: MutableLiveData<Int> = MutableLiveData()
+    val fillingColor: MutableLiveData<Int> = MutableLiveData()
 }
