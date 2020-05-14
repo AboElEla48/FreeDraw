@@ -51,8 +51,8 @@ fun drawShapeBitmap(canvas: Canvas, shape: Shape, paint: Paint) {
 }
 
 fun drawCircleShape(canvas: Canvas, shape: Shape, paint: Paint) {
-    val radius: Float = Math.abs((shape as CircleShape).rightBottomPoint.x - shape.topLeftPoint.x )/ 2f
-    canvas.drawCircle(shape.topLeftPoint.x, shape.topLeftPoint.y, radius, paint)
+    val radius: Float = ((shape as CircleShape).rightBottomPoint.x - shape.topLeftPoint.x) / 2f
+    canvas.drawCircle(shape.topLeftPoint.x + radius, shape.topLeftPoint.y + radius, radius, paint)
 }
 
 fun drawRectShape(canvas: Canvas, shape: Shape, paint: Paint) {
