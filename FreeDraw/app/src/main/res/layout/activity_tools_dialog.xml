@@ -59,11 +59,11 @@
         </RadioGroup>
 
         <Button
-            android:id="@+id/tools_dialog_save_shape_btn"
+            android:id="@+id/tools_dialog_select_shape_btn"
             style="@style/StyleToolsDialogShapesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_tools_dialog_save_shape_btn_label"
+            android:text="@string/txt_tools_dialog_select_shape_btn_label"
             app:layout_constraintTop_toBottomOf="@id/tools_dialog_shape_type_radio_group"
             app:layout_constraintEnd_toEndOf="parent" />
 

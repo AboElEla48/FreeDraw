@@ -9,7 +9,9 @@ import kotlinx.android.parcel.Parcelize
 enum class ShapeType {
     FreeDraw,
     TextDraw,
-    BitmapDraw
+    BitmapDraw,
+    RectDraw,
+    CircleDraw
 }
 
 /**

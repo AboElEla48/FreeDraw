@@ -29,5 +29,5 @@
     <string name="txt_tools_dialog_free_draw_btn_label">Free Draw</string>
     <string name="txt_tools_dialog_rect_btn_label">Rectangle</string>
     <string name="txt_tools_dialog_circle_btn_label">Circle</string>
-    <string name="txt_tools_dialog_save_shape_btn_label">Select</string>
+    <string name="txt_tools_dialog_select_shape_btn_label">Select</string>
 </resources>
