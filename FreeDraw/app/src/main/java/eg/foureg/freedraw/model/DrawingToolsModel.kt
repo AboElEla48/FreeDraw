@@ -5,5 +5,5 @@ import eg.foureg.freedraw.data.ShapeType
 
 object DrawingToolsModel {
     var drawingColor : Int = Color. BLACK
-    var drawingShape: ShapeType = ShapeType.FreeDraw
+    var drawingShapeType: ShapeType = ShapeType.FreeDraw
 }

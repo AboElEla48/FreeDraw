@@ -1,7 +1,6 @@
 package eg.foureg.freedraw.data
 
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.graphics.PointF
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -37,3 +36,15 @@ data class TextShape(val text: String, val textColor: Int) :Shape(textColor, Sha
  */
 @Parcelize
 data class ImageShape(val bitmap: Bitmap, val backgroundColor: Int) :Shape(backgroundColor, ShapeType.BitmapDraw)
+
+/**
+ * Circle Shape class
+ */
+@Parcelize
+data class CircleShape(var topLeftPoint : PointF, var rightBottomPoint: PointF, val backgroundColor: Int) :Shape(backgroundColor, ShapeType.CircleDraw)
+
+/**
+ * Rect Shape class
+ */
+@Parcelize
+data class RectShape(var topLeftPoint : PointF, var rightBottomPoint: PointF, val backgroundColor: Int) :Shape(backgroundColor, ShapeType.RectDraw)

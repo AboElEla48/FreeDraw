@@ -2,17 +2,13 @@ package eg.foureg.freedraw.ui.boards.editor
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.PointF
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import eg.foureg.freedraw.R
 import eg.foureg.freedraw.common.Logs
-import eg.foureg.freedraw.data.Board
-import eg.foureg.freedraw.data.FreeShape
-import eg.foureg.freedraw.data.Shape
-import eg.foureg.freedraw.data.ShapeType
+import eg.foureg.freedraw.data.*
 import eg.foureg.freedraw.features.drawing.drawShape
 import eg.foureg.freedraw.model.BoardsModel
 import eg.foureg.freedraw.model.DrawingToolsModel
@@ -54,18 +50,40 @@ class BoardEditorViewModel : ViewModel() {
     }
 
     fun updateDrawingToolsData() {
-        shapeType.value = DrawingToolsModel.drawingShape
+        shapeType.value = DrawingToolsModel.drawingShapeType
         currentColor.value = DrawingToolsModel.drawingColor
     }
 
     /**
      * User is drawing. Create new shape in this board
      */
-    fun initNewShape(pointF: PointF) {
-        Logs.debug(TAG, "initNewShape(${pointF.x}, ${pointF.y})")
+    fun initNewShape(startPoint: PointF) {
+        Logs.debug(TAG, "initNewShape(${startPoint.x}, ${startPoint.y})")
         isBoardSaved = false
 
-        currentShape = FreeShape(points = ArrayList(), shapeColor = currentColor.value!!)
+        when(DrawingToolsModel.drawingShapeType) {
+            ShapeType.FreeDraw -> {
+                currentShape = FreeShape(ArrayList(), currentColor.value!!)
+            }
+
+            ShapeType.TextDraw -> {
+                currentShape = TextShape("", currentColor.value!!)
+            }
+
+            ShapeType.BitmapDraw -> {
+
+            }
+
+            ShapeType.CircleDraw -> {
+                currentShape = CircleShape(startPoint, startPoint, currentColor.value!!)
+            }
+
+            ShapeType.RectDraw -> {
+                currentShape = RectShape(startPoint, startPoint, currentColor.value!!)
+            }
+        }
+
+
 
         board.shapes.add(currentShape)
     }
@@ -79,6 +97,13 @@ class BoardEditorViewModel : ViewModel() {
         when(shapeType.value) {
             ShapeType.FreeDraw -> {
                 (currentShape as FreeShape).points.add(pointF)
+            }
+            ShapeType.CircleDraw -> {
+                (currentShape as CircleShape).rightBottomPoint = pointF
+            }
+
+            ShapeType.RectDraw -> {
+                (currentShape as RectShape).rightBottomPoint = pointF
             }
             else -> {}
         }

@@ -56,14 +56,30 @@
                 android:checked="false"
                 style="@style/StyleToolsDialogShapesButton"/>
 
+            <RadioButton
+                android:id="@+id/tools_dialog_shape_type_text_radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_tools_dialog_text_btn_label"
+                android:checked="false"
+                style="@style/StyleToolsDialogShapesButton"/>
+
+            <RadioButton
+                android:id="@+id/tools_dialog_shape_type_bitmap_radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_tools_dialog_bitmap_btn_label"
+                android:checked="false"
+                style="@style/StyleToolsDialogShapesButton"/>
+
         </RadioGroup>
 
         <Button
-            android:id="@+id/tools_dialog_select_shape_btn"
+            android:id="@+id/tools_dialog_save_tools_values_btn"
             style="@style/StyleToolsDialogShapesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_tools_dialog_select_shape_btn_label"
+            android:text="@string/txt_tools_dialog_save_tools_btn_label"
             app:layout_constraintTop_toBottomOf="@id/tools_dialog_shape_type_radio_group"
             app:layout_constraintEnd_toEndOf="parent" />
 
