@@ -37,6 +37,14 @@ class ToolsDialogActivity : AppCompatActivity() {
             tools_dialog_shape_type_bitmap_radio.isChecked = checked
         })
 
+        viewModel.drawingColor.observe(this, Observer { color ->
+            tools_dialog_color_text_view.text = "$color"
+        })
+
+        viewModel.fillingColor.observe(this, Observer { color ->
+            tools_dialog_filling_color_text_view.text = "$color"
+        })
+
         tools_dialog_save_tools_values_btn.setOnClickListener {
             viewModel.resetAllValues()
 
