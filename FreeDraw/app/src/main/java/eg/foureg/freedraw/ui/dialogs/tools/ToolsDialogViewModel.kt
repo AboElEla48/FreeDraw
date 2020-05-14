@@ -58,6 +58,16 @@ class ToolsDialogViewModel : ViewModel() {
         }
     }
 
+    fun setDrawingColor(color: Int) {
+        DrawingToolsModel.drawingColor = color
+        drawingColor.value = color
+    }
+
+    fun setFillingColor(color: Int) {
+        DrawingToolsModel.fillingColor = color
+        fillingColor.value = color
+    }
+
     val freeDrawShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
     val circleShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
     val rectShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
