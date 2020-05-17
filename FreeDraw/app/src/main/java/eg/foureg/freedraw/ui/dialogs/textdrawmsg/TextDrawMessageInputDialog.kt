@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import eg.foureg.freedraw.R
 import eg.foureg.freedraw.common.Logs
+import eg.foureg.freedraw.data.ShapeType
 import eg.foureg.freedraw.model.DrawingToolsModel
 
 object TextDrawMessageInputDialog {
@@ -31,6 +32,7 @@ object TextDrawMessageInputDialog {
 
         alertDialog.setNegativeButton(context.getString(R.string.txt_txt_shape_dialog_negative_btn)) { dialog, which ->
             DrawingToolsModel.drawingText = ""
+            DrawingToolsModel.drawingShapeType = ShapeType.FreeDraw
             dialog.cancel()
         }
 

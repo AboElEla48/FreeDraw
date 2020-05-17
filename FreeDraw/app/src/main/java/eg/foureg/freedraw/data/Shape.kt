@@ -29,7 +29,7 @@ data class FreeShape(val points : ArrayList<PointF>, val shapeColor : Int) : Sha
  * Text Shape class
  */
 @Parcelize
-data class TextShape(val text: String, val textColor: Int) :Shape(textColor, ShapeType.TextDraw)
+data class TextShape(val text: String, val topLeftPoint: PointF, val textColor: Int) :Shape(textColor, ShapeType.TextDraw)
 
 /**
  * Image Shape class

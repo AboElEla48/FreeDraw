@@ -29,6 +29,7 @@ class BoardEditorViewModel : ViewModel() {
         Logs.debug(TAG, "initBoard($board)")
 
         isBoardSaved = true
+        invalidateScreen.value = false
 
         this.context = context
 
@@ -59,28 +60,24 @@ class BoardEditorViewModel : ViewModel() {
         when(DrawingToolsModel.drawingShapeType) {
             ShapeType.FreeDraw -> {
                 currentShape = FreeShape(ArrayList(), DrawingToolsModel.drawingColor)
-            }
-
-            ShapeType.TextDraw -> {
-                currentShape = TextShape("", DrawingToolsModel.drawingColor)
-            }
-
-            ShapeType.BitmapDraw -> {
-
+                board.shapes.add(currentShape)
             }
 
             ShapeType.CircleDraw -> {
                 currentShape = CircleShape(startPoint, startPoint, DrawingToolsModel.drawingColor, DrawingToolsModel.fillingColor)
+                board.shapes.add(currentShape)
             }
 
             ShapeType.RectDraw -> {
                 currentShape = RectShape(startPoint, startPoint, DrawingToolsModel.drawingColor, DrawingToolsModel.fillingColor)
+                board.shapes.add(currentShape)
             }
+            else -> {}
         }
 
 
 
-        board.shapes.add(currentShape)
+
     }
 
     /**
@@ -110,6 +107,7 @@ class BoardEditorViewModel : ViewModel() {
 
         DrawingToolsModel.drawingText = null
 
+        // Show dialog to let user enter the string he would like to draw
         val inputJob = viewModelScope.launch {
             TextDrawMessageInputDialog.createDialog(context).show()
             while (DrawingToolsModel.drawingText == null) {
@@ -117,10 +115,19 @@ class BoardEditorViewModel : ViewModel() {
             }
         }
 
+        // Draw string if user entered value to draw
         viewModelScope.launch {
             Logs.debug(TAG, " initTextShape() | Wait till user enter the name")
             inputJob.join()
             Logs.debug(TAG, " initTextShape() | Text Shape String: ( ${DrawingToolsModel.drawingText} )")
+
+            //Assure user entered value to draw
+            if(DrawingToolsModel.drawingText?.length!! > 0) {
+                currentShape = TextShape(DrawingToolsModel.drawingText!!, PointF(120F, 120F), DrawingToolsModel.drawingColor)
+                board.shapes.add(currentShape)
+                invalidateScreen.value = true
+            }
+
         }
     }
 
@@ -160,5 +167,6 @@ class BoardEditorViewModel : ViewModel() {
     var isBoardSaved = true
     private lateinit var currentShape : Shape
     private val boardModel = BoardsModel()
+    val invalidateScreen = MutableLiveData<Boolean>()
 
 }

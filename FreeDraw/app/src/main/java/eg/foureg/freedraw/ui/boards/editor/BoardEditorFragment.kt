@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.PointF
 import android.os.Bundle
 import android.view.*
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import eg.foureg.freedraw.R
@@ -13,6 +14,7 @@ import eg.foureg.freedraw.common.Logs
 import eg.foureg.freedraw.common.actor.ActorMessage
 import eg.foureg.freedraw.common.actor.ActorMessageDispatcher
 import eg.foureg.freedraw.data.Board
+import eg.foureg.freedraw.data.ShapeType
 import eg.foureg.freedraw.data.messageBackToFragmentID
 import eg.foureg.freedraw.data.messageNavigateToBoardsListFragment
 import eg.foureg.freedraw.features.export.ImageExport
@@ -65,6 +67,13 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
 
         // init holder interface
         boards_editor_drawing_view.initHolderInterface(this)
+
+        viewModel.invalidateScreen.observe(viewLifecycleOwner, Observer {invalidateView ->
+            if(invalidateView) {
+                boards_editor_drawing_view.invalidate()
+                viewModel.invalidateScreen.value = false
+            }
+        })
 
         // init board
         viewModel.initBoard(activity as Context, board)
@@ -138,7 +147,9 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode) {
             Request_code_TOOLS_DLG -> {
-                viewModel.initTextShape()
+                if(DrawingToolsModel.drawingShapeType == ShapeType.TextDraw) {
+                    viewModel.initTextShape()
+                }
             }
         }
     }
