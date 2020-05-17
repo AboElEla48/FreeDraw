@@ -3,6 +3,7 @@ package eg.foureg.freedraw.ui.boards.editor
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.PointF
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -126,9 +127,26 @@ class BoardEditorViewModel : ViewModel() {
                 currentShape = TextShape(DrawingToolsModel.drawingText!!, PointF(120F, 120F), DrawingToolsModel.drawingColor)
                 board.shapes.add(currentShape)
                 invalidateScreen.value = true
+
+                motionViewVisibility.value = View.VISIBLE
             }
 
         }
+    }
+
+    fun moveShapeTo(pointF: PointF) {
+        Logs.debug(TAG, "moveShapeTo() | Point = (${pointF.x}, ${pointF.y})")
+
+        if(currentShape.shapeType == ShapeType.TextDraw) {
+            Logs.debug(TAG, "moveShapeTo() | Move text shape to point")
+            (currentShape as TextShape).topLeftPoint = pointF
+            invalidateScreen.value = true
+        }
+    }
+
+    fun finishShapeMotion() {
+        motionViewVisibility.value = View.GONE
+        DrawingToolsModel.drawingShapeType = ShapeType.FreeDraw
     }
 
     /**
@@ -166,7 +184,10 @@ class BoardEditorViewModel : ViewModel() {
     private lateinit var context: Context
     var isBoardSaved = true
     private lateinit var currentShape : Shape
+
     private val boardModel = BoardsModel()
+
     val invalidateScreen = MutableLiveData<Boolean>()
+    val motionViewVisibility = MutableLiveData<Int>()
 
 }

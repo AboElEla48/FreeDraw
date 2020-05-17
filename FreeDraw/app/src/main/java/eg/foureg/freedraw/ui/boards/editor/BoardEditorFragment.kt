@@ -8,9 +8,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import eg.foureg.freedraw.R
-import eg.foureg.freedraw.common.Logs
 import eg.foureg.freedraw.common.actor.ActorMessage
 import eg.foureg.freedraw.common.actor.ActorMessageDispatcher
 import eg.foureg.freedraw.data.Board
@@ -21,17 +19,20 @@ import eg.foureg.freedraw.features.export.ImageExport
 import eg.foureg.freedraw.model.DrawingToolsModel
 import eg.foureg.freedraw.ui.BaseActorFragment
 import eg.foureg.freedraw.ui.MainActivity
+import eg.foureg.freedraw.ui.boards.editor.drawerview.BoardDrawingViewHolderInt
+import eg.foureg.freedraw.ui.boards.editor.motionview.BoardMotionViewHolderInt
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialog
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialogInt
 import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardConfirmationDialog
 import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardDialogInt
-import eg.foureg.freedraw.ui.dialogs.textdrawmsg.TextDrawMessageInputDialog
 import eg.foureg.freedraw.ui.dialogs.tools.ToolsDialogActivity
 import kotlinx.android.synthetic.main.board_editor_fragment.*
-import kotlinx.coroutines.launch
 
-class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
-    BoardNameInputDialogInt, ClearBoardDialogInt {
+class BoardEditorFragment : BaseActorFragment(),
+    BoardDrawingViewHolderInt,
+    BoardMotionViewHolderInt,
+    BoardNameInputDialogInt,
+    ClearBoardDialogInt {
 
     companion object {
 
@@ -66,13 +67,18 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
         viewModel = ViewModelProvider(this).get(BoardEditorViewModel::class.java)
 
         // init holder interface
-        boards_editor_drawing_view.initHolderInterface(this)
+        board_editor_drawing_view.initHolderInterface(this)
+        board_editor_motion_view.initHolderInterface(this)
 
         viewModel.invalidateScreen.observe(viewLifecycleOwner, Observer {invalidateView ->
             if(invalidateView) {
-                boards_editor_drawing_view.invalidate()
+                board_editor_drawing_view.invalidate()
                 viewModel.invalidateScreen.value = false
             }
+        })
+
+        viewModel.motionViewVisibility.observe(viewLifecycleOwner, Observer { visibility ->
+            board_editor_motion_view.visibility = visibility
         })
 
         // init board
@@ -111,7 +117,7 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
             }
 
             R.id.menu_fragment_editor_export_board -> {
-                ImageExport.exportViewAsImage(activity as Context, boards_editor_drawing_view)
+                ImageExport.exportViewAsImage(activity as Context, board_editor_drawing_view)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -134,11 +140,10 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
         viewModel.initBoard(activity as Context, board)
         updateActionBarTitle()
 
-        boards_editor_drawing_view.invalidate()
+        board_editor_drawing_view.invalidate()
     }
 
     private fun showToolsDialog() {
-        Logs.debug("DDDDDDDDD", "start--")
         val intent = Intent(activity, ToolsDialogActivity::class.java)
         startActivityForResult(intent, Request_code_TOOLS_DLG)
     }
@@ -175,6 +180,14 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
         viewModel.drawBoard(canvas)
     }
 
+    override fun moveShapeTo(pointF: PointF) {
+        viewModel.moveShapeTo(pointF)
+    }
+
+    override fun finishShapeMotion() {
+        viewModel.finishShapeMotion()
+    }
+
     override fun boardNameDialogPositiveAction(name:String) {
         viewModel.board.name = name
         boardHasName = true
@@ -194,7 +207,7 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
 
     override fun clearBoardConfirmed() {
         viewModel.clearBoard()
-        boards_editor_drawing_view.invalidate()
+        board_editor_drawing_view.invalidate()
     }
 
     override fun handleMessage(message: ActorMessage) {
@@ -212,6 +225,5 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
     var boardHasName : Boolean = false
     private var lastMenuItemClickedID = -1
     private var board : Board? = null
-
 
 }

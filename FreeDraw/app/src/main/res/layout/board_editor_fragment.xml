@@ -7,10 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.boards.editor.BoardEditorFragment">
 
-    <eg.foureg.freedraw.ui.boards.editor.BoardDrawingView
-        android:id="@+id/boards_editor_drawing_view"
+    <eg.foureg.freedraw.ui.boards.editor.drawerview.BoardDrawingView
+        android:id="@+id/board_editor_drawing_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <eg.foureg.freedraw.ui.boards.editor.motionview.BoardMotionView
+        android:id="@+id/board_editor_motion_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
