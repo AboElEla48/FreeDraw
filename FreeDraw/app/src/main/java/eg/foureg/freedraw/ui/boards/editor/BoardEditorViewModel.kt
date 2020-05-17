@@ -12,6 +12,8 @@ import eg.foureg.freedraw.data.*
 import eg.foureg.freedraw.features.drawing.drawShape
 import eg.foureg.freedraw.model.BoardsModel
 import eg.foureg.freedraw.model.DrawingToolsModel
+import eg.foureg.freedraw.ui.dialogs.textdrawmsg.TextDrawMessageInputDialog
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class BoardEditorViewModel : ViewModel() {
@@ -99,6 +101,26 @@ class BoardEditorViewModel : ViewModel() {
                 (currentShape as RectShape).rightBottomPoint = pointF
             }
             else -> {}
+        }
+    }
+
+    fun initTextShape() {
+        // check if this is text drawing, show the input text to get the string message
+        Logs.debug(TAG, " initTextShape() | get drawing string from user")
+
+        DrawingToolsModel.drawingText = null
+
+        val inputJob = viewModelScope.launch {
+            TextDrawMessageInputDialog.createDialog(context).show()
+            while (DrawingToolsModel.drawingText == null) {
+                delay(100)
+            }
+        }
+
+        viewModelScope.launch {
+            Logs.debug(TAG, " initTextShape() | Wait till user enter the name")
+            inputJob.join()
+            Logs.debug(TAG, " initTextShape() | Text Shape String: ( ${DrawingToolsModel.drawingText} )")
         }
     }
 

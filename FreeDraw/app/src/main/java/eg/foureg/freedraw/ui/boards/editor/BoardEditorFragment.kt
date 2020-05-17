@@ -7,21 +7,26 @@ import android.graphics.PointF
 import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import eg.foureg.freedraw.R
+import eg.foureg.freedraw.common.Logs
 import eg.foureg.freedraw.common.actor.ActorMessage
 import eg.foureg.freedraw.common.actor.ActorMessageDispatcher
 import eg.foureg.freedraw.data.Board
 import eg.foureg.freedraw.data.messageBackToFragmentID
 import eg.foureg.freedraw.data.messageNavigateToBoardsListFragment
 import eg.foureg.freedraw.features.export.ImageExport
+import eg.foureg.freedraw.model.DrawingToolsModel
 import eg.foureg.freedraw.ui.BaseActorFragment
 import eg.foureg.freedraw.ui.MainActivity
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialog
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialogInt
 import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardConfirmationDialog
 import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardDialogInt
+import eg.foureg.freedraw.ui.dialogs.textdrawmsg.TextDrawMessageInputDialog
 import eg.foureg.freedraw.ui.dialogs.tools.ToolsDialogActivity
 import kotlinx.android.synthetic.main.board_editor_fragment.*
+import kotlinx.coroutines.launch
 
 class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
     BoardNameInputDialogInt, ClearBoardDialogInt {
@@ -29,6 +34,7 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
     companion object {
 
         const val BUNDLE_BOARD : String = "BUNDLE_BOARD"
+        const val Request_code_TOOLS_DLG = 1
 
         fun newInstance(board: Board?) = BoardEditorFragment().apply {
             arguments = Bundle().apply {
@@ -123,8 +129,18 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
     }
 
     private fun showToolsDialog() {
+        Logs.debug("DDDDDDDDD", "start--")
         val intent = Intent(activity, ToolsDialogActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent, Request_code_TOOLS_DLG)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode) {
+            Request_code_TOOLS_DLG -> {
+                viewModel.initTextShape()
+            }
+        }
     }
 
     private fun trySaveBoard() {

@@ -9,15 +9,15 @@ object ClearBoardConfirmationDialog {
 
     fun createDialog(context: Context, clearBoardDialogInt: ClearBoardDialogInt) : AlertDialog.Builder {
         val alertDialog  = AlertDialog.Builder(context)
-        alertDialog.setTitle(context.getString(R.string.txt_dialog_title_clear_board))
-        alertDialog.setMessage(context.getString(R.string.txt_dialog_msg_clear_board_name))
+        alertDialog.setTitle(context.getString(R.string.txt_clear_board_dialog_title))
+        alertDialog.setMessage(context.getString(R.string.txt_clear_board_dialog_msg))
 
-        alertDialog.setPositiveButton(context.getString(R.string.txt_dialog_positive_clear_board)) { dialog, which ->
+        alertDialog.setPositiveButton(context.getString(R.string.txt_clear_board_dialog_positive_btn)) { dialog, which ->
             clearBoardDialogInt.clearBoardConfirmed()
             dialog.cancel()
         }
 
-        alertDialog.setNegativeButton(context.getString(R.string.txt_dialog_negative_clear_board)) { dialog, which ->
+        alertDialog.setNegativeButton(context.getString(R.string.txt_clear_board_dialog_negative_btn)) { dialog, which ->
             dialog.cancel()
         }
 
