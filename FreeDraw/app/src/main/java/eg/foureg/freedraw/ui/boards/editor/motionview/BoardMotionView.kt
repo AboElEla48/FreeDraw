@@ -9,10 +9,7 @@ import android.view.MotionEvent
 import android.widget.FrameLayout
 import eg.foureg.freedraw.R
 import eg.foureg.freedraw.common.actor.ActorMessageDispatcher
-import eg.foureg.freedraw.data.messageEditBoardFinishMoveShape
-import eg.foureg.freedraw.data.messageEditBoardMoveShape
-import eg.foureg.freedraw.data.messageEditBoardMoveShapeMap
-import eg.foureg.freedraw.data.messageEditBoardMoveShapeParam
+import eg.foureg.freedraw.data.*
 import eg.foureg.freedraw.ui.boards.editor.BoardEditorFragment
 import kotlinx.android.synthetic.main.view_motion_frame.view.*
 
@@ -25,9 +22,18 @@ class BoardMotionView(context : Context, attrs : AttributeSet) : FrameLayout(con
         setBackgroundColor(Color.TRANSPARENT)
         addView(LayoutInflater.from(context).inflate(R.layout.view_motion_frame, null))
 
+        view_motion_apply_text_size_btn.setOnClickListener {
+            currentShape?.textSize = view_motion_text_size_edit_text.text.toString().toFloat()
+            ActorMessageDispatcher.sendMessage(BoardEditorFragment::class.java, messageEditBoardInvalidateDraw)
+        }
+
         view_motion_finish_btn.setOnClickListener {
             finishMotion()
         }
+    }
+
+    fun initShape(shape: TextShape) {
+        currentShape = shape
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -51,4 +57,6 @@ class BoardMotionView(context : Context, attrs : AttributeSet) : FrameLayout(con
     private fun finishMotion() {
         ActorMessageDispatcher.sendMessage(BoardEditorFragment::class.java, messageEditBoardFinishMoveShape)
     }
+
+    var currentShape : TextShape? = null
 }

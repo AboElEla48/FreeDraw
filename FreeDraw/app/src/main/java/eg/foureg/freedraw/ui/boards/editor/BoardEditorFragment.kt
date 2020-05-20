@@ -73,6 +73,7 @@ class BoardEditorFragment : BaseActorFragment(),
 
         viewModel.motionViewVisibility.observe(viewLifecycleOwner, Observer { visibility ->
             board_editor_motion_view.visibility = visibility
+            board_editor_motion_view.initShape(viewModel.currentShape as TextShape)
         })
 
         // init board
@@ -211,6 +212,10 @@ class BoardEditorFragment : BaseActorFragment(),
 
             messageEditBoardFinishMoveShapeID -> {
                 viewModel.finishShapeMotion()
+            }
+
+            messageEditBoardInvalidateDrawID -> {
+                board_editor_drawing_view.invalidate()
             }
         }
     }

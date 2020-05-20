@@ -4,32 +4,24 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Button
-        android:id="@+id/view_motion_bold_btn"
+    <EditText
+        android:id="@+id/view_motion_text_size_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/txt_view_motion_bold_button"
+        android:hint="@string/txt_view_motion_text_size_hint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        style="@style/StyleViewMotionActionButton" />
+        style="@style/StyleViewMotionActionButton"
+        android:inputType="number"/>
 
     <Button
-        android:id="@+id/view_motion_italic_btn"
+        android:id="@+id/view_motion_apply_text_size_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/txt_view_motion_Italic_button"
+        android:text="@string/txt_view_motion_apply_text_size_btn"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/view_motion_bold_btn"
-        style="@style/StyleViewMotionActionButton" />
-
-    <Button
-        android:id="@+id/view_motion_underline_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_view_motion_underline_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/view_motion_italic_btn"
-        style="@style/StyleViewMotionActionButton" />
+        app:layout_constraintStart_toEndOf="@id/view_motion_text_size_edit_text"
+        style="@style/StyleViewMotionActionButton"/>
 
     <Button
         android:id="@+id/view_motion_finish_btn"

@@ -37,7 +37,6 @@ fun createDrawingPaint(c: Int) : Paint {
         style = Paint.Style.STROKE
         color = c
         strokeWidth = 7f
-        textSize = 70f
     }
 }
 
@@ -56,6 +55,7 @@ fun drawShapeFreeDraw(canvas: Canvas, shape: FreeShape, paint: Paint) {
 }
 
 fun drawShapeText(canvas: Canvas, shape: TextShape, paint: Paint) {
+    paint.textSize = shape.textSize
     canvas.drawText(shape.text, shape.topLeftPoint.x, shape.topLeftPoint.y, paint)
 }
 

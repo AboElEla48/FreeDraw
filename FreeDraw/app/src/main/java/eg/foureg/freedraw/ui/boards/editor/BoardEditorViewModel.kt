@@ -124,7 +124,7 @@ class BoardEditorViewModel : ViewModel() {
 
             //Assure user entered value to draw
             if(DrawingToolsModel.drawingText?.length!! > 0) {
-                currentShape = TextShape(DrawingToolsModel.drawingText!!, PointF(120F, 120F), DrawingToolsModel.drawingColor)
+                currentShape = TextShape(DrawingToolsModel.drawingText!!, PointF(120F, 120F), 70F, DrawingToolsModel.drawingColor)
                 board.shapes.add(currentShape)
                 invalidateScreen.value = true
 
@@ -183,7 +183,7 @@ class BoardEditorViewModel : ViewModel() {
     lateinit var board: Board
     private lateinit var context: Context
     var isBoardSaved = true
-    private lateinit var currentShape : Shape
+    lateinit var currentShape : Shape
 
     private val boardModel = BoardsModel()
 
