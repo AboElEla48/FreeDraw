@@ -45,5 +45,8 @@
     <string name="txt_tools_dialog_save_tools_btn_label">Save</string>
 
     <string name="txt_view_motion_save_button">Save</string>
+    <string name="txt_view_motion_bold_button">B</string>
+    <string name="txt_view_motion_Italic_button">I</string>
+    <string name="txt_view_motion_underline_button">U</string>
 
 </resources>

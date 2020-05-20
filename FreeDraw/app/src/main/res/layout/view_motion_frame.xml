@@ -5,6 +5,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Button
+        android:id="@+id/view_motion_bold_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_view_motion_bold_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/StyleViewMotionActionButton" />
+
+    <Button
+        android:id="@+id/view_motion_italic_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_view_motion_Italic_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/view_motion_bold_btn"
+        style="@style/StyleViewMotionActionButton" />
+
+    <Button
+        android:id="@+id/view_motion_underline_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_view_motion_underline_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/view_motion_italic_btn"
+        style="@style/StyleViewMotionActionButton" />
+
+    <Button
         android:id="@+id/view_motion_save_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
