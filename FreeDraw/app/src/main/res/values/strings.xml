@@ -22,10 +22,10 @@
     <string name="txt_clear_board_dialog_positive_btn">Yes</string>
     <string name="txt_clear_board_dialog_negative_btn">No</string>
 
-    <string name="txt_txt_shape_dialog_title">Text Value</string>
-    <string name="txt_txt_shape_dialog_msg">Please Enter the text to draw on board</string>
-    <string name="txt_txt_shape_dialog_positive_btn">Save</string>
-    <string name="txt_txt_shape_dialog_negative_btn">Cancel</string>
+    <string name="txt_text_shape_dialog_title">Text Value</string>
+    <string name="txt_text_shape_dialog_msg">Please Enter the text to draw on board</string>
+    <string name="txt_text_shape_dialog_positive_btn">Save</string>
+    <string name="txt_text_shape_dialog_negative_btn">Cancel</string>
 
     <string name="txt_toast_export_image_success">Image Saved successfully</string>
     <string name="txt_toast_export_image_failure">Error saving image</string>
@@ -43,4 +43,7 @@
     <string name="txt_tools_dialog_filling_title_label">Select Filling Color</string>
 
     <string name="txt_tools_dialog_save_tools_btn_label">Save</string>
+
+    <string name="txt_view_motion_save_button">Save</string>
+
 </resources>
