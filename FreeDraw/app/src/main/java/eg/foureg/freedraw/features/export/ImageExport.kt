@@ -1,18 +1,16 @@
 package eg.foureg.freedraw.features.export
 
-import android.content.*
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Matrix
 import android.media.MediaScannerConnection
-import android.net.Uri
-import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import eg.foureg.freedraw.R
 import eg.foureg.freedraw.common.Logs
-import java.io.*
+import java.io.File
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -53,7 +51,7 @@ object ImageExport {
             MediaScannerConnection.scanFile(context, arrayOf(file.toString()), null) { path, uri ->
             }
 
-            Toast.makeText(context, context.getString(R.string.txt_toast_export_image_success) + " $fname", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, context.getString(R.string.txt_toast_export_image_success) + " ${file.absolutePath}", Toast.LENGTH_LONG).show()
 
             return file.absolutePath
 

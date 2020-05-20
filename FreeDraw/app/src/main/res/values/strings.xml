@@ -12,15 +12,20 @@
     <string name="txt_default_new_board_name">New Board</string>
     <string name="txt_tools_dialog_title">Tools</string>
 
-    <string name="txt_dialog_title_enter_board_name_to_save">Save Board</string>
-    <string name="txt_dialog_msg_enter_board_name_to_save">Enter Board Name</string>
-    <string name="txt_dialog_positive_enter_board_name_to_save">Save</string>
-    <string name="txt_dialog_negative_enter_board_name_to_save">Cancel</string>
+    <string name="txt_board_name_dialog_title_enter_to_save">Save Board</string>
+    <string name="txt_board_name_dialog_msg_enter_to_save">Enter Board Name</string>
+    <string name="txt_board_name_dialog_positive_enter_to_save">Save</string>
+    <string name="txt_board_name_dialog_negative_enter_to_save">Cancel</string>
 
-    <string name="txt_dialog_title_clear_board">Clear Board</string>
-    <string name="txt_dialog_msg_clear_board_name">Are you sure you want to clear board?</string>
-    <string name="txt_dialog_positive_clear_board">Yes</string>
-    <string name="txt_dialog_negative_clear_board">No</string>
+    <string name="txt_clear_board_dialog_title">Clear Board</string>
+    <string name="txt_clear_board_dialog_msg">Are you sure you want to clear board?</string>
+    <string name="txt_clear_board_dialog_positive_btn">Yes</string>
+    <string name="txt_clear_board_dialog_negative_btn">No</string>
+
+    <string name="txt_text_shape_dialog_title">Text Value</string>
+    <string name="txt_text_shape_dialog_msg">Please Enter the text to draw on board</string>
+    <string name="txt_text_shape_dialog_positive_btn">Save</string>
+    <string name="txt_text_shape_dialog_negative_btn">Cancel</string>
 
     <string name="txt_toast_export_image_success">Image Saved successfully</string>
     <string name="txt_toast_export_image_failure">Error saving image</string>
@@ -38,4 +43,9 @@
     <string name="txt_tools_dialog_filling_title_label">Select Filling Color</string>
 
     <string name="txt_tools_dialog_save_tools_btn_label">Save</string>
+
+    <string name="txt_view_motion_finish_button">Finish</string>
+    <string name="txt_view_motion_text_size_hint">Text Size</string>
+    <string name="txt_view_motion_apply_text_size_btn">Apply</string>
+
 </resources>

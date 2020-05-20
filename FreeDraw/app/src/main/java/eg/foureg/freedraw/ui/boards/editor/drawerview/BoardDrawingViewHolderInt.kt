@@ -1,4 +1,4 @@
-package eg.foureg.freedraw.ui.boards.editor
+package eg.foureg.freedraw.ui.boards.editor.drawerview
 
 import android.graphics.Canvas
 import android.graphics.PointF

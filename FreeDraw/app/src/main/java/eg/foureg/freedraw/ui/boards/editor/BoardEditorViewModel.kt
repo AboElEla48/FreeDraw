@@ -3,6 +3,7 @@ package eg.foureg.freedraw.ui.boards.editor
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.PointF
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,6 +13,8 @@ import eg.foureg.freedraw.data.*
 import eg.foureg.freedraw.features.drawing.drawShape
 import eg.foureg.freedraw.model.BoardsModel
 import eg.foureg.freedraw.model.DrawingToolsModel
+import eg.foureg.freedraw.ui.dialogs.textdrawmsg.TextDrawMessageInputDialog
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class BoardEditorViewModel : ViewModel() {
@@ -27,6 +30,7 @@ class BoardEditorViewModel : ViewModel() {
         Logs.debug(TAG, "initBoard($board)")
 
         isBoardSaved = true
+        invalidateScreen.value = false
 
         this.context = context
 
@@ -57,28 +61,24 @@ class BoardEditorViewModel : ViewModel() {
         when(DrawingToolsModel.drawingShapeType) {
             ShapeType.FreeDraw -> {
                 currentShape = FreeShape(ArrayList(), DrawingToolsModel.drawingColor)
-            }
-
-            ShapeType.TextDraw -> {
-                currentShape = TextShape("", DrawingToolsModel.drawingColor)
-            }
-
-            ShapeType.BitmapDraw -> {
-
+                board.shapes.add(currentShape)
             }
 
             ShapeType.CircleDraw -> {
                 currentShape = CircleShape(startPoint, startPoint, DrawingToolsModel.drawingColor, DrawingToolsModel.fillingColor)
+                board.shapes.add(currentShape)
             }
 
             ShapeType.RectDraw -> {
                 currentShape = RectShape(startPoint, startPoint, DrawingToolsModel.drawingColor, DrawingToolsModel.fillingColor)
+                board.shapes.add(currentShape)
             }
+            else -> {}
         }
 
 
 
-        board.shapes.add(currentShape)
+
     }
 
     /**
@@ -100,6 +100,53 @@ class BoardEditorViewModel : ViewModel() {
             }
             else -> {}
         }
+    }
+
+    fun initTextShape() {
+        // check if this is text drawing, show the input text to get the string message
+        Logs.debug(TAG, " initTextShape() | get drawing string from user")
+
+        DrawingToolsModel.drawingText = null
+
+        // Show dialog to let user enter the string he would like to draw
+        val inputJob = viewModelScope.launch {
+            TextDrawMessageInputDialog.createDialog(context).show()
+            while (DrawingToolsModel.drawingText == null) {
+                delay(100)
+            }
+        }
+
+        // Draw string if user entered value to draw
+        viewModelScope.launch {
+            Logs.debug(TAG, " initTextShape() | Wait till user enter the name")
+            inputJob.join()
+            Logs.debug(TAG, " initTextShape() | Text Shape String: ( ${DrawingToolsModel.drawingText} )")
+
+            //Assure user entered value to draw
+            if(DrawingToolsModel.drawingText?.length!! > 0) {
+                currentShape = TextShape(DrawingToolsModel.drawingText!!, PointF(120F, 120F), 70F, DrawingToolsModel.drawingColor)
+                board.shapes.add(currentShape)
+                invalidateScreen.value = true
+
+                motionViewVisibility.value = View.VISIBLE
+            }
+
+        }
+    }
+
+    fun moveShapeTo(pointF: PointF) {
+        Logs.debug(TAG, "moveShapeTo() | Point = (${pointF.x}, ${pointF.y})")
+
+        if(currentShape.shapeType == ShapeType.TextDraw) {
+            Logs.debug(TAG, "moveShapeTo() | Move text shape to point")
+            (currentShape as TextShape).topLeftPoint = pointF
+            invalidateScreen.value = true
+        }
+    }
+
+    fun finishShapeMotion() {
+        motionViewVisibility.value = View.GONE
+        DrawingToolsModel.drawingShapeType = ShapeType.FreeDraw
     }
 
     /**
@@ -136,7 +183,11 @@ class BoardEditorViewModel : ViewModel() {
     lateinit var board: Board
     private lateinit var context: Context
     var isBoardSaved = true
-    private lateinit var currentShape : Shape
+    lateinit var currentShape : Shape
+
     private val boardModel = BoardsModel()
+
+    val invalidateScreen = MutableLiveData<Boolean>()
+    val motionViewVisibility = MutableLiveData<Int>()
 
 }

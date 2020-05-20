@@ -6,16 +6,17 @@ import android.graphics.Canvas
 import android.graphics.PointF
 import android.os.Bundle
 import android.view.*
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import eg.foureg.freedraw.R
 import eg.foureg.freedraw.common.actor.ActorMessage
 import eg.foureg.freedraw.common.actor.ActorMessageDispatcher
-import eg.foureg.freedraw.data.Board
-import eg.foureg.freedraw.data.messageBackToFragmentID
-import eg.foureg.freedraw.data.messageNavigateToBoardsListFragment
+import eg.foureg.freedraw.data.*
 import eg.foureg.freedraw.features.export.ImageExport
+import eg.foureg.freedraw.model.DrawingToolsModel
 import eg.foureg.freedraw.ui.BaseActorFragment
 import eg.foureg.freedraw.ui.MainActivity
+import eg.foureg.freedraw.ui.boards.editor.drawerview.BoardDrawingViewHolderInt
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialog
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialogInt
 import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardConfirmationDialog
@@ -23,12 +24,15 @@ import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardDialogInt
 import eg.foureg.freedraw.ui.dialogs.tools.ToolsDialogActivity
 import kotlinx.android.synthetic.main.board_editor_fragment.*
 
-class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
-    BoardNameInputDialogInt, ClearBoardDialogInt {
+class BoardEditorFragment : BaseActorFragment(),
+    BoardDrawingViewHolderInt,
+    BoardNameInputDialogInt,
+    ClearBoardDialogInt {
 
     companion object {
 
         const val BUNDLE_BOARD : String = "BUNDLE_BOARD"
+        const val Request_code_TOOLS_DLG = 1
 
         fun newInstance(board: Board?) = BoardEditorFragment().apply {
             arguments = Bundle().apply {
@@ -58,7 +62,19 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
         viewModel = ViewModelProvider(this).get(BoardEditorViewModel::class.java)
 
         // init holder interface
-        boards_editor_drawing_view.initHolderInterface(this)
+        board_editor_drawing_view.initHolderInterface(this)
+
+        viewModel.invalidateScreen.observe(viewLifecycleOwner, Observer {invalidateView ->
+            if(invalidateView) {
+                board_editor_drawing_view.invalidate()
+                viewModel.invalidateScreen.value = false
+            }
+        })
+
+        viewModel.motionViewVisibility.observe(viewLifecycleOwner, Observer { visibility ->
+            board_editor_motion_view.visibility = visibility
+            board_editor_motion_view.initShape(viewModel.currentShape as TextShape)
+        })
 
         // init board
         viewModel.initBoard(activity as Context, board)
@@ -96,7 +112,7 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
             }
 
             R.id.menu_fragment_editor_export_board -> {
-                ImageExport.exportViewAsImage(activity as Context, boards_editor_drawing_view)
+                ImageExport.exportViewAsImage(activity as Context, board_editor_drawing_view)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -119,12 +135,23 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
         viewModel.initBoard(activity as Context, board)
         updateActionBarTitle()
 
-        boards_editor_drawing_view.invalidate()
+        board_editor_drawing_view.invalidate()
     }
 
     private fun showToolsDialog() {
         val intent = Intent(activity, ToolsDialogActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent, Request_code_TOOLS_DLG)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode) {
+            Request_code_TOOLS_DLG -> {
+                if(DrawingToolsModel.drawingShapeType == ShapeType.TextDraw) {
+                    viewModel.initTextShape()
+                }
+            }
+        }
     }
 
     private fun trySaveBoard() {
@@ -167,7 +194,7 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
 
     override fun clearBoardConfirmed() {
         viewModel.clearBoard()
-        boards_editor_drawing_view.invalidate()
+        board_editor_drawing_view.invalidate()
     }
 
     override fun handleMessage(message: ActorMessage) {
@@ -177,6 +204,19 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
             messageBackToFragmentID -> {
                 ActorMessageDispatcher.sendMessage(MainActivity::class.java, messageNavigateToBoardsListFragment)
             }
+
+            messageEditBoardMoveShapeID -> {
+                val point : PointF = message.msg[messageEditBoardMoveShapeParam] as PointF
+                viewModel.moveShapeTo(point)
+            }
+
+            messageEditBoardFinishMoveShapeID -> {
+                viewModel.finishShapeMotion()
+            }
+
+            messageEditBoardInvalidateDrawID -> {
+                board_editor_drawing_view.invalidate()
+            }
         }
     }
 
@@ -185,6 +225,5 @@ class BoardEditorFragment : BaseActorFragment(), BoardDrawingViewHolderInt,
     var boardHasName : Boolean = false
     private var lastMenuItemClickedID = -1
     private var board : Board? = null
-
 
 }

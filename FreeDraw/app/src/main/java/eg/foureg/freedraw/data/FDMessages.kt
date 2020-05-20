@@ -14,3 +14,16 @@ const val messageNavigateToEditBoardFragmentID  : Int = 30
 val messageNavigateToEditBoardFragmentMap = HashMap<Int,Any>()
 const val messageNavigateToEditBoardParam = 31
 val messageNavigateToEditBoardFragment = ActorMessage(messageNavigateToEditBoardFragmentID, messageNavigateToEditBoardFragmentMap)
+
+const val messageEditBoardMoveShapeID  : Int = 40
+val messageEditBoardMoveShapeMap = HashMap<Int,Any>()
+const val messageEditBoardMoveShapeParam = 41
+val messageEditBoardMoveShape = ActorMessage(messageEditBoardMoveShapeID, messageEditBoardMoveShapeMap)
+
+const val messageEditBoardFinishMoveShapeID  : Int = 50
+val messageEditBoardFinishMoveShapeMap = HashMap<Int,Any>()
+val messageEditBoardFinishMoveShape = ActorMessage(messageEditBoardFinishMoveShapeID, messageEditBoardFinishMoveShapeMap)
+
+const val messageEditBoardInvalidateDrawID  : Int = 60
+val messageEditBoardInvalidateDrawMap = HashMap<Int,Any>()
+val messageEditBoardInvalidateDraw = ActorMessage(messageEditBoardInvalidateDrawID, messageEditBoardInvalidateDrawMap)

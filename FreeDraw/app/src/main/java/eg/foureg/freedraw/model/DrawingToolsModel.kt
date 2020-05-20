@@ -7,4 +7,5 @@ object DrawingToolsModel {
     var drawingColor : Int = Color.BLACK
     var fillingColor : Int = Color.CYAN
     var drawingShapeType: ShapeType = ShapeType.FreeDraw
+    var drawingText : String? = null
 }

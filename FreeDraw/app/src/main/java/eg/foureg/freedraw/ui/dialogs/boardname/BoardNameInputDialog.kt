@@ -13,8 +13,8 @@ object BoardNameInputDialog {
 
     fun createDialog(context: Context, boardNameInputDialogInt: BoardNameInputDialogInt) : AlertDialog.Builder {
         val alertDialog  = AlertDialog.Builder(context)
-        alertDialog.setTitle(context.getString(R.string.txt_dialog_title_enter_board_name_to_save))
-        alertDialog.setMessage(context.getString(R.string.txt_dialog_msg_enter_board_name_to_save))
+        alertDialog.setTitle(context.getString(R.string.txt_board_name_dialog_title_enter_to_save))
+        alertDialog.setMessage(context.getString(R.string.txt_board_name_dialog_msg_enter_to_save))
 
         val input = EditText(context)
         val lp = LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT,
@@ -23,13 +23,13 @@ object BoardNameInputDialog {
         input.layoutParams = lp
         alertDialog.setView(input)
 
-        alertDialog.setPositiveButton(context.getString(R.string.txt_dialog_positive_enter_board_name_to_save)) { dialog, which ->
-            Logs.debug(TAG, "Board Name entered is ${input.text.toString()}")
+        alertDialog.setPositiveButton(context.getString(R.string.txt_board_name_dialog_positive_enter_to_save)) { dialog, which ->
+            Logs.debug(TAG, "Board Name entered is ${input.text}")
             boardNameInputDialogInt.boardNameDialogPositiveAction(input.text.toString())
             dialog.cancel()
         }
 
-        alertDialog.setNegativeButton(context.getString(R.string.txt_dialog_negative_enter_board_name_to_save)) { dialog, which ->
+        alertDialog.setNegativeButton(context.getString(R.string.txt_board_name_dialog_negative_enter_to_save)) { dialog, which ->
             boardNameInputDialogInt.boardNameDialogNegativeAction()
             dialog.cancel()
         }
