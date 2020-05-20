@@ -11,16 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import eg.foureg.freedraw.R
 import eg.foureg.freedraw.common.actor.ActorMessage
 import eg.foureg.freedraw.common.actor.ActorMessageDispatcher
-import eg.foureg.freedraw.data.Board
-import eg.foureg.freedraw.data.ShapeType
-import eg.foureg.freedraw.data.messageBackToFragmentID
-import eg.foureg.freedraw.data.messageNavigateToBoardsListFragment
+import eg.foureg.freedraw.data.*
 import eg.foureg.freedraw.features.export.ImageExport
 import eg.foureg.freedraw.model.DrawingToolsModel
 import eg.foureg.freedraw.ui.BaseActorFragment
 import eg.foureg.freedraw.ui.MainActivity
 import eg.foureg.freedraw.ui.boards.editor.drawerview.BoardDrawingViewHolderInt
-import eg.foureg.freedraw.ui.boards.editor.motionview.BoardMotionViewHolderInt
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialog
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialogInt
 import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardConfirmationDialog
@@ -30,7 +26,6 @@ import kotlinx.android.synthetic.main.board_editor_fragment.*
 
 class BoardEditorFragment : BaseActorFragment(),
     BoardDrawingViewHolderInt,
-    BoardMotionViewHolderInt,
     BoardNameInputDialogInt,
     ClearBoardDialogInt {
 
@@ -68,7 +63,6 @@ class BoardEditorFragment : BaseActorFragment(),
 
         // init holder interface
         board_editor_drawing_view.initHolderInterface(this)
-        board_editor_motion_view.initHolderInterface(this)
 
         viewModel.invalidateScreen.observe(viewLifecycleOwner, Observer {invalidateView ->
             if(invalidateView) {
@@ -180,14 +174,6 @@ class BoardEditorFragment : BaseActorFragment(),
         viewModel.drawBoard(canvas)
     }
 
-    override fun moveShapeTo(pointF: PointF) {
-        viewModel.moveShapeTo(pointF)
-    }
-
-    override fun finishShapeMotion() {
-        viewModel.finishShapeMotion()
-    }
-
     override fun boardNameDialogPositiveAction(name:String) {
         viewModel.board.name = name
         boardHasName = true
@@ -216,6 +202,15 @@ class BoardEditorFragment : BaseActorFragment(),
         when(message.what) {
             messageBackToFragmentID -> {
                 ActorMessageDispatcher.sendMessage(MainActivity::class.java, messageNavigateToBoardsListFragment)
+            }
+
+            messageEditBoardMoveShapeID -> {
+                val point : PointF = message.msg[messageEditBoardMoveShapeParam] as PointF
+                viewModel.moveShapeTo(point)
+            }
+
+            messageEditBoardFinishMoveShapeID -> {
+                viewModel.finishShapeMotion()
             }
         }
     }
