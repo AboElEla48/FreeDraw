@@ -99,6 +99,10 @@ class BoardEditorFragment : BaseActorFragment(),
                 ClearBoardConfirmationDialog.createDialog(activity as Context).show()
             }
 
+            R.id.menu_fragment_editor_erase_board -> {
+                viewModel.startEraser()
+            }
+
             R.id.menu_fragment_editor_tools_board -> {
                 showToolsDialog()
             }

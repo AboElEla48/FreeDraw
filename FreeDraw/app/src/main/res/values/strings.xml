@@ -5,6 +5,7 @@
 
     <string name="txt_menu_options_new_board_item">New</string>
     <string name="txt_menu_options_clear_board_item">Clear</string>
+    <string name="txt_menu_options_erase_board_item">Erase</string>
     <string name="txt_menu_options_tools_item">Tools</string>
     <string name="txt_menu_options_save_item">Save</string>
     <string name="txt_menu_options_export_item">Export</string>

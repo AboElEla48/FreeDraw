@@ -1,12 +1,14 @@
 package eg.foureg.freedraw.data
 
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.PointF
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 enum class ShapeType {
     FreeDraw,
+    EraseDraw,
     TextDraw,
     BitmapDraw,
     RectDraw,
@@ -55,3 +57,9 @@ data class RectShape(var topLeftPoint : PointF, var rightBottomPoint: PointF, va
  */
 @Parcelize
 data class LineShape(var startPoint : PointF, var endPoint: PointF, val drawColor: Int) :Shape(drawColor, ShapeType.LineDraw)
+
+/**
+ * Shape class for Eraser. It is like Free Draw but with background color
+ */
+@Parcelize
+data class EraseShape(val erasePoints : ArrayList<PointF>) : Shape(Color.WHITE, ShapeType.EraseDraw)

@@ -79,6 +79,11 @@ class BoardEditorViewModel : ViewModel() {
                 board.shapes.add(currentShape)
             }
 
+            ShapeType.EraseDraw -> {
+                currentShape = EraseShape(ArrayList())
+                board.shapes.add(currentShape)
+            }
+
             else -> {}
         }
 
@@ -107,6 +112,10 @@ class BoardEditorViewModel : ViewModel() {
 
             ShapeType.LineDraw -> {
                 (currentShape as LineShape).endPoint = pointF
+            }
+
+            ShapeType.EraseDraw -> {
+                (currentShape as EraseShape).erasePoints.add(pointF)
             }
 
             else -> {}
@@ -180,6 +189,10 @@ class BoardEditorViewModel : ViewModel() {
         Logs.debug(TAG, "clearBoard()")
         board.shapes.clear()
         isBoardSaved = false
+    }
+
+    fun startEraser() {
+        DrawingToolsModel.drawingShapeType = ShapeType.EraseDraw
     }
 
     fun saveBoard() {
