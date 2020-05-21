@@ -60,15 +60,8 @@ fun createFillingPaint(c: Int) : Paint {
 
 fun drawShapeFreeDraw(canvas: Canvas, shape: FreeShape, paint: Paint) {
     // draw the shape points
-    drawFreeShapePoints(canvas, shape.points, paint)
-//    for( i in 0 until shape.points.size - 1) {
-//        canvas.drawLine(shape.points[i].x, shape.points[i].y, shape.points[i+1].x, shape.points[i+1].y, paint)
-//    }
-}
-
-private fun drawFreeShapePoints(canvas: Canvas, points: List<PointF>, paint: Paint) {
-    for( i in 0 until points.size - 1) {
-        canvas.drawLine(points[i].x, points[i].y, points[i+1].x, points[i+1].y, paint)
+    for( i in 0 until shape.points.size - 1) {
+        canvas.drawLine(shape.points[i].x, shape.points[i].y, shape.points[i+1].x, shape.points[i+1].y, paint)
     }
 }
 
@@ -76,7 +69,14 @@ fun drawEraser(canvas: Canvas, shape: EraseShape, paint: Paint) {
     paint.color = Color.WHITE
     paint.strokeWidth = 15f
 
-    drawFreeShapePoints(canvas, shape.erasePoints, paint)
+    val eraseRadius = 5f
+    for( i in 0 until shape.erasePoints.size - 1) {
+        canvas.drawCircle(shape.erasePoints[i].x - eraseRadius,
+            shape.erasePoints[i].y - eraseRadius,
+            eraseRadius,
+            paint)
+    }
+
 }
 
 fun drawShapeText(canvas: Canvas, shape: TextShape, paint: Paint) {
