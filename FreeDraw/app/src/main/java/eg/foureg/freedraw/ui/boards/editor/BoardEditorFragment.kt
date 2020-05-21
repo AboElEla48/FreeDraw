@@ -31,7 +31,7 @@ class BoardEditorFragment : BaseActorFragment(),
 
     companion object {
 
-        const val BUNDLE_BOARD : String = "BUNDLE_BOARD"
+        const val BUNDLE_BOARD: String = "BUNDLE_BOARD"
         const val Request_code_TOOLS_DLG = 1
 
         fun newInstance(board: Board?) = BoardEditorFragment().apply {
@@ -64,8 +64,8 @@ class BoardEditorFragment : BaseActorFragment(),
         // init holder interface
         board_editor_drawing_view.initHolderInterface(this)
 
-        viewModel.invalidateScreen.observe(viewLifecycleOwner, Observer {invalidateView ->
-            if(invalidateView) {
+        viewModel.invalidateScreen.observe(viewLifecycleOwner, Observer { invalidateView ->
+            if (invalidateView) {
                 board_editor_drawing_view.invalidate()
                 viewModel.invalidateScreen.value = false
             }
@@ -90,9 +90,9 @@ class BoardEditorFragment : BaseActorFragment(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         lastMenuItemClickedID = item.itemId
 
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.menu_fragment_editor_new_board -> {
-                if(viewModel.isBoardSaved) {
+                if (viewModel.isBoardSaved) {
                     initEmptyBoard()
                 } else {
                     trySaveBoard()
@@ -118,13 +118,11 @@ class BoardEditorFragment : BaseActorFragment(),
         return super.onOptionsItemSelected(item)
     }
 
-    private fun updateActionBarTitle()
-    {
-        if(board == null) {
+    private fun updateActionBarTitle() {
+        if (board == null) {
             (activity as MainActivity).updateActionBarTitle(getString(R.string.txt_default_new_board_name))
             boardHasName = false
-        }
-        else {
+        } else {
             (activity as MainActivity).updateActionBarTitle(board!!.name)
             boardHasName = true
         }
@@ -145,9 +143,9 @@ class BoardEditorFragment : BaseActorFragment(),
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode) {
+        when (requestCode) {
             Request_code_TOOLS_DLG -> {
-                if(DrawingToolsModel.drawingShapeType == ShapeType.TextDraw) {
+                if (DrawingToolsModel.drawingShapeType == ShapeType.TextDraw) {
                     viewModel.initTextShape()
                 }
             }
@@ -155,7 +153,7 @@ class BoardEditorFragment : BaseActorFragment(),
     }
 
     private fun trySaveBoard() {
-        if(boardHasName){
+        if (boardHasName) {
             viewModel.saveBoard()
         } else {
             // Show dialog to rename the board
@@ -175,7 +173,7 @@ class BoardEditorFragment : BaseActorFragment(),
         viewModel.drawBoard(canvas)
     }
 
-    override fun boardNameDialogPositiveAction(name:String) {
+    override fun boardNameDialogPositiveAction(name: String) {
         viewModel.board.name = name
         boardHasName = true
 
@@ -183,7 +181,7 @@ class BoardEditorFragment : BaseActorFragment(),
 
         viewModel.saveBoard()
 
-        if(lastMenuItemClickedID == R.id.menu_fragment_editor_new_board) {
+        if (lastMenuItemClickedID == R.id.menu_fragment_editor_new_board) {
             //init new board after saving
             initEmptyBoard()
         }
@@ -200,20 +198,27 @@ class BoardEditorFragment : BaseActorFragment(),
     override fun handleMessage(message: ActorMessage) {
         super.handleMessage(message)
 
-        when(message.what) {
+        when (message.what) {
+            // Navigate back to list fragment
             messageBackToFragmentID -> {
-                ActorMessageDispatcher.sendMessage(MainActivity::class.java, messageNavigateToBoardsListFragment)
+                ActorMessageDispatcher.sendMessage(
+                    MainActivity::class.java,
+                    messageNavigateToBoardsListFragment
+                )
             }
 
+            // Move shape
             messageEditBoardMoveShapeID -> {
-                val point : PointF = message.msg[messageEditBoardMoveShapeParam] as PointF
+                val point: PointF = message.msg[messageEditBoardMoveShapeParam] as PointF
                 viewModel.moveShapeTo(point)
             }
 
+            // Finish Move shape
             messageEditBoardFinishMoveShapeID -> {
                 viewModel.finishShapeMotion()
             }
 
+            // Invalidate draw
             messageEditBoardInvalidateDrawID -> {
                 board_editor_drawing_view.invalidate()
             }
@@ -222,8 +227,8 @@ class BoardEditorFragment : BaseActorFragment(),
 
 
     private lateinit var viewModel: BoardEditorViewModel
-    var boardHasName : Boolean = false
+    var boardHasName: Boolean = false
     private var lastMenuItemClickedID = -1
-    private var board : Board? = null
+    private var board: Board? = null
 
 }

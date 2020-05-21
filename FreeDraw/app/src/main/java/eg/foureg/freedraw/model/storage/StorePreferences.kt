@@ -72,6 +72,10 @@ object StorePreferences {
                 "RectDraw" -> {
                     board.shapes[i] = gson.fromJson(shapesJSONArr.get(i).toString(), RectShape::class.java)
                 }
+
+                "LineDraw" -> {
+                    board.shapes[i] = gson.fromJson(shapesJSONArr.get(i).toString(), LineShape::class.java)
+                }
             }
         }
 

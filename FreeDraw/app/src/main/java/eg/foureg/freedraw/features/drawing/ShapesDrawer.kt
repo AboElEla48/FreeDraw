@@ -29,6 +29,10 @@ fun drawShape(canvas: Canvas, shape: Shape) {
         ShapeType.CircleDraw -> {
             drawCircleShape(canvas, shape as CircleShape, drawingPaint, createFillingPaint(shape.fillColor))
         }
+
+        ShapeType.LineDraw -> {
+            drawLineShape(canvas, shape as LineShape, drawingPaint)
+        }
     }
 }
 
@@ -72,4 +76,8 @@ fun drawCircleShape(canvas: Canvas, shape: CircleShape, paint: Paint, fillingPai
 fun drawRectShape(canvas: Canvas, shape: RectShape, paint: Paint, fillingPaint: Paint) {
     canvas.drawRect(shape.topLeftPoint.x, shape.topLeftPoint.y, shape.rightBottomPoint.x, shape.rightBottomPoint.y, paint)
     canvas.drawRect(shape.topLeftPoint.x, shape.topLeftPoint.y, shape.rightBottomPoint.x, shape.rightBottomPoint.y, fillingPaint)
+}
+
+fun drawLineShape(canvas: Canvas, shape: LineShape, paint: Paint) {
+    canvas.drawLine(shape.startPoint.x, shape.startPoint.y, shape.endPoint.x, shape.endPoint.y,  paint)
 }

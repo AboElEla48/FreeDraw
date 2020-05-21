@@ -34,6 +34,7 @@
     <string name="txt_tools_dialog_free_draw_btn_label">Free Draw</string>
     <string name="txt_tools_dialog_rect_btn_label">Rectangle</string>
     <string name="txt_tools_dialog_circle_btn_label">Circle</string>
+    <string name="txt_tools_dialog_line_btn_label">Line</string>
     <string name="txt_tools_dialog_text_btn_label">Text</string>
     <string name="txt_tools_dialog_bitmap_btn_label">Bitmap</string>
 
