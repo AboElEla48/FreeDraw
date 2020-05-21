@@ -1,8 +1,11 @@
 package eg.foureg.freedraw.features.drawing
 
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.PointF
 import eg.foureg.freedraw.data.*
+import kotlinx.coroutines.processNextEventInCurrentThread
 
 fun drawShape(canvas: Canvas, shape: Shape) {
 
@@ -33,6 +36,10 @@ fun drawShape(canvas: Canvas, shape: Shape) {
         ShapeType.LineDraw -> {
             drawLineShape(canvas, shape as LineShape, drawingPaint)
         }
+
+        ShapeType.EraseDraw -> {
+            drawEraser(canvas, shape as EraseShape, drawingPaint)
+        }
     }
 }
 
@@ -56,6 +63,20 @@ fun drawShapeFreeDraw(canvas: Canvas, shape: FreeShape, paint: Paint) {
     for( i in 0 until shape.points.size - 1) {
         canvas.drawLine(shape.points[i].x, shape.points[i].y, shape.points[i+1].x, shape.points[i+1].y, paint)
     }
+}
+
+fun drawEraser(canvas: Canvas, shape: EraseShape, paint: Paint) {
+    paint.color = Color.WHITE
+    paint.strokeWidth = 15f
+
+    val eraseRadius = 5f
+    for( i in 0 until shape.erasePoints.size - 1) {
+        canvas.drawCircle(shape.erasePoints[i].x - eraseRadius,
+            shape.erasePoints[i].y - eraseRadius,
+            eraseRadius,
+            paint)
+    }
+
 }
 
 fun drawShapeText(canvas: Canvas, shape: TextShape, paint: Paint) {
