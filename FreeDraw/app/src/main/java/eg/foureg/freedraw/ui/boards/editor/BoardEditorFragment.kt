@@ -18,7 +18,6 @@ import eg.foureg.freedraw.ui.BaseActorFragment
 import eg.foureg.freedraw.ui.MainActivity
 import eg.foureg.freedraw.ui.boards.editor.drawerview.BoardDrawingViewHolderInt
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialog
-import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialogInt
 import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardConfirmationDialog
 import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardDialogInt
 import eg.foureg.freedraw.ui.dialogs.tools.ToolsDialogActivity
@@ -26,7 +25,6 @@ import kotlinx.android.synthetic.main.board_editor_fragment.*
 
 class BoardEditorFragment : BaseActorFragment(),
     BoardDrawingViewHolderInt,
-    BoardNameInputDialogInt,
     ClearBoardDialogInt {
 
     companion object {
@@ -157,7 +155,7 @@ class BoardEditorFragment : BaseActorFragment(),
             viewModel.saveBoard()
         } else {
             // Show dialog to rename the board
-            BoardNameInputDialog.createDialog(activity as Context, this).show()
+            BoardNameInputDialog.createDialog(activity as Context).show()
         }
     }
 
@@ -173,7 +171,7 @@ class BoardEditorFragment : BaseActorFragment(),
         viewModel.drawBoard(canvas)
     }
 
-    override fun boardNameDialogPositiveAction(name: String) {
+    fun setBoardName(name: String) {
         viewModel.board.name = name
         boardHasName = true
 
@@ -185,9 +183,7 @@ class BoardEditorFragment : BaseActorFragment(),
             //init new board after saving
             initEmptyBoard()
         }
-    }
 
-    override fun boardNameDialogNegativeAction() {
     }
 
     override fun clearBoardConfirmed() {
@@ -221,6 +217,12 @@ class BoardEditorFragment : BaseActorFragment(),
             // Invalidate draw
             messageEditBoardInvalidateDrawID -> {
                 board_editor_drawing_view.invalidate()
+            }
+
+            // set board name
+            messageEditBoardSetBoardNameID -> {
+                val boardName = message.msg[messageEditBoardSetBoardNameParam] as String
+                setBoardName(boardName)
             }
         }
     }
