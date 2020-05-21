@@ -19,13 +19,11 @@ import eg.foureg.freedraw.ui.MainActivity
 import eg.foureg.freedraw.ui.boards.editor.drawerview.BoardDrawingViewHolderInt
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialog
 import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardConfirmationDialog
-import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardDialogInt
 import eg.foureg.freedraw.ui.dialogs.tools.ToolsDialogActivity
 import kotlinx.android.synthetic.main.board_editor_fragment.*
 
 class BoardEditorFragment : BaseActorFragment(),
-    BoardDrawingViewHolderInt,
-    ClearBoardDialogInt {
+    BoardDrawingViewHolderInt {
 
     companion object {
 
@@ -98,7 +96,7 @@ class BoardEditorFragment : BaseActorFragment(),
             }
 
             R.id.menu_fragment_editor_clear_board -> {
-                ClearBoardConfirmationDialog.createDialog(activity as Context, this).show()
+                ClearBoardConfirmationDialog.createDialog(activity as Context).show()
             }
 
             R.id.menu_fragment_editor_tools_board -> {
@@ -171,7 +169,7 @@ class BoardEditorFragment : BaseActorFragment(),
         viewModel.drawBoard(canvas)
     }
 
-    fun setBoardName(name: String) {
+    private fun setBoardName(name: String) {
         viewModel.board.name = name
         boardHasName = true
 
@@ -186,7 +184,7 @@ class BoardEditorFragment : BaseActorFragment(),
 
     }
 
-    override fun clearBoardConfirmed() {
+    fun clearBoard() {
         viewModel.clearBoard()
         board_editor_drawing_view.invalidate()
     }
@@ -223,6 +221,10 @@ class BoardEditorFragment : BaseActorFragment(),
             messageEditBoardSetBoardNameID -> {
                 val boardName = message.msg[messageEditBoardSetBoardNameParam] as String
                 setBoardName(boardName)
+            }
+
+            messageEditBoardClearID -> {
+                clearBoard()
             }
         }
     }

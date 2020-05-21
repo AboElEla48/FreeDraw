@@ -12,7 +12,6 @@ import eg.foureg.freedraw.data.messageEditBoardSetBoardNameMap
 import eg.foureg.freedraw.data.messageEditBoardSetBoardNameParam
 import eg.foureg.freedraw.ui.boards.editor.BoardEditorFragment
 
-
 object BoardNameInputDialog {
     const val TAG = "BoardNameInputDialog"
 

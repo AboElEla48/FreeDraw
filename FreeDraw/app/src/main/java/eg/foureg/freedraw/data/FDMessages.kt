@@ -32,3 +32,7 @@ const val messageEditBoardSetBoardNameID  : Int = 70
 val messageEditBoardSetBoardNameMap = HashMap<Int,Any>()
 const val messageEditBoardSetBoardNameParam = 71
 val messageEditBoardSetBoardName = ActorMessage(messageEditBoardSetBoardNameID, messageEditBoardSetBoardNameMap)
+
+const val messageEditBoardClearID  : Int = 80
+val messageEditBoardClearMap = HashMap<Int,Any>()
+val messageEditBoardClear = ActorMessage(messageEditBoardClearID, messageEditBoardClearMap)
