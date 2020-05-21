@@ -27,3 +27,12 @@ val messageEditBoardFinishMoveShape = ActorMessage(messageEditBoardFinishMoveSha
 const val messageEditBoardInvalidateDrawID  : Int = 60
 val messageEditBoardInvalidateDrawMap = HashMap<Int,Any>()
 val messageEditBoardInvalidateDraw = ActorMessage(messageEditBoardInvalidateDrawID, messageEditBoardInvalidateDrawMap)
+
+const val messageEditBoardSetBoardNameID  : Int = 70
+val messageEditBoardSetBoardNameMap = HashMap<Int,Any>()
+const val messageEditBoardSetBoardNameParam = 71
+val messageEditBoardSetBoardName = ActorMessage(messageEditBoardSetBoardNameID, messageEditBoardSetBoardNameMap)
+
+const val messageEditBoardClearID  : Int = 80
+val messageEditBoardClearMap = HashMap<Int,Any>()
+val messageEditBoardClear = ActorMessage(messageEditBoardClearID, messageEditBoardClearMap)

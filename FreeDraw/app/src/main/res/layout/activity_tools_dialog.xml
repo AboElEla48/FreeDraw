@@ -58,6 +58,14 @@
                 style="@style/StyleToolsDialogShapesButton"/>
 
             <RadioButton
+                android:id="@+id/tools_dialog_shape_type_line_radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_tools_dialog_line_btn_label"
+                android:checked="false"
+                style="@style/StyleToolsDialogShapesButton"/>
+
+            <RadioButton
                 android:id="@+id/tools_dialog_shape_type_text_radio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

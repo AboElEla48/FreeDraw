@@ -23,6 +23,10 @@ class ToolsDialogViewModel : ViewModel() {
                 rectShapeRadioChecked.value = true
             }
 
+            ShapeType.LineDraw -> {
+                lineShapeRadioChecked.value = true
+            }
+
             ShapeType.TextDraw -> {
                 textShapeRadioChecked.value = true
             }
@@ -40,6 +44,7 @@ class ToolsDialogViewModel : ViewModel() {
         freeDrawShapeRadioChecked.value = false
         circleShapeRadioChecked.value = false
         rectShapeRadioChecked.value = false
+        lineShapeRadioChecked.value = false
         textShapeRadioChecked.value = false
         bitmapShapeRadioChecked.value = false
     }
@@ -51,6 +56,8 @@ class ToolsDialogViewModel : ViewModel() {
             DrawingToolsModel.drawingShapeType = ShapeType.CircleDraw
         } else if(rectShapeRadioChecked.value!!) {
             DrawingToolsModel.drawingShapeType = ShapeType.RectDraw
+        }else if(lineShapeRadioChecked.value!!) {
+            DrawingToolsModel.drawingShapeType = ShapeType.LineDraw
         }else if(textShapeRadioChecked.value!!) {
             DrawingToolsModel.drawingShapeType = ShapeType.TextDraw
         }else if(bitmapShapeRadioChecked.value!!) {
@@ -71,6 +78,7 @@ class ToolsDialogViewModel : ViewModel() {
     val freeDrawShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
     val circleShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
     val rectShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
+    val lineShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
     val textShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
     val bitmapShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
 

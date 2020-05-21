@@ -73,6 +73,12 @@ class BoardEditorViewModel : ViewModel() {
                 currentShape = RectShape(startPoint, startPoint, DrawingToolsModel.drawingColor, DrawingToolsModel.fillingColor)
                 board.shapes.add(currentShape)
             }
+
+            ShapeType.LineDraw -> {
+                currentShape = LineShape(startPoint, startPoint, DrawingToolsModel.drawingColor)
+                board.shapes.add(currentShape)
+            }
+
             else -> {}
         }
 
@@ -98,6 +104,11 @@ class BoardEditorViewModel : ViewModel() {
             ShapeType.RectDraw -> {
                 (currentShape as RectShape).rightBottomPoint = pointF
             }
+
+            ShapeType.LineDraw -> {
+                (currentShape as LineShape).endPoint = pointF
+            }
+
             else -> {}
         }
     }

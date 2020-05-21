@@ -32,6 +32,10 @@ class ToolsDialogActivity : AppCompatActivity() {
             tools_dialog_shape_type_rect_radio.isChecked = checked
         })
 
+        viewModel.lineShapeRadioChecked.observe(this, Observer { checked ->
+            tools_dialog_shape_type_line_radio.isChecked = checked
+        })
+
         viewModel.textShapeRadioChecked.observe(this, Observer { checked ->
             tools_dialog_shape_type_text_radio.isChecked = checked
         })
@@ -100,6 +104,10 @@ class ToolsDialogActivity : AppCompatActivity() {
 
                 R.id.tools_dialog_shape_type_circle_radio -> {
                     viewModel.circleShapeRadioChecked.value = true
+                }
+
+                R.id.tools_dialog_shape_type_line_radio -> {
+                    viewModel.lineShapeRadioChecked.value = true
                 }
 
                 R.id.tools_dialog_shape_type_text_radio -> {

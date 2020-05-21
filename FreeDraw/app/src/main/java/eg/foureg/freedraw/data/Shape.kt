@@ -10,7 +10,8 @@ enum class ShapeType {
     TextDraw,
     BitmapDraw,
     RectDraw,
-    CircleDraw
+    CircleDraw,
+    LineDraw
 }
 
 /**
@@ -48,3 +49,9 @@ data class CircleShape(var topLeftPoint : PointF, var rightBottomPoint: PointF, 
  */
 @Parcelize
 data class RectShape(var topLeftPoint : PointF, var rightBottomPoint: PointF, val outerColor: Int,  val fillColor: Int) :Shape(outerColor, ShapeType.RectDraw)
+
+/**
+ * Line Shape class
+ */
+@Parcelize
+data class LineShape(var startPoint : PointF, var endPoint: PointF, val drawColor: Int) :Shape(drawColor, ShapeType.LineDraw)
