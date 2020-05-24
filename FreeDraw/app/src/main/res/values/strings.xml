@@ -6,6 +6,7 @@
     <string name="txt_menu_options_new_board_item">New</string>
     <string name="txt_menu_options_clear_board_item">Clear</string>
     <string name="txt_menu_options_erase_board_item">Erase</string>
+    <string name="txt_menu_options_undo_board_item">Undo</string>
     <string name="txt_menu_options_tools_item">Tools</string>
     <string name="txt_menu_options_save_item">Save</string>
     <string name="txt_menu_options_export_item">Export</string>
@@ -37,7 +38,6 @@
     <string name="txt_tools_dialog_circle_btn_label">Circle</string>
     <string name="txt_tools_dialog_line_btn_label">Line</string>
     <string name="txt_tools_dialog_text_btn_label">Text</string>
-    <string name="txt_tools_dialog_bitmap_btn_label">Bitmap</string>
 
     <string name="txt_tools_dialog_color_title_label">Select Drawing Color</string>
     <string name="txt_tools_RGB_label">RGB</string>

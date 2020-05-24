@@ -30,10 +30,7 @@ class ToolsDialogViewModel : ViewModel() {
             ShapeType.TextDraw -> {
                 textShapeRadioChecked.value = true
             }
-
-            ShapeType.BitmapDraw -> {
-                bitmapShapeRadioChecked.value = true
-            }
+            else -> {}
         }
 
         drawingColor.value = DrawingToolsModel.drawingColor
@@ -46,7 +43,6 @@ class ToolsDialogViewModel : ViewModel() {
         rectShapeRadioChecked.value = false
         lineShapeRadioChecked.value = false
         textShapeRadioChecked.value = false
-        bitmapShapeRadioChecked.value = false
     }
 
     fun saveTools() {
@@ -60,8 +56,6 @@ class ToolsDialogViewModel : ViewModel() {
             DrawingToolsModel.drawingShapeType = ShapeType.LineDraw
         }else if(textShapeRadioChecked.value!!) {
             DrawingToolsModel.drawingShapeType = ShapeType.TextDraw
-        }else if(bitmapShapeRadioChecked.value!!) {
-            DrawingToolsModel.drawingShapeType = ShapeType.BitmapDraw
         }
     }
 
@@ -80,7 +74,6 @@ class ToolsDialogViewModel : ViewModel() {
     val rectShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
     val lineShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
     val textShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
-    val bitmapShapeRadioChecked : MutableLiveData<Boolean> = MutableLiveData()
 
     val drawingColor: MutableLiveData<Int> = MutableLiveData()
     val fillingColor: MutableLiveData<Int> = MutableLiveData()

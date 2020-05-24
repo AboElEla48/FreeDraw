@@ -21,10 +21,6 @@ fun drawShape(canvas: Canvas, shape: Shape) {
             drawShapeFreeDraw(canvas, shape as FreeShape, drawingPaint)
         }
 
-        ShapeType.BitmapDraw -> {
-            drawShapeBitmap(canvas, shape as ImageShape, drawingPaint)
-        }
-
         ShapeType.RectDraw -> {
             drawRectShape(canvas, shape as RectShape, drawingPaint, createFillingPaint(shape.fillColor))
         }
@@ -82,10 +78,6 @@ fun drawEraser(canvas: Canvas, shape: EraseShape, paint: Paint) {
 fun drawShapeText(canvas: Canvas, shape: TextShape, paint: Paint) {
     paint.textSize = shape.textSize
     canvas.drawText(shape.text, shape.topLeftPoint.x, shape.topLeftPoint.y, paint)
-}
-
-fun drawShapeBitmap(canvas: Canvas, shape: ImageShape, paint: Paint) {
-    TODO("Unsupported yet")
 }
 
 fun drawCircleShape(canvas: Canvas, shape: CircleShape, paint: Paint, fillingPaint: Paint) {

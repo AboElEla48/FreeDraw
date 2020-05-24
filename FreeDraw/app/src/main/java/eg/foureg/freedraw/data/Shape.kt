@@ -10,7 +10,6 @@ enum class ShapeType {
     FreeDraw,
     EraseDraw,
     TextDraw,
-    BitmapDraw,
     RectDraw,
     CircleDraw,
     LineDraw
@@ -33,12 +32,6 @@ data class FreeShape(val points : ArrayList<PointF>, val shapeColor : Int) : Sha
  */
 @Parcelize
 data class TextShape(val text: String, var topLeftPoint: PointF, var textSize: Float, val textColor: Int) :Shape(textColor, ShapeType.TextDraw)
-
-/**
- * Image Shape class
- */
-@Parcelize
-data class ImageShape(val bitmap: Bitmap, val backgroundColor: Int) :Shape(backgroundColor, ShapeType.BitmapDraw)
 
 /**
  * Circle Shape class

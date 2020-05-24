@@ -39,10 +39,6 @@ class ToolsDialogActivity : AppCompatActivity() {
             tools_dialog_shape_type_text_radio.isChecked = checked
         })
 
-        viewModel.bitmapShapeRadioChecked.observe(this, Observer { checked ->
-            tools_dialog_shape_type_bitmap_radio.isChecked = checked
-        })
-
         viewModel.drawingColor.observe(this, Observer { color ->
             tools_dialog_color_text_view.text = "$color"
         })
@@ -118,10 +114,6 @@ class ToolsDialogActivity : AppCompatActivity() {
 
                 R.id.tools_dialog_shape_type_text_radio -> {
                     viewModel.textShapeRadioChecked.value = true
-                }
-
-                R.id.tools_dialog_shape_type_bitmap_radio -> {
-                    viewModel.bitmapShapeRadioChecked.value = true
                 }
             }
             viewModel.saveTools()
