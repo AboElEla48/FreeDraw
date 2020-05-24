@@ -31,6 +31,7 @@ class BoardEditorViewModel : ViewModel() {
 
         isBoardSaved = true
         invalidateScreen.value = false
+        DrawingToolsModel.drawingShapeType = ShapeType.FreeDraw
 
         this.context = context
 
