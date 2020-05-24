@@ -19,7 +19,7 @@
         </activity>
 
         <activity android:name=".ui.dialogs.tools.ToolsDialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog"
+            android:theme="@style/Theme.AppCompat.DialogWhenLarge"
             android:label="@string/txt_tools_dialog_title"/>
 
     </application>
