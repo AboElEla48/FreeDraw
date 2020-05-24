@@ -2,7 +2,6 @@ package eg.foureg.freedraw.ui.dialogs.tools
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -53,8 +52,11 @@ class ToolsDialogActivity : AppCompatActivity() {
         })
 
         tools_dialog_color_text_view.setOnClickListener {
-            val c = Color.valueOf(viewModel.drawingColor.value!!)
-            val colorDlg = ColorPicker(this, c.red().toInt(), c.green().toInt(), c.blue().toInt() )
+            val red = Color.red(viewModel.drawingColor.value!!)
+            val green = Color.green(viewModel.drawingColor.value!!)
+            val blue = Color.blue(viewModel.drawingColor.value!!)
+
+            val colorDlg = ColorPicker(this, red, green, blue)
             colorDlg.show()
 
 
@@ -72,8 +74,12 @@ class ToolsDialogActivity : AppCompatActivity() {
         }
 
         tools_dialog_filling_color_text_view.setOnClickListener {
-            val c = Color.valueOf(viewModel.fillingColor.value!!)
-            val colorDlg = ColorPicker(this, c.red().toInt(), c.green().toInt(), c.blue().toInt() )
+            val red = Color.red(viewModel.fillingColor.value!!)
+            val green = Color.green(viewModel.fillingColor.value!!)
+            val blue = Color.blue(viewModel.fillingColor.value!!)
+
+
+            val colorDlg = ColorPicker(this, red, green, blue)
             colorDlg.show()
 
 
