@@ -84,13 +84,12 @@ class BoardEditorFragment : BaseActorFragment(),
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        lastMenuItemClickedID = item.itemId
-
         when (item.itemId) {
             R.id.menu_fragment_editor_new_board -> {
                 if (viewModel.isBoardSaved) {
                     initEmptyBoard()
                 } else {
+                    shouldOpenNewBoard = true
                     trySaveBoard()
                 }
             }
@@ -129,6 +128,7 @@ class BoardEditorFragment : BaseActorFragment(),
     }
 
     private fun initEmptyBoard() {
+        shouldOpenNewBoard = false
         board = null
         viewModel.initBoard(activity as Context, board)
         updateActionBarTitle()
@@ -181,7 +181,7 @@ class BoardEditorFragment : BaseActorFragment(),
 
         viewModel.saveBoard()
 
-        if (lastMenuItemClickedID == R.id.menu_fragment_editor_new_board) {
+        if (shouldOpenNewBoard) {
             //init new board after saving
             initEmptyBoard()
         }
@@ -236,7 +236,7 @@ class BoardEditorFragment : BaseActorFragment(),
 
     private lateinit var viewModel: BoardEditorViewModel
     var boardHasName: Boolean = false
-    private var lastMenuItemClickedID = -1
+    private var shouldOpenNewBoard = false
     private var board: Board? = null
 
 }
