@@ -83,6 +83,11 @@ class BoardEditorFragment : BaseActorFragment(),
         inflater.inflate(R.menu.menu_fragment_editor_board, menu)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.findItem(R.id.menu_fragment_editor_undo_board).isVisible = viewModel.isUndoPossible()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_fragment_editor_new_board -> {
@@ -100,6 +105,10 @@ class BoardEditorFragment : BaseActorFragment(),
 
             R.id.menu_fragment_editor_erase_board -> {
                 viewModel.startEraser()
+            }
+
+            R.id.menu_fragment_editor_undo_board -> {
+                viewModel.undo()
             }
 
             R.id.menu_fragment_editor_tools_board -> {

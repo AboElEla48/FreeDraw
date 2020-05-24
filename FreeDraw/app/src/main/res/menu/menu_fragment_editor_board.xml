@@ -13,6 +13,10 @@
         android:title="@string/txt_menu_options_erase_board_item" />
 
     <item
+        android:id="@+id/menu_fragment_editor_undo_board"
+        android:title="@string/txt_menu_options_undo_board_item" />
+
+    <item
         android:id="@+id/menu_fragment_editor_tools_board"
         android:title="@string/txt_menu_options_tools_item"/>
 

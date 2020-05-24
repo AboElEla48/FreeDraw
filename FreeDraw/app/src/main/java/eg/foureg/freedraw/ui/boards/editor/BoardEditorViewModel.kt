@@ -13,6 +13,7 @@ import eg.foureg.freedraw.data.*
 import eg.foureg.freedraw.features.drawing.drawShape
 import eg.foureg.freedraw.model.BoardsModel
 import eg.foureg.freedraw.model.DrawingToolsModel
+import eg.foureg.freedraw.model.UndoActionModel
 import eg.foureg.freedraw.ui.dialogs.textdrawmsg.TextDrawMessageInputDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -63,34 +64,35 @@ class BoardEditorViewModel : ViewModel() {
             ShapeType.FreeDraw -> {
                 currentShape = FreeShape(ArrayList(), DrawingToolsModel.drawingColor)
                 board.shapes.add(currentShape)
+                undoActionModel.actionsStack.push(currentShape)
             }
 
             ShapeType.CircleDraw -> {
                 currentShape = CircleShape(startPoint, startPoint, DrawingToolsModel.drawingColor, DrawingToolsModel.fillingColor)
                 board.shapes.add(currentShape)
+                undoActionModel.actionsStack.push(currentShape)
             }
 
             ShapeType.RectDraw -> {
                 currentShape = RectShape(startPoint, startPoint, DrawingToolsModel.drawingColor, DrawingToolsModel.fillingColor)
                 board.shapes.add(currentShape)
+                undoActionModel.actionsStack.push(currentShape)
             }
 
             ShapeType.LineDraw -> {
                 currentShape = LineShape(startPoint, startPoint, DrawingToolsModel.drawingColor)
                 board.shapes.add(currentShape)
+                undoActionModel.actionsStack.push(currentShape)
             }
 
             ShapeType.EraseDraw -> {
                 currentShape = EraseShape(ArrayList())
                 board.shapes.add(currentShape)
+                undoActionModel.actionsStack.push(currentShape)
             }
 
             else -> {}
         }
-
-
-
-
     }
 
     /**
@@ -147,6 +149,7 @@ class BoardEditorViewModel : ViewModel() {
             if(DrawingToolsModel.drawingText?.length!! > 0) {
                 currentShape = TextShape(DrawingToolsModel.drawingText!!, PointF(120F, 120F), 70F, DrawingToolsModel.drawingColor)
                 board.shapes.add(currentShape)
+                undoActionModel.actionsStack.push(currentShape)
                 invalidateScreen.value = true
 
                 motionViewVisibility.value = View.VISIBLE
@@ -196,6 +199,23 @@ class BoardEditorViewModel : ViewModel() {
         DrawingToolsModel.drawingShapeType = ShapeType.EraseDraw
     }
 
+    fun isUndoPossible() : Boolean{
+        return undoActionModel.actionsStack.size > 0
+    }
+
+    fun undo() {
+        // Undo last action
+        if(!undoActionModel.actionsStack.empty()) {
+            val action = undoActionModel.actionsStack.pop()
+            board.shapes.remove(action)
+
+            invalidateScreen.value = true
+            if(motionViewVisibility.value == View.VISIBLE) {
+                finishShapeMotion()
+            }
+        }
+    }
+
     fun saveBoard() {
         Logs.debug(TAG, "saveBoard()")
         viewModelScope.launch {
@@ -211,6 +231,7 @@ class BoardEditorViewModel : ViewModel() {
     lateinit var currentShape : Shape
 
     private val boardModel = BoardsModel()
+    private val undoActionModel = UndoActionModel()
 
     val invalidateScreen = MutableLiveData<Boolean>()
     val motionViewVisibility = MutableLiveData<Int>()

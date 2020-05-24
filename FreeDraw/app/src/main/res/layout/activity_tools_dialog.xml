@@ -78,14 +78,6 @@
                     android:checked="false"
                     style="@style/StyleToolsDialogShapesButton"/>
 
-                <RadioButton
-                    android:id="@+id/tools_dialog_shape_type_bitmap_radio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_tools_dialog_bitmap_btn_label"
-                    android:checked="false"
-                    style="@style/StyleToolsDialogShapesButton"/>
-
             </RadioGroup>
 
             <TextView
