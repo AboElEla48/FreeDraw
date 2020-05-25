@@ -55,6 +55,11 @@ fun createFillingPaint(c: Int) : Paint {
 }
 
 fun drawShapeFreeDraw(canvas: Canvas, shape: FreeShape, paint: Paint) {
+
+    if(shape.points.size > 0) {
+        canvas.drawPoint(shape.points[0].x, shape.points[0].y, paint)
+    }
+
     // draw the shape points
     for( i in 0 until shape.points.size - 1) {
         canvas.drawLine(shape.points[i].x, shape.points[i].y, shape.points[i+1].x, shape.points[i+1].y, paint)
