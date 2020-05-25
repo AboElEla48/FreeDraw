@@ -21,7 +21,12 @@ class BoardsListingViewModel : ViewModel() {
 
     fun initViewModel(context: Context) {
         this.context = context
+        loadBoards()
+    }
+
+    private fun loadBoards() {
         boardsKeysList = boardsModel.loadBoardsKeys(context) as ArrayList<String>
+        boardsNamesList.clear()
 
         viewModelScope.launch {
 
@@ -35,7 +40,7 @@ class BoardsListingViewModel : ViewModel() {
         }
     }
 
-    fun selectItem(position: Int) {
+    fun openBoard(position: Int) {
         // get selected board
         val selectedBoard = boardsModel.loadBoard(context, boardsKeysList.get(position))
         messageNavigateToEditBoardFragmentMap.clear()
@@ -44,9 +49,29 @@ class BoardsListingViewModel : ViewModel() {
         ActorMessageDispatcher.sendMessage(MainActivity::class.java, messageNavigateToEditBoardFragment)
     }
 
+    fun deleteBoards(boardsIndices : List<Int>) {
+        val keysToBeDeleted = ArrayList<String>()
+
+        // Collect all keys to be deleted
+        for(pos in boardsIndices) {
+            keysToBeDeleted.add(boardsKeysList.get(pos))
+        }
+
+        val deleteJob = viewModelScope.launch {
+            boardsModel.deleteBoards(context, keysToBeDeleted)
+        }
+
+        viewModelScope.launch {
+            deleteJob.join()
+            loadBoards()
+        }
+
+    }
+
     private lateinit var context : Context
     lateinit var boardsKeysList: ArrayList<String>
     val boardsNamesList = ArrayList<String>()
     val notifyLoadingItemsFinished: MutableLiveData<Boolean> = MutableLiveData()
+
     private val boardsModel = BoardsModel()
 }

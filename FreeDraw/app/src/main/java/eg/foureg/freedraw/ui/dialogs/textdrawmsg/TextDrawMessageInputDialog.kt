@@ -24,13 +24,13 @@ object TextDrawMessageInputDialog {
         input.layoutParams = lp
         alertDialog.setView(input)
 
-        alertDialog.setPositiveButton(context.getString(R.string.txt_text_shape_dialog_positive_btn)) { dialog, which ->
+        alertDialog.setPositiveButton(context.getString(R.string.txt_text_shape_dialog_positive_btn)) { dialog, _ ->
             Logs.debug(TAG, "Text Shape String ${input.text}")
             DrawingToolsModel.drawingText = input.text.toString()
             dialog.cancel()
         }
 
-        alertDialog.setNegativeButton(context.getString(R.string.txt_text_shape_dialog_negative_btn)) { dialog, which ->
+        alertDialog.setNegativeButton(context.getString(R.string.txt_text_shape_dialog_negative_btn)) { dialog, _ ->
             DrawingToolsModel.drawingText = ""
             DrawingToolsModel.drawingShapeType = ShapeType.FreeDraw
             dialog.cancel()

@@ -4,19 +4,26 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import eg.foureg.freedraw.R
 
 
-class BoardsRecyclerAdapter(val context: Context, val itemsList: ArrayList<String>, val listener : BoardsListingFragment) :
+class BoardsRecyclerAdapter(val context: Context,
+                            private val itemsList: ArrayList<String>,
+                            private val listener : BoardsListingFragment,
+                            private val isSelectionMode: Boolean) :
     RecyclerView.Adapter<BoardsRecyclerAdapter.BoardsListViewHolder>() {
+
+    val selectionIndicesList: ArrayList<Int> = ArrayList()
 
     /**
      * Adapte View Holder
      */
     class BoardsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var nameTextView: TextView = itemView.findViewById<View>(R.id.board_listing_item_title_text_view) as TextView
+        val nameTextView: TextView = itemView.findViewById(R.id.board_listing_item_title_text_view)
+        val itemCheckBox: CheckBox = itemView.findViewById(R.id.board_listing_item_selection_check_box)
     }
 
 
@@ -39,10 +46,31 @@ class BoardsRecyclerAdapter(val context: Context, val itemsList: ArrayList<Strin
     override fun onBindViewHolder(holder: BoardsListViewHolder, position: Int) {
 
         holder.itemView.setOnClickListener {
-            listener.itemSelected(position)
+            listener.itemClicked(position)
+        }
+
+        holder.itemView.setOnLongClickListener{
+            listener.showSelectionMode()
+            true
         }
 
         holder.nameTextView.text = itemsList[position]
+
+        if(isSelectionMode) {
+            holder.itemCheckBox.visibility = View.VISIBLE
+        }
+
+        holder.itemCheckBox.tag = position
+        holder.itemCheckBox.setOnCheckedChangeListener{ view, isChecked ->
+            if(isChecked) {
+                val pos = view.tag as Int
+                selectionIndicesList.add(pos)
+            }
+            else {
+                selectionIndicesList.remove(position)
+            }
+        }
+
     }
 
 }
