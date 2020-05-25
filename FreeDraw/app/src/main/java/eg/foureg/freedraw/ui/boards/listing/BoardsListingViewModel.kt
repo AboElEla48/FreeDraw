@@ -35,7 +35,7 @@ class BoardsListingViewModel : ViewModel() {
         }
     }
 
-    fun selectItem(position: Int) {
+    fun openBoard(position: Int) {
         // get selected board
         val selectedBoard = boardsModel.loadBoard(context, boardsKeysList.get(position))
         messageNavigateToEditBoardFragmentMap.clear()

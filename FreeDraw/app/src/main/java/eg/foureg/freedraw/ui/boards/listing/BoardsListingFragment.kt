@@ -34,8 +34,7 @@ class BoardsListingFragment : BaseActorFragment() {
 
         viewModel.notifyLoadingItemsFinished.observe(viewLifecycleOwner, Observer {
 
-            val adapter = BoardsRecyclerAdapter(activity as Context, viewModel.boardsNamesList, this)
-            boards_listing_list_view.adapter = adapter
+            setListAdapter()
         })
 
         boards_listing_list_view.layoutManager = LinearLayoutManager(activity)
@@ -48,8 +47,21 @@ class BoardsListingFragment : BaseActorFragment() {
 
     }
 
-    fun itemSelected(pos : Int) {
-        viewModel.selectItem(pos)
+    private fun setListAdapter() {
+        val adapter = BoardsRecyclerAdapter(activity as Context, viewModel.boardsNamesList, this, isSelectionMode)
+        boards_listing_list_view.adapter = adapter
     }
+
+    fun itemClicked(pos : Int) {
+        viewModel.openBoard(pos)
+    }
+
+    fun showSelectionMode() {
+        isSelectionMode = true
+
+        setListAdapter()
+    }
+
+    private var isSelectionMode = false
 
 }
