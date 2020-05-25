@@ -29,6 +29,7 @@ class BoardDrawingView(context : Context, attrs : AttributeSet) : View(context, 
             MotionEvent.ACTION_DOWN -> {
                 //Create new Shape
                 boardHolderInt?.initNewShape(PointF(event.x, event.y))
+                invalidate()
                 return true
             }
 

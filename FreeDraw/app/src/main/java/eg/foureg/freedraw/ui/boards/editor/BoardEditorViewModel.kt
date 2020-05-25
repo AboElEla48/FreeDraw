@@ -65,30 +65,35 @@ class BoardEditorViewModel : ViewModel() {
                 currentShape = FreeShape(ArrayList(), DrawingToolsModel.drawingColor)
                 board.shapes.add(currentShape)
                 undoActionModel.actionsStack.push(currentShape)
+                addPointToCurrentShape(startPoint)
             }
 
             ShapeType.CircleDraw -> {
                 currentShape = CircleShape(startPoint, startPoint, DrawingToolsModel.drawingColor, DrawingToolsModel.fillingColor)
                 board.shapes.add(currentShape)
                 undoActionModel.actionsStack.push(currentShape)
+                addPointToCurrentShape(startPoint)
             }
 
             ShapeType.RectDraw -> {
                 currentShape = RectShape(startPoint, startPoint, DrawingToolsModel.drawingColor, DrawingToolsModel.fillingColor)
                 board.shapes.add(currentShape)
                 undoActionModel.actionsStack.push(currentShape)
+                addPointToCurrentShape(startPoint)
             }
 
             ShapeType.LineDraw -> {
                 currentShape = LineShape(startPoint, startPoint, DrawingToolsModel.drawingColor)
                 board.shapes.add(currentShape)
                 undoActionModel.actionsStack.push(currentShape)
+                addPointToCurrentShape(startPoint)
             }
 
             ShapeType.EraseDraw -> {
                 currentShape = EraseShape(ArrayList())
                 board.shapes.add(currentShape)
                 undoActionModel.actionsStack.push(currentShape)
+                addPointToCurrentShape(startPoint)
             }
 
             else -> {}
@@ -181,10 +186,7 @@ class BoardEditorViewModel : ViewModel() {
 
         viewModelScope.launch {
             for( i in 0 until board.shapes.size) {
-                drawShape(
-                    canvas,
-                    board.shapes[i]
-                )
+                drawShape(canvas, board.shapes[i])
             }
         }
     }
