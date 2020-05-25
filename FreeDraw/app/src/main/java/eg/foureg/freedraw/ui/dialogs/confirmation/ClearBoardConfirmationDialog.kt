@@ -15,12 +15,12 @@ object ClearBoardConfirmationDialog {
         alertDialog.setTitle(context.getString(R.string.txt_clear_board_dialog_title))
         alertDialog.setMessage(context.getString(R.string.txt_clear_board_dialog_msg))
 
-        alertDialog.setPositiveButton(context.getString(R.string.txt_clear_board_dialog_positive_btn)) { dialog, which ->
+        alertDialog.setPositiveButton(context.getString(R.string.txt_clear_board_dialog_positive_btn)) { dialog, _ ->
             ActorMessageDispatcher.sendMessage(BoardEditorFragment::class.java, messageEditBoardClear)
             dialog.cancel()
         }
 
-        alertDialog.setNegativeButton(context.getString(R.string.txt_clear_board_dialog_negative_btn)) { dialog, which ->
+        alertDialog.setNegativeButton(context.getString(R.string.txt_clear_board_dialog_negative_btn)) { dialog, _ ->
             dialog.cancel()
         }
 

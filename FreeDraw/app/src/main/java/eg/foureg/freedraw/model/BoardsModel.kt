@@ -1,6 +1,7 @@
 package eg.foureg.freedraw.model
 
 import android.content.Context
+import eg.foureg.freedraw.common.Logs
 import eg.foureg.freedraw.data.Board
 import eg.foureg.freedraw.model.storage.StorePreferences
 
@@ -51,6 +52,11 @@ class BoardsModel {
 
             StorePreferences.saveBoardsKeysList(context, keysList)
         }
+    }
+
+    fun deleteBoards(context: Context, boardKeys: List<String>) {
+        Logs.debug(TAG, "deleteBoard($boardKeys)")
+        StorePreferences.deleteBoards(context, boardKeys)
     }
 
 

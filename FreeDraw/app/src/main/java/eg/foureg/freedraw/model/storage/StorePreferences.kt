@@ -27,6 +27,22 @@ object StorePreferences {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(boardKey + PREF_KEY_BOARD_NAME_KEY_POSTFIX, "")!!
     }
 
+    fun deleteBoards(context: Context, boardKeysToBeDeleted: List<String>) {
+        val keys = loadBoardsKeysList(context) as ArrayList<String>
+        for(keyToBeDeleted in boardKeysToBeDeleted) {
+
+            // remove key from keys list
+            keys.remove(keyToBeDeleted)
+
+            // delete corresponding board
+            PreferenceManager.getDefaultSharedPreferences(context).edit().remove(keyToBeDeleted).apply()
+        }
+
+        // save keys
+        saveBoardsKeysList(context, keys)
+
+    }
+
     fun saveBoard(context: Context, boardKey: String, board: Board) {
         val gson = Gson()
         val str = gson.toJson(board)

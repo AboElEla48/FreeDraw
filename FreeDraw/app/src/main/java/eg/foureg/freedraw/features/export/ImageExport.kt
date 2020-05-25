@@ -48,7 +48,7 @@ object ImageExport {
 
             Logs.debug(TAG, "Exported Image File written")
 
-            MediaScannerConnection.scanFile(context, arrayOf(file.toString()), null) { path, uri ->
+            MediaScannerConnection.scanFile(context, arrayOf(file.toString()), null) { _, _ ->
             }
 
             Toast.makeText(context, context.getString(R.string.txt_toast_export_image_success) + " ${file.absolutePath}", Toast.LENGTH_LONG).show()

@@ -27,14 +27,14 @@ object BoardNameInputDialog {
         input.layoutParams = lp
         alertDialog.setView(input)
 
-        alertDialog.setPositiveButton(context.getString(R.string.txt_board_name_dialog_positive_enter_to_save)) { dialog, which ->
+        alertDialog.setPositiveButton(context.getString(R.string.txt_board_name_dialog_positive_enter_to_save)) { dialog, _ ->
             Logs.debug(TAG, "Board Name entered is ${input.text}")
             messageEditBoardSetBoardNameMap[messageEditBoardSetBoardNameParam] = input.text.toString()
             ActorMessageDispatcher.sendMessage(BoardEditorFragment::class.java, messageEditBoardSetBoardName)
             dialog.cancel()
         }
 
-        alertDialog.setNegativeButton(context.getString(R.string.txt_board_name_dialog_negative_enter_to_save)) { dialog, which ->
+        alertDialog.setNegativeButton(context.getString(R.string.txt_board_name_dialog_negative_enter_to_save)) { dialog, _ ->
             dialog.cancel()
         }
 

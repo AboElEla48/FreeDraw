@@ -16,6 +16,8 @@ class BoardsRecyclerAdapter(val context: Context,
                             private val isSelectionMode: Boolean) :
     RecyclerView.Adapter<BoardsRecyclerAdapter.BoardsListViewHolder>() {
 
+    val selectionIndicesList: ArrayList<Int> = ArrayList()
+
     /**
      * Adapte View Holder
      */
@@ -57,6 +59,18 @@ class BoardsRecyclerAdapter(val context: Context,
         if(isSelectionMode) {
             holder.itemCheckBox.visibility = View.VISIBLE
         }
+
+        holder.itemCheckBox.tag = position
+        holder.itemCheckBox.setOnCheckedChangeListener{ view, isChecked ->
+            if(isChecked) {
+                val pos = view.tag as Int
+                selectionIndicesList.add(pos)
+            }
+            else {
+                selectionIndicesList.remove(position)
+            }
+        }
+
     }
 
 }

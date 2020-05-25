@@ -43,6 +43,15 @@ class BoardsListingFragment : BaseActorFragment() {
             (activity as MainActivity).navigator.navigateToBoardEditorFragment(activity as MainActivity, null)
         }
 
+        boards_listing_selection_delete_items_btn.setOnClickListener {
+            viewModel.deleteBoards((boards_listing_list_view.adapter as BoardsRecyclerAdapter).selectionIndicesList)
+            cancelSelectionMode()
+        }
+
+        boards_listing_selection_cancel_selection_btn.setOnClickListener {
+            cancelSelectionMode()
+        }
+
         viewModel.initViewModel(activity as Context)
 
     }
@@ -58,7 +67,17 @@ class BoardsListingFragment : BaseActorFragment() {
 
     fun showSelectionMode() {
         isSelectionMode = true
+        setListAdapter()
 
+        boards_listing_selection_layout.visibility = View.VISIBLE
+        boards_listing_open_editor_btn.visibility = View.GONE
+    }
+
+    private fun cancelSelectionMode() {
+        boards_listing_selection_layout.visibility = View.GONE
+        boards_listing_open_editor_btn.visibility = View.VISIBLE
+
+        isSelectionMode = false
         setListAdapter()
     }
 
