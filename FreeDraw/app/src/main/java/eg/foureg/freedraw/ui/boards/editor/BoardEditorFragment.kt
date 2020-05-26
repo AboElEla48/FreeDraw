@@ -209,6 +209,10 @@ class BoardEditorFragment : BaseActorFragment(),
         viewModel.addPointToCurrentShape(pointF)
     }
 
+    override fun finishNewShape() {
+        viewModel.finishNewShape()
+    }
+
     override fun drawBoard(canvas: Canvas) {
         viewModel.drawBoard(canvas)
     }

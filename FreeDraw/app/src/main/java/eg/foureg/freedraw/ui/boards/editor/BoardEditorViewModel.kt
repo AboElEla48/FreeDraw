@@ -141,6 +141,16 @@ class BoardEditorViewModel : ViewModel() {
         }
     }
 
+    fun finishNewShape() {
+        when(DrawingToolsModel.drawingShapeType) {
+            ShapeType.TempInsertBoardFrame -> {
+                insertBoard(currentShape as TempInsertBoardFrame, boardKeyToInsert)
+            }
+
+            else -> {}
+        }
+    }
+
     fun initTextShape() {
         // check if this is text drawing, show the input text to get the string message
         Logs.debug(TAG, " initTextShape() | get drawing string from user")
@@ -235,7 +245,7 @@ class BoardEditorViewModel : ViewModel() {
         DrawingToolsModel.drawingShapeType = ShapeType.TempInsertBoardFrame
     }
 
-    private fun insertBoard(boardKey: String) {
+    private fun insertBoard(boardFrameShape: TempInsertBoardFrame, boardKey: String) {
         Logs.debug(TAG, "insertBoard($boardKey)")
 
         viewModelScope.launch {
@@ -243,6 +253,9 @@ class BoardEditorViewModel : ViewModel() {
 
             // Add all shapes to current shape
             board.shapes.addAll(boardToInsert.shapes)
+
+            // remove temp shape
+            board.shapes.remove(boardFrameShape)
 
             invalidateScreen.value = true
         }
