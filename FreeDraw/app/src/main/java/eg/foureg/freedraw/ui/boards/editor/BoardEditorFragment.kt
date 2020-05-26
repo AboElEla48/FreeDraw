@@ -9,6 +9,7 @@ import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import eg.foureg.freedraw.R
+import eg.foureg.freedraw.common.Logs
 import eg.foureg.freedraw.common.actor.ActorMessage
 import eg.foureg.freedraw.common.actor.ActorMessageDispatcher
 import eg.foureg.freedraw.data.*
@@ -18,6 +19,7 @@ import eg.foureg.freedraw.ui.BaseActorFragment
 import eg.foureg.freedraw.ui.MainActivity
 import eg.foureg.freedraw.ui.boards.editor.drawerview.BoardDrawingViewHolderInt
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialog
+import eg.foureg.freedraw.ui.dialogs.boardsselection.BoardsSelectionDialogActivity
 import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardConfirmationDialog
 import eg.foureg.freedraw.ui.dialogs.tools.ToolsDialogActivity
 import kotlinx.android.synthetic.main.board_editor_fragment.*
@@ -27,8 +29,11 @@ class BoardEditorFragment : BaseActorFragment(),
 
     companion object {
 
+        const val TAG: String = "BoardEditorFragment"
+
         const val BUNDLE_BOARD: String = "BUNDLE_BOARD"
         const val Request_code_TOOLS_DLG = 1
+        const val Request_code_Boards_selection_DLG = 2
 
         fun newInstance(board: Board?) = BoardEditorFragment().apply {
             arguments = Bundle().apply {
@@ -99,6 +104,10 @@ class BoardEditorFragment : BaseActorFragment(),
                 }
             }
 
+            R.id.menu_fragment_editor_insert_board -> {
+                showBoardsSelectionDialog()
+            }
+
             R.id.menu_fragment_editor_clear_board -> {
                 ClearBoardConfirmationDialog.createDialog(activity as Context).show()
             }
@@ -145,6 +154,11 @@ class BoardEditorFragment : BaseActorFragment(),
         board_editor_drawing_view.invalidate()
     }
 
+    private fun showBoardsSelectionDialog() {
+        val intent = Intent(activity, BoardsSelectionDialogActivity::class.java)
+        startActivityForResult(intent, Request_code_Boards_selection_DLG)
+    }
+
     private fun showToolsDialog() {
         val intent = Intent(activity, ToolsDialogActivity::class.java)
         startActivityForResult(intent, Request_code_TOOLS_DLG)
@@ -158,7 +172,19 @@ class BoardEditorFragment : BaseActorFragment(),
                     viewModel.initTextShape()
                 }
             }
+
+            Request_code_Boards_selection_DLG -> {
+                val selectedBoardKey = data?.getStringExtra(BoardsSelectionDialogActivity.SELECTION_RESULT_Param)
+                selectedBoardKey?.let {
+                    insertBoard(selectedBoardKey)
+                }
+
+            }
         }
+    }
+
+    private fun insertBoard(boardKey: String) {
+        Logs.debug(TAG, "insertBoard($boardKey)")
     }
 
     private fun trySaveBoard() {

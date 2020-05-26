@@ -4,6 +4,7 @@
     <string name="txt_open_editor_board_button">Open Editor</string>
 
     <string name="txt_menu_options_new_board_item">New</string>
+    <string name="txt_menu_options_insert_board_item">Insert Board</string>
     <string name="txt_menu_options_clear_board_item">Clear</string>
     <string name="txt_menu_options_erase_board_item">Erase</string>
     <string name="txt_menu_options_undo_board_item">Undo</string>
@@ -58,5 +59,7 @@
     <string name="txt_view_motion_finish_button">Finish</string>
     <string name="txt_view_motion_text_size_hint">Text Size</string>
     <string name="txt_view_motion_apply_text_size_btn">Apply</string>
+
+    <string name="txt_dialog_boards_selection_title">Select Board to insert</string>
 
 </resources>
