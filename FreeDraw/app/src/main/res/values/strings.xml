@@ -11,6 +11,7 @@
     <string name="txt_menu_options_save_item">Save</string>
     <string name="txt_menu_options_export_item">Export</string>
 
+    <string name="txt_boards_listing_empty_msg">No Boards Saved!</string>
     <string name="txt_boards_listing_delete_btn">Delete</string>
     <string name="txt_boards_listing_cancel_selection_btn">Cancel</string>
 

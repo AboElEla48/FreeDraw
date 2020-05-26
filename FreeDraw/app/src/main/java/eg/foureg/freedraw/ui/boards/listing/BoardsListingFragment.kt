@@ -37,6 +37,10 @@ class BoardsListingFragment : BaseActorFragment() {
             setListAdapter()
         })
 
+        viewModel.emptyItemsTextVisibility.observe(viewLifecycleOwner, Observer {visibility->
+            boards_listing_empty_items_text_view.visibility = visibility
+        })
+
         boards_listing_list_view.layoutManager = LinearLayoutManager(activity)
 
         boards_listing_open_editor_btn.setOnClickListener {
