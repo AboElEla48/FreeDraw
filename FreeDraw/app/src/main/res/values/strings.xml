@@ -62,4 +62,8 @@
 
     <string name="txt_dialog_boards_selection_title">Select Board to insert</string>
 
+    <string name="txt_information_insert_board_dialog_title">Insert Board</string>
+    <string name="txt_information_insert_board_dialog_msg">Please Draw Rectangle to define the frame of board to insert</string>
+    <string name="txt_information_insert_board_dialog_positive_btn">OK</string>
+
 </resources>

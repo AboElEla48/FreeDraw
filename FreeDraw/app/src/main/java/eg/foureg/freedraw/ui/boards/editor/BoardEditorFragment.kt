@@ -21,6 +21,7 @@ import eg.foureg.freedraw.ui.boards.editor.drawerview.BoardDrawingViewHolderInt
 import eg.foureg.freedraw.ui.dialogs.boardname.BoardNameInputDialog
 import eg.foureg.freedraw.ui.dialogs.boardsselection.BoardsSelectionDialogActivity
 import eg.foureg.freedraw.ui.dialogs.confirmation.ClearBoardConfirmationDialog
+import eg.foureg.freedraw.ui.dialogs.information.RequestToDrawBoardFrameDialog
 import eg.foureg.freedraw.ui.dialogs.tools.ToolsDialogActivity
 import kotlinx.android.synthetic.main.board_editor_fragment.*
 
@@ -175,8 +176,10 @@ class BoardEditorFragment : BaseActorFragment(),
 
             Request_code_Boards_selection_DLG -> {
                 val selectedBoardKey = data?.getStringExtra(BoardsSelectionDialogActivity.SELECTION_RESULT_Param)
-                selectedBoardKey?.let {
-                    insertBoard(selectedBoardKey)
+                selectedBoardKey?.let {str ->
+                    boardKeyToInsert = str
+
+                    RequestToDrawBoardFrameDialog.createDialog(activity as Context).show()
                 }
 
             }
@@ -185,6 +188,8 @@ class BoardEditorFragment : BaseActorFragment(),
 
     private fun insertBoard(boardKey: String) {
         Logs.debug(TAG, "insertBoard($boardKey)")
+
+        viewModel.insertBoard(boardKey)
     }
 
     private fun trySaveBoard() {
@@ -265,6 +270,10 @@ class BoardEditorFragment : BaseActorFragment(),
             messageEditBoardClearID -> {
                 clearBoard()
             }
+
+            messageInsertBoardID -> {
+                insertBoard(boardKeyToInsert)
+            }
         }
     }
 
@@ -273,5 +282,7 @@ class BoardEditorFragment : BaseActorFragment(),
     var boardHasName: Boolean = false
     private var shouldOpenNewBoard = false
     private var board: Board? = null
+
+    private var boardKeyToInsert: String = ""
 
 }

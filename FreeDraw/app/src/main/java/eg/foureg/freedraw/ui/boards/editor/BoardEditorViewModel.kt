@@ -218,6 +218,10 @@ class BoardEditorViewModel : ViewModel() {
         }
     }
 
+    fun insertBoard(boardKey: String) {
+        Logs.debug(TAG, "insertBoard($boardKey)")
+    }
+
     fun saveBoard() {
         Logs.debug(TAG, "saveBoard()")
         viewModelScope.launch {
