@@ -21,7 +21,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/board_listing_item_selection_check_box"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/colorAccent"
         style="@style/StyleListItemText"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package eg.foureg.freedraw.ui.boards.listing
 
 import android.content.Context
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -34,6 +35,12 @@ class BoardsListingViewModel : ViewModel() {
                 val name = boardsModel.loadBoardName(context, key)
                 boardsNamesList.add(name)
                 Logs.debug(TAG, "initViewModel() | Key=$key, Name=$name")
+            }
+
+            if(boardsKeysList.isEmpty()) {
+                emptyItemsTextVisibility.value = View.VISIBLE
+            } else {
+                emptyItemsTextVisibility.value = View.GONE
             }
 
             notifyLoadingItemsFinished.value = true
@@ -71,6 +78,8 @@ class BoardsListingViewModel : ViewModel() {
     private lateinit var context : Context
     lateinit var boardsKeysList: ArrayList<String>
     val boardsNamesList = ArrayList<String>()
+
+    val emptyItemsTextVisibility: MutableLiveData<Int> = MutableLiveData()
     val notifyLoadingItemsFinished: MutableLiveData<Boolean> = MutableLiveData()
 
     private val boardsModel = BoardsModel()
