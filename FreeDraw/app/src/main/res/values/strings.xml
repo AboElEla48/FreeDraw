@@ -15,6 +15,11 @@
     <string name="txt_boards_listing_delete_btn">Delete</string>
     <string name="txt_boards_listing_cancel_selection_btn">Cancel</string>
 
+    <string name="txt_delete_boards_dialog_title">Delete Boards</string>
+    <string name="txt_delete_boards_dialog_msg">Are you sure you want to delete selected boards?</string>
+    <string name="txt_delete_boards_dialog_positive_btn">Yes</string>
+    <string name="txt_delete_boards_dialog_negative_btn">No</string>
+
     <string name="txt_default_new_board_name">New Board</string>
     <string name="txt_tools_dialog_title">Tools</string>
 

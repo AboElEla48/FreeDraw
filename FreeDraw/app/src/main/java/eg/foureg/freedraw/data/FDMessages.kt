@@ -36,3 +36,7 @@ val messageEditBoardSetBoardName = ActorMessage(messageEditBoardSetBoardNameID, 
 const val messageEditBoardClearID  : Int = 80
 val messageEditBoardClearMap = HashMap<Int,Any>()
 val messageEditBoardClear = ActorMessage(messageEditBoardClearID, messageEditBoardClearMap)
+
+const val messageDeleteBoardsFromListingID  : Int = 90
+val messageDeleteBoardsFromListingMap = HashMap<Int,Any>()
+val messageDeleteBoardsFromListing = ActorMessage(messageDeleteBoardsFromListingID, messageDeleteBoardsFromListingMap)

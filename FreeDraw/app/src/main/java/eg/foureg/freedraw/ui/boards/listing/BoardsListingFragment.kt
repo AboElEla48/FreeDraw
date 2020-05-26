@@ -9,8 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import eg.foureg.freedraw.R
+import eg.foureg.freedraw.common.actor.ActorMessage
+import eg.foureg.freedraw.data.messageDeleteBoardsFromListingID
 import eg.foureg.freedraw.ui.BaseActorFragment
 import eg.foureg.freedraw.ui.MainActivity
+import eg.foureg.freedraw.ui.dialogs.confirmation.DeleteBoardsConfirmationDialog
 import kotlinx.android.synthetic.main.boards_listing_fragment.*
 
 class BoardsListingFragment : BaseActorFragment() {
@@ -48,8 +51,7 @@ class BoardsListingFragment : BaseActorFragment() {
         }
 
         boards_listing_selection_delete_items_btn.setOnClickListener {
-            viewModel.deleteBoards((boards_listing_list_view.adapter as BoardsRecyclerAdapter).selectionIndicesList)
-            cancelSelectionMode()
+            DeleteBoardsConfirmationDialog.createDialog(activity as Context).show()
         }
 
         boards_listing_selection_cancel_selection_btn.setOnClickListener {
@@ -83,6 +85,17 @@ class BoardsListingFragment : BaseActorFragment() {
 
         isSelectionMode = false
         setListAdapter()
+    }
+
+    override fun handleMessage(message: ActorMessage) {
+        super.handleMessage(message)
+
+        when(message.what) {
+            messageDeleteBoardsFromListingID -> {
+                viewModel.deleteBoards((boards_listing_list_view.adapter as BoardsRecyclerAdapter).selectionIndicesList)
+                cancelSelectionMode()
+            }
+        }
     }
 
     private var isSelectionMode = false
