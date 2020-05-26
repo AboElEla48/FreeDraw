@@ -189,7 +189,7 @@ class BoardEditorFragment : BaseActorFragment(),
     private fun insertBoard(boardKey: String) {
         Logs.debug(TAG, "insertBoard($boardKey)")
 
-        viewModel.insertBoard(boardKey)
+        viewModel.initInsertBoardFrame(boardKey)
     }
 
     private fun trySaveBoard() {

@@ -82,6 +82,13 @@ class BoardEditorViewModel : ViewModel() {
                 addPointToCurrentShape(startPoint)
             }
 
+            ShapeType.TempInsertBoardFrame -> {
+                currentShape = TempInsertBoardFrame(startPoint, startPoint, DrawingToolsModel.drawingColor)
+                board.shapes.add(currentShape)
+//                undoActionModel.actionsStack.push(currentShape)
+                addPointToCurrentShape(startPoint)
+            }
+
             ShapeType.LineDraw -> {
                 currentShape = LineShape(startPoint, startPoint, DrawingToolsModel.drawingColor)
                 board.shapes.add(currentShape)
@@ -116,6 +123,10 @@ class BoardEditorViewModel : ViewModel() {
 
             ShapeType.RectDraw -> {
                 (currentShape as RectShape).rightBottomPoint = pointF
+            }
+
+            ShapeType.TempInsertBoardFrame -> {
+                (currentShape as TempInsertBoardFrame).rightBottomPoint = pointF
             }
 
             ShapeType.LineDraw -> {
@@ -218,7 +229,13 @@ class BoardEditorViewModel : ViewModel() {
         }
     }
 
-    fun insertBoard(boardKey: String) {
+    fun initInsertBoardFrame(boardKey: String) {
+        boardKeyToInsert = boardKey
+
+        DrawingToolsModel.drawingShapeType = ShapeType.TempInsertBoardFrame
+    }
+
+    private fun insertBoard(boardKey: String) {
         Logs.debug(TAG, "insertBoard($boardKey)")
 
         viewModelScope.launch {
@@ -244,6 +261,7 @@ class BoardEditorViewModel : ViewModel() {
     private lateinit var context: Context
     var isBoardSaved = true
     lateinit var currentShape : Shape
+    private var boardKeyToInsert: String = ""
 
     private val boardModel = BoardsModel()
     private val undoActionModel = UndoActionModel()

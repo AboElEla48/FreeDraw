@@ -12,7 +12,8 @@ enum class ShapeType {
     TextDraw,
     RectDraw,
     CircleDraw,
-    LineDraw
+    LineDraw,
+    TempInsertBoardFrame
 }
 
 /**
@@ -44,6 +45,13 @@ data class CircleShape(var topLeftPoint : PointF, var rightBottomPoint: PointF, 
  */
 @Parcelize
 data class RectShape(var topLeftPoint : PointF, var rightBottomPoint: PointF, val outerColor: Int,  val fillColor: Int) :Shape(outerColor, ShapeType.RectDraw)
+
+/**
+ * Rect Shape class
+ */
+@Parcelize
+data class TempInsertBoardFrame(var topLeftPoint : PointF, var rightBottomPoint: PointF, val outerColor: Int) :Shape(outerColor, ShapeType.TempInsertBoardFrame)
+
 
 /**
  * Line Shape class
