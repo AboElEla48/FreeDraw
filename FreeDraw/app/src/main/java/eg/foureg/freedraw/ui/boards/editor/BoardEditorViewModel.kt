@@ -220,6 +220,15 @@ class BoardEditorViewModel : ViewModel() {
 
     fun insertBoard(boardKey: String) {
         Logs.debug(TAG, "insertBoard($boardKey)")
+
+        viewModelScope.launch {
+            val boardToInsert = boardModel.loadBoard(context, boardKey)
+
+            // Add all shapes to current shape
+            board.shapes.addAll(boardToInsert.shapes)
+
+            invalidateScreen.value = true
+        }
     }
 
     fun saveBoard() {
