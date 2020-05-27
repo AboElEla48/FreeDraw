@@ -3,6 +3,7 @@ package eg.foureg.freedraw.features.scaling
 import android.graphics.PointF
 import eg.foureg.freedraw.data.Board
 import eg.foureg.freedraw.data.LineShape
+import eg.foureg.freedraw.data.RectShape
 import eg.foureg.freedraw.data.ShapeType
 
 fun scaleBoard(startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float, board: Board) : Board {
@@ -22,7 +23,7 @@ fun scaleBoard(startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float, 
             }
 
             ShapeType.RectDraw -> {
-
+                board.shapes[index] = scaleRectShape(shape as RectShape, startFramePoint, scaleXRatio, scaleYRatio)
             }
 
             ShapeType.CircleDraw -> {
@@ -53,4 +54,20 @@ private fun scaleLineShape(lineShape: LineShape, startFramePoint: PointF, scaleX
     lineShape.endPoint.y += startFramePoint.y
 
     return lineShape
+}
+
+private fun scaleRectShape(rectShape: RectShape, startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float) : RectShape{
+    rectShape.topLeftPoint.x *= scaleXRatio
+    rectShape.topLeftPoint.x += startFramePoint.x
+
+    rectShape.rightBottomPoint.x *= scaleXRatio
+    rectShape.rightBottomPoint.x += startFramePoint.x
+
+    rectShape.topLeftPoint.y *= scaleYRatio
+    rectShape.topLeftPoint.y += startFramePoint.y
+
+    rectShape.rightBottomPoint.y *= scaleYRatio
+    rectShape.rightBottomPoint.y += startFramePoint.y
+
+    return rectShape
 }
