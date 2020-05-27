@@ -22,7 +22,7 @@ class BoardsModel {
         val rand = Random()
         lateinit var newKey : String
         do {
-            val keyVal = rand.nextInt(keys.size * 3)
+            val keyVal = rand.nextInt(keys.size * 3 + 3)
             Logs.debug(TAG, "Random generated key: $keyVal")
             newKey = "Key_$keyVal"
 
