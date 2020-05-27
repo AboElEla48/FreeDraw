@@ -16,7 +16,7 @@ fun scaleBoard(startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float, 
             }
 
             ShapeType.TextDraw -> {
-
+                board.shapes[index] = scaleTextShape(shape as TextShape, startFramePoint, scaleXRatio, scaleYRatio)
             }
 
             ShapeType.RectDraw -> {
@@ -107,6 +107,18 @@ private fun scaleEraserShape(eraseShape: EraseShape, startFramePoint: PointF, sc
     }
 
     return eraseShape
+}
+
+private fun scaleTextShape(textShape: TextShape, startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float) : TextShape{
+    textShape.topLeftPoint.x *= scaleXRatio
+    textShape.topLeftPoint.x += startFramePoint.x
+
+    textShape.topLeftPoint.y *= scaleYRatio
+    textShape.topLeftPoint.y += startFramePoint.y
+
+    textShape.textSize *= scaleXRatio
+
+    return textShape
 }
 
 
