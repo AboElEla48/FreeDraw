@@ -1,10 +1,7 @@
 package eg.foureg.freedraw.features.scaling
 
 import android.graphics.PointF
-import eg.foureg.freedraw.data.Board
-import eg.foureg.freedraw.data.LineShape
-import eg.foureg.freedraw.data.RectShape
-import eg.foureg.freedraw.data.ShapeType
+import eg.foureg.freedraw.data.*
 
 fun scaleBoard(startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float, board: Board) : Board {
 
@@ -27,7 +24,7 @@ fun scaleBoard(startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float, 
             }
 
             ShapeType.CircleDraw -> {
-
+                board.shapes[index] = scaleCircleShape(shape as CircleShape, startFramePoint, scaleXRatio, scaleYRatio)
             }
 
             ShapeType.LineDraw -> {
@@ -38,6 +35,38 @@ fun scaleBoard(startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float, 
         }
     }
     return board
+}
+
+private fun scaleRectShape(rectShape: RectShape, startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float) : RectShape{
+    rectShape.topLeftPoint.x *= scaleXRatio
+    rectShape.topLeftPoint.x += startFramePoint.x
+
+    rectShape.rightBottomPoint.x *= scaleXRatio
+    rectShape.rightBottomPoint.x += startFramePoint.x
+
+    rectShape.topLeftPoint.y *= scaleYRatio
+    rectShape.topLeftPoint.y += startFramePoint.y
+
+    rectShape.rightBottomPoint.y *= scaleYRatio
+    rectShape.rightBottomPoint.y += startFramePoint.y
+
+    return rectShape
+}
+
+private fun scaleCircleShape(circleShape: CircleShape, startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float) : CircleShape{
+    circleShape.topLeftPoint.x *= scaleXRatio
+    circleShape.topLeftPoint.x += startFramePoint.x
+
+    circleShape.rightBottomPoint.x *= scaleXRatio
+    circleShape.rightBottomPoint.x += startFramePoint.x
+
+    circleShape.topLeftPoint.y *= scaleYRatio
+    circleShape.topLeftPoint.y += startFramePoint.y
+
+    circleShape.rightBottomPoint.y *= scaleYRatio
+    circleShape.rightBottomPoint.y += startFramePoint.y
+
+    return circleShape
 }
 
 private fun scaleLineShape(lineShape: LineShape, startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float) : LineShape{
@@ -56,18 +85,3 @@ private fun scaleLineShape(lineShape: LineShape, startFramePoint: PointF, scaleX
     return lineShape
 }
 
-private fun scaleRectShape(rectShape: RectShape, startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float) : RectShape{
-    rectShape.topLeftPoint.x *= scaleXRatio
-    rectShape.topLeftPoint.x += startFramePoint.x
-
-    rectShape.rightBottomPoint.x *= scaleXRatio
-    rectShape.rightBottomPoint.x += startFramePoint.x
-
-    rectShape.topLeftPoint.y *= scaleYRatio
-    rectShape.topLeftPoint.y += startFramePoint.y
-
-    rectShape.rightBottomPoint.y *= scaleYRatio
-    rectShape.rightBottomPoint.y += startFramePoint.y
-
-    return rectShape
-}
