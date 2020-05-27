@@ -18,9 +18,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.dialogs.tools.ToolsDialogActivity"
-            android:theme="@style/Theme.AppCompat.DialogWhenLarge"
-            android:label="@string/txt_tools_dialog_title"/>
+        <activity
+            android:name=".ui.dialogs.tools.ToolsDialogActivity"
+            android:label="@string/txt_tools_dialog_title"
+            android:theme="@style/Theme.AppCompat.DialogWhenLarge" />
+
+        <activity
+            android:name=".ui.dialogs.boardsselection.BoardsSelectionDialogActivity"
+            android:label="@string/txt_dialog_boards_selection_title"
+            android:theme="@style/Theme.AppCompat.DialogWhenLarge" />
 
     </application>
 

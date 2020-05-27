@@ -3,9 +3,7 @@ package eg.foureg.freedraw.features.drawing
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.PointF
 import eg.foureg.freedraw.data.*
-import kotlinx.coroutines.processNextEventInCurrentThread
 
 fun drawShape(canvas: Canvas, shape: Shape) {
 
@@ -23,6 +21,10 @@ fun drawShape(canvas: Canvas, shape: Shape) {
 
         ShapeType.RectDraw -> {
             drawRectShape(canvas, shape as RectShape, drawingPaint, createFillingPaint(shape.fillColor))
+        }
+
+        ShapeType.TempInsertBoardFrame -> {
+            drawTempInsertBoardFrameShape(canvas, shape as TempInsertBoardFrame, drawingPaint)
         }
 
         ShapeType.CircleDraw -> {
@@ -94,6 +96,10 @@ fun drawCircleShape(canvas: Canvas, shape: CircleShape, paint: Paint, fillingPai
 fun drawRectShape(canvas: Canvas, shape: RectShape, paint: Paint, fillingPaint: Paint) {
     canvas.drawRect(shape.topLeftPoint.x, shape.topLeftPoint.y, shape.rightBottomPoint.x, shape.rightBottomPoint.y, paint)
     canvas.drawRect(shape.topLeftPoint.x, shape.topLeftPoint.y, shape.rightBottomPoint.x, shape.rightBottomPoint.y, fillingPaint)
+}
+
+fun drawTempInsertBoardFrameShape(canvas: Canvas, shape: TempInsertBoardFrame, paint: Paint) {
+    canvas.drawRect(shape.topLeftPoint.x, shape.topLeftPoint.y, shape.rightBottomPoint.x, shape.rightBottomPoint.y, paint)
 }
 
 fun drawLineShape(canvas: Canvas, shape: LineShape, paint: Paint) {

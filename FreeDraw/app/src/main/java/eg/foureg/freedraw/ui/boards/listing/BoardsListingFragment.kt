@@ -36,7 +36,6 @@ class BoardsListingFragment : BaseActorFragment() {
         viewModel = ViewModelProvider(this).get(BoardsListingViewModel::class.java)
 
         viewModel.notifyLoadingItemsFinished.observe(viewLifecycleOwner, Observer {
-
             setListAdapter()
         })
 

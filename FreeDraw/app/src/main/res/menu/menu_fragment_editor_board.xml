@@ -5,6 +5,10 @@
         android:title="@string/txt_menu_options_new_board_item" />
 
     <item
+        android:id="@+id/menu_fragment_editor_insert_board"
+        android:title="@string/txt_menu_options_insert_board_item" />
+
+    <item
         android:id="@+id/menu_fragment_editor_clear_board"
         android:title="@string/txt_menu_options_clear_board_item" />
 

@@ -40,6 +40,10 @@ class BoardDrawingView(context : Context, attrs : AttributeSet) : View(context, 
                 return true
             }
 
+            MotionEvent.ACTION_UP -> {
+                boardHolderInt?.finishNewShape()
+            }
+
         }
 
         return super.onTouchEvent(event)

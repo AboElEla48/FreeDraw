@@ -18,7 +18,14 @@ interface BoardDrawingViewHolderInt {
     fun addPointToCurrentShape(pointF: PointF)
 
     /**
+     * Call to notify that user motion up event
+     */
+    fun finishNewShape()
+
+    /**
      * draw all shapes in the board
      */
     fun drawBoard(canvas: Canvas)
+
+
 }
