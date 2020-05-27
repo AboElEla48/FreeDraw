@@ -12,7 +12,7 @@ fun scaleBoard(startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float, 
             }
 
             ShapeType.EraseDraw -> {
-
+                board.shapes[index] = scaleEraserShape(shape as EraseShape, startFramePoint, scaleXRatio, scaleYRatio)
             }
 
             ShapeType.TextDraw -> {
@@ -84,4 +84,17 @@ private fun scaleLineShape(lineShape: LineShape, startFramePoint: PointF, scaleX
 
     return lineShape
 }
+
+private fun scaleEraserShape(eraseShape: EraseShape, startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float) : EraseShape{
+    for(pt in eraseShape.erasePoints) {
+        pt.x *= scaleXRatio
+        pt.x += startFramePoint.x
+
+        pt.y *= scaleYRatio
+        pt.y += startFramePoint.y
+    }
+
+    return eraseShape
+}
+
 
