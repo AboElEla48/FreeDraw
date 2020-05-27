@@ -11,6 +11,7 @@ import eg.foureg.freedraw.R
 import eg.foureg.freedraw.common.Logs
 import eg.foureg.freedraw.data.*
 import eg.foureg.freedraw.features.drawing.drawShape
+import eg.foureg.freedraw.features.scaling.scaleBoard
 import eg.foureg.freedraw.model.BoardsModel
 import eg.foureg.freedraw.model.DrawingToolsModel
 import eg.foureg.freedraw.model.UndoActionModel
@@ -204,6 +205,8 @@ class BoardEditorViewModel : ViewModel() {
      */
     fun drawBoard(canvas: Canvas) {
         Logs.debug(TAG, "drawBoard()")
+        canvasWidth = canvas.width.toFloat()
+        canvasHeight = canvas.height.toFloat()
 
         viewModelScope.launch {
             for( i in 0 until board.shapes.size) {
@@ -251,11 +254,19 @@ class BoardEditorViewModel : ViewModel() {
         viewModelScope.launch {
             val boardToInsert = boardModel.loadBoard(context, boardKey)
 
+            // calculate scale Ratios
+            val xRatio = (boardFrameShape.rightBottomPoint.x - boardFrameShape.topLeftPoint.x) / canvasWidth
+            val yRatio = (boardFrameShape.rightBottomPoint.y - boardFrameShape.topLeftPoint.y) / canvasHeight
+
+            // scale board into defined frame
+            val scaledBoard = scaleBoard(boardFrameShape.topLeftPoint, xRatio, yRatio, boardToInsert)
+
             // Add all shapes to current shape
-            board.shapes.addAll(boardToInsert.shapes)
+            board.shapes.addAll(scaledBoard.shapes)
 
             // remove temp shape
             board.shapes.remove(boardFrameShape)
+            DrawingToolsModel.drawingShapeType = ShapeType.FreeDraw
 
             invalidateScreen.value = true
         }
@@ -275,6 +286,8 @@ class BoardEditorViewModel : ViewModel() {
     var isBoardSaved = true
     lateinit var currentShape : Shape
     private var boardKeyToInsert: String = ""
+    private var canvasWidth: Float = 0f
+    private var canvasHeight: Float = 0F
 
     private val boardModel = BoardsModel()
     private val undoActionModel = UndoActionModel()
