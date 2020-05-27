@@ -8,7 +8,7 @@ fun scaleBoard(startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float, 
     for((index, shape) in board.shapes.withIndex()) {
         when(shape.shapeType) {
             ShapeType.FreeDraw -> {
-
+                board.shapes[index] = scaleFreeShape(shape as FreeShape, startFramePoint, scaleXRatio, scaleYRatio)
             }
 
             ShapeType.EraseDraw -> {
@@ -35,6 +35,18 @@ fun scaleBoard(startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float, 
         }
     }
     return board
+}
+
+private fun scaleFreeShape(freeShape: FreeShape, startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float) : FreeShape {
+    for(pt in freeShape.points) {
+        pt.x *= scaleXRatio
+        pt.x += startFramePoint.x
+
+        pt.y *= scaleYRatio
+        pt.y += startFramePoint.y
+    }
+
+    return freeShape
 }
 
 private fun scaleRectShape(rectShape: RectShape, startFramePoint: PointF, scaleXRatio: Float, scaleYRatio: Float) : RectShape{
