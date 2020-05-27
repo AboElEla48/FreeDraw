@@ -4,6 +4,8 @@ import android.content.Context
 import eg.foureg.freedraw.common.Logs
 import eg.foureg.freedraw.data.Board
 import eg.foureg.freedraw.model.storage.StorePreferences
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BoardsModel {
 
@@ -17,8 +19,17 @@ class BoardsModel {
      */
     fun generateNewBoardKey(context: Context) : String {
         val keys = StorePreferences.loadBoardsKeysList(context)
+        val rand = Random()
+        lateinit var newKey : String
+        do {
+            val keyVal = rand.nextInt(keys.size * 3)
+            Logs.debug(TAG, "Random generated key: $keyVal")
+            newKey = "Key_$keyVal"
 
-        return "Key_" + (keys.size + 1)
+        }while(keys.contains(newKey))
+
+        Logs.debug(TAG, "New Generated board key: $newKey")
+        return newKey
     }
 
     /**
@@ -58,6 +69,7 @@ class BoardsModel {
         Logs.debug(TAG, "deleteBoard($boardKeys)")
         StorePreferences.deleteBoards(context, boardKeys)
     }
+
 
 
 }
